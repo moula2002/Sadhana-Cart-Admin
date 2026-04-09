@@ -1,0 +1,314 @@
+/*
+import pandas as pd
+import json
+from bs4 import BeautifulSoup
+import re
+import os
+from pathlib import Path
+
+# ---------------- CONFIG ----------------
+INPUT_FOLDER = "products"   
+OUTPUT_FOLDER = "json_output"    
+
+COLUMN_MAPPINGS = {
+    "name": ["title", "name", "product name", "product", "product title"],
+    "name_lower": ["title", "name", "product name", "product", "product title"],
+    "description": ["description", "product description", "body (html)", "details"],
+    "stock": ["stock", "quantity", "qty", "available stock"],
+    "sku": ["sku", "variant sku", "baseSku"],
+    "category": ["category", "Type"],
+    "subcategory": ["subcategory", "sub category","Product Category"],
+    "brand": ["brand", "vendor"],
+    "price": ["price", "mrp"],
+    "offerPrice": ["offerprice", "msrp", "compare at price"],
+    "image": ["image1", "image 1", "img1", "image2", "image 2", "img2", "image3", "image4", "image5"],
+    "size": ["size"]
+}
+
+CORE_FIELDS = {
+    "productId", "name", "name_lower", "description",
+    "category", "subcategory", "baseSku", "brand",
+    "price", "offerPrice", "stock", "timestamp",
+    "images", "sellerId", "sizeVariants"
+}
+
+ALIASES = []
+for variants in COLUMN_MAPPINGS.values():
+    for v in variants:
+        ALIASES.append(v.lower().strip())
+
+# -------- HELPERS --------
+def clean_html(text):
+    if pd.isna(text):
+        return ""
+    return BeautifulSoup(str(text), "html.parser").get_text(separator=" ")
+
+def pick_col(possible_names, available_columns):
+    for name in possible_names:
+        for col in available_columns:
+            if col.strip().lower() == name.strip().lower():
+                return col
+    return None
+
+def safe_number(val):
+    try:
+        return int(float(val))
+    except:
+        return 0
+
+def safe_str(val):
+    if pd.isna(val):
+        return ""
+    s = str(val).strip()
+    return "" if s.lower() == "nan" else s
+
+def normalize_keys(obj):
+    if isinstance(obj, dict):
+        return {
+            k.strip().lower().replace(" ", ""): normalize_keys(v)
+            for k, v in obj.items()
+        }
+    elif isinstance(obj, list):
+        return [normalize_keys(i) for i in obj]
+    else:
+        return obj
+
+# ----------------- KEYWORD GENERATOR -----------------
+CATEGORY_SYNONYMS = {
+    #Clothing & Fashion
+    "tshirt": ["tee", "t-shirt", "tee shirt", "round neck", "crew neck"],
+    "shirt": ["formal shirt", "casual shirt", "kurta", "topwear"],
+    "pant": ["pants", "trousers", "chinos", "bottoms"],
+    "jeans": ["denim", "denims", "skinny jeans", "slim fit"],
+    "shorts": ["half pant", "bermuda", "capri"],
+    "jacket": ["coat", "blazer", "hoodie", "sweater", "sweatshirt"],
+    "saree": ["sari", "ethnic wear", "traditional wear"],
+    "dress": ["frock", "gown", "maxi dress", "one piece"],
+    "lehenga": ["chaniya choli", "ghagra", "ethnic skirt"],
+    "kurti": ["ethnic top", "tunic"],
+    "shoes": ["footwear", "sneakers", "boots", "sandals", "slippers"],
+    "bag": ["handbag", "backpack", "purse", "sling bag"],
+    "cap": ["hat", "baseball cap", "beanie"],
+
+    #Electronics
+    "mobile": ["phone", "cellphone", "smartphone", "android", "iphone"],
+    "tv": ["television", "led tv", "smart tv", "oled", "lcd"],
+    "laptop": ["notebook", "pc", "computer", "macbook"],
+    "tablet": ["ipad", "tab"],
+    "fridge": ["refrigerator", "freezer"],
+    "ac": ["air conditioner", "cooler"],
+    "watch": ["smartwatch", "wristwatch", "analog watch", "digital watch"],
+    "headphones": ["earphones", "earbuds", "headset"],
+    "camera": ["dslr", "mirrorless", "camcorder"],
+    "speaker": ["bluetooth speaker", "soundbar", "home theater"],
+    "charger": ["adapter", "power brick"],
+    "powerbank": ["portable charger", "battery bank"],
+
+    #Home & Furniture
+    "sofa": ["couch", "seating", "settee"],
+    "bed": ["cot", "bunk bed", "mattress", "king bed", "queen bed"],
+    "chair": ["stool", "armchair", "recliner", "rocking chair"],
+    "table": ["desk", "dining table", "study table", "coffee table"],
+    "almirah": ["wardrobe", "closet", "cupboard"],
+
+    #Grocery
+    "rice": ["grains", "basmati", "raw rice", "brown rice"],
+    "atta": ["flour", "wheat flour"],
+    "dal": ["pulses", "lentils", "toor dal", "moong dal"],
+    "oil": ["cooking oil", "mustard oil", "sunflower oil", "groundnut oil"],
+    "milk": ["dairy", "curd", "yogurt", "paneer"],
+    "spices": ["masala", "chilli powder", "turmeric"],
+
+    #Beauty & Personal Care
+    "lipstick": ["lip color", "makeup"],
+    "foundation": ["makeup base", "concealer"],
+    "cream": ["lotion", "moisturizer", "ointment"],
+    "perfume": ["deo", "fragrance", "body spray"],
+    "shampoo": ["hair wash", "conditioner"],
+    "soap": ["body wash", "cleanser"],
+
+    #Baby & Kids
+    "toys": ["games", "playthings", "action figure", "doll", "lego"],
+    "diaper": ["nappy", "pamper"],
+    "stroller": ["pram", "baby carriage"],
+    "kidswear": ["baby dress", "infant clothes", "frock"],
+
+    #Sports & Fitness
+    "bat": ["cricket bat"],
+    "ball": ["football", "soccer ball", "basketball", "tennis ball"],
+    "cycle": ["bicycle", "bike"],
+    "yoga mat": ["fitness mat", "exercise mat"],
+    "dumbbell": ["weights", "gym equipment"],
+
+    #Kitchen & Appliances
+    "mixer": ["grinder", "blender", "juicer"],
+    "cooker": ["pressure cooker", "rice cooker"],
+    "utensils": ["pots", "pans", "kitchenware", "cutlery"],
+    "microwave": ["oven", "baking oven"],
+    "fridge": ["refrigerator", "mini fridge"],
+
+    #Automobiles
+    "bike": ["motorcycle", "scooter", "two-wheeler"],
+    "car": ["automobile", "four-wheeler", "vehicle"],
+    "helmet": ["headgear", "riding helmet"],
+    "tyre": ["tire", "wheel"],
+
+    #Accessories
+    "belt": ["waist belt"],
+    "wallet": ["purse", "card holder"],
+    "sunglasses": ["goggles", "shades", "glasses"],
+    "jewellery": ["jewelry", "earring", "ring", "necklace", "bracelet"],
+}
+
+
+def generate_keywords(text):
+    if not text:
+        return []
+    text = text.lower()
+    words = re.findall(r'\w+', text)
+    keywords = set(words)
+
+    # Prefixes for autocomplete
+    for word in words:
+        for i in range(1, len(word)+1):
+            keywords.add(word[:i])
+
+        # plural/singular versions
+        if not word.endswith("s"):
+            keywords.add(word + "s")
+        if word.endswith("s"):
+            keywords.add(word[:-1])
+
+    # Join words combinations
+    if len(words) > 1:
+        for i in range(len(words)):
+            for j in range(i+1, len(words)+1):
+                keywords.add(" ".join(words[i:j]))
+
+    return list(keywords)
+
+def generate_product_keywords(name, category, subcategory):
+    keywords = set()
+    keywords.update(generate_keywords(name))
+    keywords.update(generate_keywords(category))
+    keywords.update(generate_keywords(subcategory))
+
+    all_text = f"{name} {category} {subcategory}".lower()
+    for key, syns in CATEGORY_SYNONYMS.items():
+        if key in all_text:
+            keywords.add(key)
+            keywords.update(syns)
+    return list(keywords)
+
+# ----------------- PROCESS FILE -----------------
+def process_file(file_path, output_folder, seller_id=""):
+    print(f"📂 Processing {file_path.name} ...")
+
+    if file_path.suffix.lower() == ".csv":
+        df = pd.read_csv(file_path)
+    else:
+        df = pd.read_excel(file_path)
+
+    df.columns = df.columns.str.strip()
+
+    products = {}
+    for _, row in df.iterrows():
+        product_id = safe_str(row.get("Product ID", row.get("id", row.get("SKU", ""))))
+        if not product_id:
+            continue
+
+        name_col = pick_col(COLUMN_MAPPINGS["name"], df.columns)
+        name_low_col = pick_col(COLUMN_MAPPINGS["name"], df.columns)
+        desc_col = pick_col(COLUMN_MAPPINGS["description"], df.columns)
+        stock_col = pick_col(COLUMN_MAPPINGS["stock"], df.columns)
+        sku_col = pick_col(COLUMN_MAPPINGS["sku"], df.columns)
+        category_col = pick_col(COLUMN_MAPPINGS["category"], df.columns)
+        subcategory_col = pick_col(COLUMN_MAPPINGS["subcategory"], df.columns)
+        brand_col = pick_col(COLUMN_MAPPINGS["brand"], df.columns)
+        price_col = pick_col(COLUMN_MAPPINGS["price"], df.columns)
+        offer_col = pick_col(COLUMN_MAPPINGS["offerPrice"], df.columns)
+        size_col = pick_col(COLUMN_MAPPINGS["size"], df.columns)
+
+        size = safe_str(row.get(size_col, "")) if size_col else ""
+        variant_stock = safe_number(row.get(stock_col, 0)) if stock_col else 0
+
+        if product_id not in products:
+            products[product_id] = {
+                "productId": product_id,
+                "name": safe_str(row.get(name_col, "Untitled")) if name_col else "Untitled",
+                "name_lower": safe_str(row.get(name_low_col, "untitled")).lower() if name_low_col else "untitled",
+                "description": clean_html(row.get(desc_col, "")) if desc_col else "",
+                "category": safe_str(row.get(category_col, "")) if category_col else "",
+                "subcategory": safe_str(row.get(subcategory_col, "")) if subcategory_col else "",
+                "baseSku": safe_str(row.get(sku_col, "")) if sku_col else "",
+                "brand": safe_str(row.get(brand_col, "")) if brand_col else "",
+                "price": safe_number(row.get(price_col, 0)) if price_col else 0,
+                "offerPrice": safe_number(
+                    row.get(offer_col, row.get(price_col, 0))
+                ) if offer_col or price_col else 0,
+                "stock": 0, 
+                "timestamp": "",
+                "images": [],
+                "sellerId": seller_id if seller_id else "do0M9bkPx3QYFh8IP9PIAGRlCyT2",
+                "sizeVariants": [],
+            }
+
+            # ----------------- COLLECT IMAGES -----------------
+            image_cols = [c for c in df.columns if any(x in c.lower() for x in ["image", "img"])]
+            images = []
+            for col in image_cols:
+                val = safe_str(row.get(col, ""))
+                if val:
+                    images.append(val)
+            products[product_id]["images"] = images
+
+        # ----------------- ADD VARIANTS -----------------
+        if size:
+            products[product_id]["sizeVariants"].append({
+                "size": size,
+                "stock": variant_stock,
+                "sku": safe_str(row.get(sku_col, "")) if sku_col else "",
+                "price": safe_number(row.get(price_col, 0)) if price_col else 0,
+            })
+
+        products[product_id]["stock"] += variant_stock
+
+        # ----------------- ADD EXTRA FIELDS -----------------
+        for col in df.columns:
+            col_clean = col.strip()
+            if (
+                col_clean.lower() not in ALIASES
+                and col_clean not in CORE_FIELDS
+                and not col_clean.lower().startswith("image")
+                and col_clean.lower() != "size"
+            ):
+                val = safe_str(row.get(col_clean, ""))
+                if val:
+                    products[product_id][col_clean] = val
+
+    # ----------------- ADD KEYWORDS -----------------
+    for product in products.values():
+        name = product.get("name", "")
+        category = product.get("category", "")
+        subcategory = product.get("subcategory", "")
+        product["searchKeywords"] = generate_product_keywords(name, category, subcategory)
+
+    # ----------------- SAVE -----------------
+    Path(output_folder).mkdir(parents=True, exist_ok=True)
+    output_file = Path(output_folder) / f"{file_path.stem}_with_keywords.json"
+    product_list = [normalize_keys(p) for p in products.values()]
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(product_list, f, indent=2, ensure_ascii=False)
+
+    print(f"✅ Exported {len(product_list)} products → {output_file}")
+
+# ----------------- MAIN -----------------
+def main():
+    input_path = Path(INPUT_FOLDER)
+    for file in input_path.glob("*"):
+        if file.suffix.lower() in [".csv", ".xlsx"]:
+            process_file(file, OUTPUT_FOLDER)
+
+if __name__ == "__main__":
+    main()
+*/
