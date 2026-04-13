@@ -27,7 +27,7 @@ const PythonAutomation = () => {
     brand: ["brand", "vendor"],
     price: ["price", "mrp", "selling price", "sale price"],
     offerPrice: ["offerprice", "offer price", "msrp", "compare at price", "discount price"],
-    image: ["image1", "image 1", "img1", "image2", "image 2", "img2", "image3", "image4", "image5"],
+    image: ["image1", "image 1", "img1", "image2", "image 2", "img2", "image3", "image4", "image5", "photo", "pic", "url", "gallery"],
     size: ["size"]
   };
 
@@ -306,7 +306,7 @@ const PythonAutomation = () => {
     }
   };
 
-  // Process CSV with progress tracking
+  // Process CSV/Excel with progress tracking
   const processCSV = async () => {
     if (!file) return alert("Upload file first");
     setProcessing(true);
@@ -314,10 +314,20 @@ const PythonAutomation = () => {
 
     try {
       const fileName = file.name.toLowerCase();
-      const csvText = (fileName.endsWith(".xlsx") || fileName.endsWith(".xls"))
-        ? await convertExcelToCSV(file)
-        : await file.text();
+      const isExcel = fileName.endsWith(".xlsx") || fileName.endsWith(".xls");
+      
+      let workbook;
+      if (isExcel) {
+        const data = await file.arrayBuffer();
+        workbook = XLSX.read(data, { type: 'array' });
+      } else {
+        const text = await file.text();
+        workbook = XLSX.read(text, { type: 'string' });
+      }
 
+      const sheetName = workbook.SheetNames[0];
+      const ws = workbook.Sheets[sheetName];
+      
       // Extract images from .xlsx if applicable
       let extractedImagesByRow = {};
       if (fileName.endsWith(".xlsx")) {
@@ -335,7 +345,16 @@ const PythonAutomation = () => {
             const drawingNum = relFile.match(/drawing(\d+)\.xml\.rels/)?.[1] || "1";
             drawingRels[drawingNum] = {};
             for (let i = 0; i < rels.length; i++) {
-              drawingRels[drawingNum][rels[i].getAttribute("Id")] = rels[i].getAttribute("Target").replace("../media/", "xl/media/");
+              const target = rels[i].getAttribute("Target");
+              if (target) {
+                // Handle different relative path formats
+                const mediaPath = target.startsWith("../media/") 
+                  ? target.replace("../media/", "xl/media/") 
+                  : target.includes("media/") 
+                    ? `xl/media/${target.split("media/").pop()}`
+                    : target;
+                drawingRels[drawingNum][rels[i].getAttribute("Id")] = mediaPath;
+              }
             }
           }
 
@@ -348,30 +367,30 @@ const PythonAutomation = () => {
             const xmlDoc = parser.parseFromString(drawXml, "text/xml");
             const drawingNum = drawFile.match(/drawing(\d+)\.xml/)?.[1] || "1";
 
-            // Use hierarchical traversal to ensure row mapping is accurate
-            const anchors = xmlDoc.querySelectorAll("twoCellAnchor, oneCellAnchor, xdr\\:twoCellAnchor, xdr\\:oneCellAnchor");
+            // Use comprehensive selectors for all anchor types
+            const anchors = xmlDoc.querySelectorAll("twoCellAnchor, oneCellAnchor, absoluteAnchor, xdr\\:twoCellAnchor, xdr\\:oneCellAnchor, xdr\\:absoluteAnchor");
             for (const anchor of anchors) {
               let fromRow = null;
               let rId = null;
 
-              // 1. Find the 'from' row
+              // 1. Find the 'from' row (for aligned anchors)
               const fromTags = anchor.getElementsByTagNameNS("*", "from") || anchor.getElementsByTagName("from");
               if (fromTags.length > 0) {
                 const rowTags = fromTags[0].getElementsByTagNameNS("*", "row") || fromTags[0].getElementsByTagName("row");
                 if (rowTags.length > 0) fromRow = rowTags[0].textContent;
               }
 
-              // 2. Find the blip ID
+              // 2. Find the blip ID (r:embed or r:link)
               const blipTags = anchor.getElementsByTagNameNS("*", "blip") || anchor.getElementsByTagName("blip");
               if (blipTags.length > 0) {
-                rId = blipTags[0].getAttribute("r:embed") || blipTags[0].getAttribute("embed");
+                rId = blipTags[0].getAttribute("r:embed") || blipTags[0].getAttribute("embed") || 
+                      blipTags[0].getAttribute("r:link") || blipTags[0].getAttribute("link");
               }
 
-              if (fromRow !== null && rId && drawingRels[drawingNum][rId]) {
+              if (fromRow !== null && rId && drawingRels[drawingNum] && drawingRels[drawingNum][rId]) {
                 const rowIdx = parseInt(fromRow);
                 const mediaPath = drawingRels[drawingNum][rId];
                 if (!rowMappings[rowIdx]) rowMappings[rowIdx] = [];
-                // Only add unique mediaPaths to the same row
                 if (!rowMappings[rowIdx].includes(mediaPath)) {
                   rowMappings[rowIdx].push(mediaPath);
                 }
@@ -380,7 +399,7 @@ const PythonAutomation = () => {
           }
 
           // 3. Upload images and group by row (deduplicate uploads)
-          const mediaCache = {}; // Cache URLs by mediaPath to avoid redundant uploads
+          const mediaCache = {}; 
           for (const rowIdx in rowMappings) {
             for (const mediaPath of rowMappings[rowIdx]) {
               if (mediaCache[mediaPath]) {
@@ -392,8 +411,8 @@ const PythonAutomation = () => {
               const imgFile = zip.file(mediaPath);
               if (imgFile) {
                 const blob = await imgFile.async("blob");
-                // Check if blob is too small (likely a tiny icon/logo, e.g. < 5KB)
-                if (blob.size < 5000) continue;
+                // Check if blob is too small (likely a tiny icon/logo, e.g. < 1KB)
+                if (blob.size < 1000) continue;
 
                 const imageRef = ref(storage, `products/extracted_${Date.now()}_${mediaPath.split('/').pop()}`);
                 const snapshot = await uploadBytes(imageRef, blob);
@@ -410,14 +429,39 @@ const PythonAutomation = () => {
         }
       }
 
-      const { headers, data } = parseCSV(csvText);
-      setOriginalData(data);
+      // 4. Parse Rows and maintain original row indices
+      const allRows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: "" });
+      
+      // Find the header row (first non-empty row)
+      let headerIdx = 0;
+      while (headerIdx < allRows.length && allRows[headerIdx].every(v => v === "")) {
+        headerIdx++;
+      }
+      
+      if (headerIdx >= allRows.length) return alert("Empty sheet or no data found");
+      
+      const rawHeaders = allRows[headerIdx];
+      const dataRows = allRows.slice(headerIdx + 1);
+      
+      // Filter out completely empty rows but keep their original index
+      const processedRows = dataRows.map((rowArr, i) => {
+        if (rowArr.every(v => v === "")) return null;
+        
+        const obj = { __rowIdx__: headerIdx + 1 + i }; // This is 0-indexed row for drawing mapping
+        rawHeaders.forEach((h, j) => {
+          if (h) {
+            obj[h.toString().trim()] = rowArr[j];
+          }
+        });
+        return obj;
+      }).filter(Boolean);
+
+      setOriginalData(processedRows);
 
       const products = {};
-      const totalRows = data.length;
+      const totalRows = processedRows.length;
 
-      data.forEach((row, idx) => {
-        // Update progress every 10 rows
+      processedRows.forEach((row, idx) => {
         if (idx % 10 === 0) {
           setProcessingProgress(Math.round((idx / totalRows) * 100));
         }
@@ -425,6 +469,7 @@ const PythonAutomation = () => {
         const productId = safeStr(row["Product ID"] || row["id"] || row["SKU"] || `product_${idx + 1}`);
         if (!productId) return;
 
+        const headers = Object.keys(row);
         const nameCol = pickColumn(COLUMN_MAPPINGS.name, headers);
         const descCol = pickColumn(COLUMN_MAPPINGS.description, headers);
         const stockCol = pickColumn(COLUMN_MAPPINGS.stock, headers);
@@ -457,12 +502,33 @@ const PythonAutomation = () => {
             sellerId,
             sizeVariants: []
           };
-          // Images
-          const imageCols = headers.filter(c => c.toLowerCase().includes("image") || c.toLowerCase().includes("img"));
-          const rowImages = imageCols.map(c => safeStr(row[c] || "")).filter(Boolean);
+          
+          // Image columns identification with stricter keyword matching
+          const imageCols = headers.filter(c => {
+            const low = c.toLowerCase().trim();
+            // Avoid false positives like "pickup address"
+            if (low.includes("pickup") || low.includes("address")) return false;
+            
+            return low.includes("image") || low.includes("img") || low === "photo" || 
+                   low === "pic" || low === "picture" || low === "url" || low.includes("gallery");
+          });
+          
+          // Validation to ensure the value is actually an image URL or path
+          const isImageUrl = (val) => {
+            const s = String(val).toLowerCase().trim();
+            if (!s) return false;
+            // Matches http, https, or common image extensions
+            return s.startsWith("http") || 
+                   s.startsWith("https") || 
+                   s.includes("firebasestorage") ||
+                   /\.(jpg|jpeg|png|gif|webp|svg|bmp|emf)$/i.test(s);
+          };
 
-          // Add XML-extracted images for this row
-          const xmlImages = extractedImagesByRow[idx + 1] || [];
+          const rowImages = imageCols.map(c => safeStr(row[c] || ""))
+            .filter(val => isImageUrl(val));
+
+          // Add XML-extracted images using the absolute row index
+          const xmlImages = extractedImagesByRow[row.__rowIdx__] || [];
 
           // Final images with deduplication
           const allImages = [...rowImages, ...xmlImages];
@@ -485,8 +551,9 @@ const PythonAutomation = () => {
           if (
             !ALIASES.includes(cleanCol.toLowerCase()) &&
             !CORE_FIELDS.has(cleanCol) &&
-            !cleanCol.toLowerCase().startsWith("image") &&
-            cleanCol.toLowerCase() !== "size"
+            !["image", "img", "photo", "pic", "url", "gallery"].some(k => cleanCol.toLowerCase().includes(k)) &&
+            cleanCol.toLowerCase() !== "size" &&
+            cleanCol !== "__rowIdx__"
           ) {
             const val = safeStr(row[cleanCol]);
             if (val) products[productId][cleanCol] = val;
@@ -494,7 +561,7 @@ const PythonAutomation = () => {
         });
       });
 
-      // Append search keywords for each product
+      // Append search keywords
       Object.values(products).forEach(p => {
         p.searchKeywords = generateProductKeywords(p.name, p.category, p.subcategory);
       });
@@ -503,13 +570,13 @@ const PythonAutomation = () => {
       const productList = Object.values(products);
       setProcessedData(productList);
 
-      // Show success message with stats
       setTimeout(() => {
         alert(`✅ Successfully processed ${productList.length} products from ${totalRows} rows`);
         setProcessingProgress(0);
       }, 500);
 
     } catch (err) {
+      console.error(err);
       alert("Processing Error: " + err.message);
     } finally {
       setProcessing(false);
