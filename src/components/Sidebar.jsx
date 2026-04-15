@@ -37,6 +37,8 @@ const Sidebar = ({ isOpen, onClose }) => {
     { path: '/coupons', icon: Ticket, label: 'Coupons' },
 
     // 🔥 NEW ITEM ADDED HERE
+    { path: '/ratings-reviews', icon: Star, label: 'Ratings & Reviews' },
+
     { path: '/razorpay-offer', icon: Wallet, label: 'Razorpay Offer' },
 
     { path: '/posters', icon: Image, label: 'Posters' },

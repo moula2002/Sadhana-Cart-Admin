@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ForgotPassword from './components/ForgotPass';
 import RefundRequests from './pages/RefundRequests';
+import RatingsAndReviews from './pages/RatingsAndReviews';
 
 // Lazy loaded pages
 const Dashboard = lazy(() => import('./pages/Dashboard'));
@@ -126,7 +127,8 @@ const App = () => {
                         <Route path="/recommended" element={<RecommendedProducts />} />
                         <Route path="/notifications" element={<Notifications />} />
                         <Route path="/refund-request" element={<RefundRequests/>}/>
-                        <Route path="/razorpay-offer" element={<RazorpayOffer />} /> {/* NEW ROUTE ADDED */}
+                        <Route path="/razorpay-offer" element={<RazorpayOffer />} />
+                        <Route path="/ratings-reviews" element={<RatingsAndReviews/>} /> {/* NEW ROUTE ADDED */}
                       </Routes>
 
                     </Suspense>
