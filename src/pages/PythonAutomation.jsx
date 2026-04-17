@@ -465,17 +465,8 @@ const PythonAutomation = () => {
         if (idx % 10 === 0) {
           setProcessingProgress(Math.round((idx / totalRows) * 100));
         }
-
-      const nameCol = pickColumn(COLUMN_MAPPINGS.name, Object.keys(row));
-const categoryCol = pickColumn(COLUMN_MAPPINGS.category, Object.keys(row));
-
 // Create grouping key using name + category
-const productId = safeStr(
-  row["Product ID"] ||
-  row["id"] ||
-  `${safeStr(row[nameCol])}_${safeStr(row[categoryCol])}`
-).toLowerCase().replace(/\s+/g, "_");
-        if (!productId) return;
+
 
         const headers = Object.keys(row);
         const nameCol = pickColumn(COLUMN_MAPPINGS.name, headers);
@@ -491,7 +482,12 @@ const productId = safeStr(
 
         const size = safeStr(row[sizeCol] || "");
         const variantStock = safeNumber(row[stockCol] || 0);
-
+         const productId = safeStr(
+  row["Product ID"] ||
+  row["id"] ||
+  `${safeStr(row[nameCol])}_${safeStr(row[categoryCol])}`
+).toLowerCase().replace(/\s+/g, "_");
+       
         if (!products[productId]) {
           products[productId] = {
             productId,
