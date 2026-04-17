@@ -25,6 +25,7 @@ const PythonAutomation = () => {
     category: ["category", "product category", "Type"],
     subcategory: ["subcategory", "sub category"],
     brand: ["brand", "vendor"],
+     productId: ["product id", "productid", "id", "product_id"],
     price: ["price", "mrp", "selling price", "sale price"],
     offerPrice: ["offerprice", "offer price", "msrp", "compare at price", "discount price"],
     image: ["image1", "image 1", "img1", "image2", "image 2", "img2", "image3", "image4", "image5", "photo", "pic", "url", "gallery"],
@@ -464,18 +465,10 @@ const PythonAutomation = () => {
       processedRows.forEach((row, idx) => {
         if (idx % 10 === 0) {
           setProcessingProgress(Math.round((idx / totalRows) * 100));
+        
         }
-
-      const nameCol = pickColumn(COLUMN_MAPPINGS.name, Object.keys(row));
-const categoryCol = pickColumn(COLUMN_MAPPINGS.category, Object.keys(row));
-
 // Create grouping key using name + category
-const productId = safeStr(
-  row["Product ID"] ||
-  row["id"] ||
-  `${safeStr(row[nameCol])}_${safeStr(row[categoryCol])}`
-).toLowerCase().replace(/\s+/g, "_");
-        if (!productId) return;
+
 
         const headers = Object.keys(row);
         const nameCol = pickColumn(COLUMN_MAPPINGS.name, headers);
@@ -488,9 +481,19 @@ const productId = safeStr(
         const priceCol = pickColumn(COLUMN_MAPPINGS.price, headers);
         const offerCol = pickColumn(COLUMN_MAPPINGS.offerPrice, headers);
         const sizeCol = pickColumn(COLUMN_MAPPINGS.size, headers);
-
+const productIdCol = pickColumn(COLUMN_MAPPINGS.productId, headers);
         const size = safeStr(row[sizeCol] || "");
         const variantStock = safeNumber(row[stockCol] || 0);
+
+
+       const normalizedName = safeStr(row[nameCol] || "").toLowerCase().replace(/\s+/g, '');
+const normalizedCategory = safeStr(row[categoryCol] || "").toLowerCase().replace(/\s+/g, '');
+
+let productId = safeStr(productIdCol ? row[productIdCol] : "");
+
+if (!productId) {
+  productId = `${normalizedName}_${normalizedCategory}_${idx}`;
+}
 
         if (!products[productId]) {
           products[productId] = {
