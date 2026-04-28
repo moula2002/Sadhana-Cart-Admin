@@ -1558,12 +1558,23 @@ export const subCategoryService = {
   },
 
   // Add new sub category
-  async add(subCategoryData) {
+  async add(subCategoryData, imageFile) {
     try {
+      let imageUrl = null;
+      
+      // Upload image if provided
+      if (imageFile) {
+        const imageRef = ref(storage, `subcategories/${Date.now()}_${imageFile.name}`);
+        const snapshot = await uploadBytes(imageRef, imageFile);
+        imageUrl = await getDownloadURL(snapshot.ref);
+      }
+
       const docRef = await addDoc(collection(db, 'subcategory'), {
         id: '',
         name: subCategoryData.name,
-        category: subCategoryData.category
+        category: subCategoryData.category,
+        image: imageUrl,
+        createdAt: serverTimestamp()
       });
 
       // Update the document with its own ID
@@ -1574,7 +1585,8 @@ export const subCategoryService = {
       return {
         id: docRef.id,
         name: subCategoryData.name,
-        category: subCategoryData.category
+        category: subCategoryData.category,
+        image: imageUrl
       };
     } catch (error) {
       console.error('Error adding sub category:', error);
@@ -1595,49 +1607,42 @@ export const subCategoryService = {
   },
 
   // Update sub category
-  async update(subCategoryId, subCategoryData) {
+  async update(subCategoryId, subCategoryData, imageFile) {
     try {
       console.log('SubCategory update called with ID:', subCategoryId);
       
+      let updateData = { ...subCategoryData };
+
+      // Upload new image if provided
+      if (imageFile) {
+        const imageRef = ref(storage, `subcategories/${Date.now()}_${imageFile.name}`);
+        const snapshot = await uploadBytes(imageRef, imageFile);
+        const imageUrl = await getDownloadURL(snapshot.ref);
+        updateData.image = imageUrl;
+      }
+      
       // Get all subcategories to find the right one
       const querySnapshot = await getDocs(collection(db, 'subcategory'));
-      let targetDoc = null;
       let targetDocId = null;
       
       // Search through all documents
       querySnapshot.docs.forEach(doc => {
-        const data = doc.data();
-        console.log('Checking subcategory document:', doc.id, 'with data:', data);
-        
-        // First try to match by exact ID
         if (doc.id === subCategoryId) {
-          targetDoc = doc;
           targetDocId = doc.id;
-          console.log('Found exact subcategory ID match:', doc.id);
-        }
-        // If no exact ID match, try to match by name
-        else if (!targetDoc && data.name && subCategoryData.name && 
-                 data.name.toLowerCase().trim() === subCategoryData.name.toLowerCase().trim()) {
-          targetDoc = doc;
+        } else if (!targetDocId && doc.data().name?.toLowerCase() === subCategoryData.name?.toLowerCase()) {
           targetDocId = doc.id;
-          console.log('Found subcategory name match:', doc.id, 'for name:', data.name);
         }
       });
       
-      if (!targetDoc) {
-        console.error('SubCategory document not found for ID:', subCategoryId);
+      if (!targetDocId) {
         throw new Error('SubCategory not found');
       }
       
-      console.log('Updating subcategory document with ID:', targetDocId);
-      await updateDoc(doc(db, 'subcategory', targetDocId), {
-        ...subCategoryData
-      });
+      await updateDoc(doc(db, 'subcategory', targetDocId), updateData);
       
-      // Return updated subcategory data
       return {
         id: targetDocId,
-        ...subCategoryData
+        ...updateData
       };
     } catch (error) {
       console.error('Error updating sub category:', error);
@@ -1664,17 +1669,42 @@ export const brandService = {
   },
 
   // Add new brand
-  async add(brandData) {
+  async add(brandData, imageFile, bannerFile) {
     try {
+      let imageUrl = null;
+      let bannerUrl = null;
+      
+      // Upload brand logo if provided
+      if (imageFile) {
+        const imageRef = ref(storage, `brands/logos/${Date.now()}_${imageFile.name}`);
+        const snapshot = await uploadBytes(imageRef, imageFile);
+        imageUrl = await getDownloadURL(snapshot.ref);
+      }
+
+      // Upload brand banner if provided
+      if (bannerFile) {
+        const bannerRef = ref(storage, `brands/banners/${Date.now()}_${bannerFile.name}`);
+        const snapshot = await uploadBytes(bannerRef, bannerFile);
+        bannerUrl = await getDownloadURL(snapshot.ref);
+      }
+
       const docRef = await addDoc(collection(db, 'brands'), {
         name: brandData.name,
-        subCategory: brandData.subCategory
+        subCategories: brandData.subCategories || [], // Array of subcategories
+        description: brandData.description || '',
+        image: imageUrl,
+        bannerImage: bannerUrl,
+        createdAt: serverTimestamp()
       });
 
       return {
         id: docRef.id,
         name: brandData.name,
-        subCategory: brandData.subCategory
+        subCategories: brandData.subCategories || [],
+        description: brandData.description || '',
+        image: imageUrl,
+        bannerImage: bannerUrl,
+        createdAt: { seconds: Math.floor(Date.now() / 1000) }
       };
     } catch (error) {
       console.error('Error adding brand:', error);
@@ -1695,16 +1725,32 @@ export const brandService = {
   },
 
   // Update brand
-  async update(brandId, brandData) {
+  async update(brandId, brandData, imageFile, bannerFile) {
     try {
-      await updateDoc(doc(db, 'brands', brandId), {
-        ...brandData
-      });
+      let updateData = { ...brandData };
+      
+      // Upload new brand logo if provided
+      if (imageFile) {
+        const imageRef = ref(storage, `brands/logos/${Date.now()}_${imageFile.name}`);
+        const snapshot = await uploadBytes(imageRef, imageFile);
+        const imageUrl = await getDownloadURL(snapshot.ref);
+        updateData.image = imageUrl;
+      }
+
+      // Upload new brand banner if provided
+      if (bannerFile) {
+        const bannerRef = ref(storage, `brands/banners/${Date.now()}_${bannerFile.name}`);
+        const snapshot = await uploadBytes(bannerRef, bannerFile);
+        const bannerUrl = await getDownloadURL(snapshot.ref);
+        updateData.bannerImage = bannerUrl;
+      }
+      
+      await updateDoc(doc(db, 'brands', brandId), updateData);
       
       // Return updated brand data
       return {
         id: brandId,
-        ...brandData
+        ...updateData
       };
     } catch (error) {
       console.error('Error updating brand:', error);

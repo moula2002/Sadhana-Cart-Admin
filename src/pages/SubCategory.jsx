@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Plus, RefreshCw, X, Edit, Trash2, Search } from 'lucide-react';
+import { Plus, RefreshCw, X, Edit, Trash2, Search, Image as ImageIcon, Upload } from 'lucide-react';
 import { subCategoryService, categoryService } from '../firebase/services';
 
 const SubCategory = () => {
@@ -13,8 +13,11 @@ const SubCategory = () => {
 
   const [formData, setFormData] = useState({
     name: '',
-    category: ''
+    category: '',
+    image: ''
   });
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
   // Fetch data from Firebase on component mount
   useEffect(() => {
@@ -38,11 +41,21 @@ const SubCategory = () => {
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    const { name, value, files } = e.target;
+    if (name === 'image' && files && files[0]) {
+      const file = files[0];
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -60,12 +73,12 @@ const SubCategory = () => {
 
         if (selectedSubCategory) {
           // Update existing sub category
-          await subCategoryService.update(selectedSubCategory.id, dataToSubmit);
+          const updatedData = await subCategoryService.update(selectedSubCategory.id, dataToSubmit, imageFile);
           
           setSubCategories(prev => 
             prev.map(subCat => 
               subCat.id === selectedSubCategory.id 
-                ? { ...subCat, ...dataToSubmit } // Update with new data
+                ? { ...subCat, ...updatedData } 
                 : subCat
             )
           );
@@ -73,12 +86,14 @@ const SubCategory = () => {
           alert('Sub category updated successfully!');
         } else {
           // Add new sub category 
-          const newSubCategory = await subCategoryService.add(dataToSubmit);
+          const newSubCategory = await subCategoryService.add(dataToSubmit, imageFile);
           setSubCategories(prev => [newSubCategory, ...prev]);
           alert(`Sub category added successfully!`);
         }
         
-        setFormData({ name: '', category: '' });
+        setFormData({ name: '', category: '', image: '' });
+        setImageFile(null);
+        setImagePreview(null);
         setSelectedSubCategory(null);
         setIsModalOpen(false);
       } catch (error) {
@@ -91,7 +106,9 @@ const SubCategory = () => {
   };
 
   const handleCancel = () => {
-    setFormData({ name: '', category: '' });
+    setFormData({ name: '', category: '', image: '' });
+    setImageFile(null);
+    setImagePreview(null);
     setSelectedSubCategory(null);
     setIsModalOpen(false);
   };
@@ -100,8 +117,10 @@ const SubCategory = () => {
     setSelectedSubCategory(subCategory);
     setFormData({
       name: subCategory.name,
-      category: subCategory.category // Assuming the category value is the category name/ID needed for the dropdown
+      category: subCategory.category,
+      image: subCategory.image || ''
     });
+    setImagePreview(subCategory.image || null);
     setIsModalOpen(true);
   };
 
@@ -146,7 +165,9 @@ const SubCategory = () => {
           <button 
             onClick={() => {
               setSelectedSubCategory(null);
-              setFormData({ name: '', category: '' });
+              setFormData({ name: '', category: '', image: '' });
+              setImageFile(null);
+              setImagePreview(null);
               setIsModalOpen(true);
             }}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors text-sm"
@@ -186,6 +207,7 @@ const SubCategory = () => {
           <table className="w-full">
             <thead className="bg-gray-700">
               <tr>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-300">Image</th>
                 <th className="px-6 py-4 text-left text-sm font-medium text-gray-300">SubCategory Name</th>
                 <th className="px-6 py-4 text-left text-sm font-medium text-gray-300">Category</th>
                 <th className="px-6 py-4 text-left text-sm font-medium text-gray-300">Actions</th>
@@ -208,6 +230,15 @@ const SubCategory = () => {
               ) : (
                 filteredSubCategories.map((subCategory) => (
                   <tr key={subCategory.id} className="border-t border-gray-700 hover:bg-gray-700">
+                    <td className="px-6 py-4">
+                      {subCategory.image ? (
+                        <img src={subCategory.image} alt={subCategory.name} className="h-10 w-10 rounded-lg object-cover bg-gray-700" />
+                      ) : (
+                        <div className="h-10 w-10 rounded-lg bg-gray-700 flex items-center justify-center">
+                          <ImageIcon size={20} className="text-gray-500" />
+                        </div>
+                      )}
+                    </td>
                     <td className="px-6 py-4 text-white font-medium">{subCategory.name}</td>
                     <td className="px-6 py-4 text-gray-300">{subCategory.category}</td>
                     <td className="px-6 py-4 text-sm font-medium space-x-2">
@@ -249,6 +280,41 @@ const SubCategory = () => {
             </div>
             
             <form onSubmit={handleSubmit}>
+              {/* Image Upload */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Sub Category Image
+                </label>
+                <div className="flex items-center space-x-4">
+                  <div className="relative h-20 w-20 rounded-lg bg-gray-700 overflow-hidden flex items-center justify-center border-2 border-dashed border-gray-600">
+                    {imagePreview ? (
+                      <img src={imagePreview} alt="Preview" className="h-full w-full object-cover" />
+                    ) : (
+                      <ImageIcon size={28} className="text-gray-500" />
+                    )}
+                    <input
+                      type="file"
+                      name="image"
+                      onChange={handleInputChange}
+                      accept="image/*"
+                      className="absolute inset-0 opacity-0 cursor-pointer"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <label className="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1.5 rounded-lg cursor-pointer flex items-center justify-center space-x-2 transition-colors text-xs border border-gray-600">
+                      <Upload size={14} />
+                      <span>{imageFile ? 'Change' : 'Upload'}</span>
+                      <input
+                        type="file"
+                        name="image"
+                        onChange={handleInputChange}
+                        accept="image/*"
+                        className="hidden"
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
               {/* Category Dropdown */}
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-300 mb-2">
