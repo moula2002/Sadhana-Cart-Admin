@@ -704,7 +704,7 @@ const fetchWalletBalance = async (userId) => {
       case 'pending': return 'bg-orange-500';
       case 'cancelled': return 'bg-red-500';
       case 'return_requested': return 'bg-purple-500';
-      case 'returned': return 'bg-gray-600'; // Added color for actual returned status
+      case 'returned': return 'bg-gray-100 dark:bg-gray-600'; // Added color for actual returned status
       default: return 'bg-gray-500';
     }
   };
@@ -725,27 +725,27 @@ const fetchWalletBalance = async (userId) => {
       <table className="w-full">
         <tbody>
           {[...Array(5)].map((_, i) => (
-            <tr key={`skeleton-${i}`} className="border-t border-gray-700">
+            <tr key={`skeleton-${i}`} className="border-t border-gray-200 dark:border-gray-700">
               <td className="px-6 py-4">
-                <div className="h-4 bg-gray-600 rounded w-32"></div>
+                <div className="h-4 bg-gray-100 dark:bg-gray-600 rounded w-32"></div>
               </td>
               <td className="px-6 py-4">
-                <div className="h-4 bg-gray-600 rounded w-24"></div>
+                <div className="h-4 bg-gray-100 dark:bg-gray-600 rounded w-24"></div>
               </td>
               <td className="px-6 py-4">
-                <div className="h-4 bg-gray-600 rounded w-20"></div>
+                <div className="h-4 bg-gray-100 dark:bg-gray-600 rounded w-20"></div>
               </td>
               <td className="px-6 py-4">
-                <div className="h-6 bg-gray-600 rounded w-24"></div>
+                <div className="h-6 bg-gray-100 dark:bg-gray-600 rounded w-24"></div>
               </td>
               <td className="px-6 py-4">
-                <div className="h-6 bg-gray-600 rounded w-20"></div>
+                <div className="h-6 bg-gray-100 dark:bg-gray-600 rounded w-20"></div>
               </td>
               <td className="px-6 py-4">
-                <div className="h-4 bg-gray-600 rounded w-28"></div>
+                <div className="h-4 bg-gray-100 dark:bg-gray-600 rounded w-28"></div>
               </td>
               <td className="px-6 py-4">
-                <div className="h-8 bg-gray-600 rounded w-24"></div>
+                <div className="h-8 bg-gray-100 dark:bg-gray-600 rounded w-24"></div>
               </td>
             </tr>
           ))}
@@ -756,12 +756,12 @@ const fetchWalletBalance = async (userId) => {
     {/* Mobile Skeleton */}
     <div className="lg:hidden space-y-4">
       {[...Array(3)].map((_, i) => (
-        <div key={`mobile-skeleton-${i}`} className="bg-gray-800 rounded-lg p-4">
-          <div className="h-4 bg-gray-600 rounded w-3/4 mb-2"></div>
-          <div className="h-3 bg-gray-600 rounded w-1/2 mb-4"></div>
+        <div key={`mobile-skeleton-${i}`} className="bg-white dark:bg-gray-800 rounded-lg p-4">
+          <div className="h-4 bg-gray-100 dark:bg-gray-600 rounded w-3/4 mb-2"></div>
+          <div className="h-3 bg-gray-100 dark:bg-gray-600 rounded w-1/2 mb-4"></div>
           <div className="space-y-2">
-            <div className="h-3 bg-gray-600 rounded w-full"></div>
-            <div className="h-3 bg-gray-600 rounded w-2/3"></div>
+            <div className="h-3 bg-gray-100 dark:bg-gray-600 rounded w-full"></div>
+            <div className="h-3 bg-gray-100 dark:bg-gray-600 rounded w-2/3"></div>
           </div>
         </div>
       ))}
@@ -771,18 +771,18 @@ const fetchWalletBalance = async (userId) => {
 
 
   return (
-  <div className="max-w-7xl mx-auto bg-gray-900 p-4 md:p-6 min-h-screen">
+  <div className="max-w-7xl mx-auto bg-gray-50 dark:bg-gray-900 p-4 md:p-6 min-h-screen">
       {/* Header Section */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-6 gap-4">
         <div>
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Order Management</h2>
-          <p className="text-gray-400">Manage and track all customer orders</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">Order Management</h2>
+          <p className="text-gray-500 dark:text-gray-400">Manage and track all customer orders</p>
         </div>
         
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <button 
             onClick={handleAddNew}
-            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-2.5 rounded-lg transition-all duration-200 flex items-center gap-2 shadow-lg hover:shadow-xl"
+            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-gray-900 dark:text-white px-4 py-2.5 rounded-lg transition-all duration-200 flex items-center gap-2 shadow-lg hover:shadow-xl"
           >
             <Plus size={18} />
             Add Order
@@ -790,7 +790,7 @@ const fetchWalletBalance = async (userId) => {
           
           <button 
             onClick={refreshOrders}
-            className="bg-gray-700 hover:bg-gray-600 text-white p-2.5 rounded-lg transition-colors shadow-lg"
+            className="bg-gray-100 dark:bg-gray-700 hover:bg-gray-100 dark:bg-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg transition-colors shadow-lg"
             disabled={loading}
           >
             <RefreshCw size={18} className={loading ? 'animate-spin' : ''} />
@@ -799,28 +799,28 @@ const fetchWalletBalance = async (userId) => {
       </div>
 
       {/* Search and Filter Bar */}
-      <div className="bg-gray-800 rounded-xl p-4 mb-6 shadow-lg">
+      <div className="bg-white dark:bg-gray-800 rounded-xl p-4 mb-6 shadow-lg">
         <div className="flex flex-col lg:flex-row gap-4">
           {/* Search Bar */}
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400" size={20} />
             <input
               type="text"
               placeholder="Search orders by customer name, email, phone, or SKU..."
               value={searchTerm}
               onChange={handleSearchChange}
-              className="w-full pl-10 pr-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              className="w-full pl-10 pr-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
             />
           </div>
 
           {/* Filter Dropdown */}
           <div className="flex gap-3">
             <div className="relative">
-              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400" size={18} />
               <select 
                 value={selectedFilter}
                 onChange={handleFilterChange}
-                className="pl-10 pr-8 py-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none min-w-[160px]"
+                className="pl-10 pr-8 py-3 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none min-w-[160px]"
               >
                 <option value="all">All Orders</option>
                 <option value="pending">Pending</option>
@@ -830,7 +830,7 @@ const fetchWalletBalance = async (userId) => {
                 <option value="cancelled">Cancelled</option>
                 <option value="return_requested">Return Requested</option>
               </select>
-              <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
+              <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 pointer-events-none" size={16} />
             </div>
           </div>
         </div>
@@ -854,7 +854,7 @@ const fetchWalletBalance = async (userId) => {
               className={`rounded-xl p-4 cursor-pointer transition-all duration-200 transform hover:scale-105 ${
                 selectedFilter === stat.key 
                   ? `bg-${stat.color}-900 border-2 border-${stat.color}-500 shadow-lg` 
-                  : 'bg-gray-800 hover:bg-gray-750 shadow-md'
+                  : 'bg-white dark:bg-gray-800 hover:bg-gray-750 shadow-md'
               }`}
               onClick={() => setSelectedFilter(stat.key)}
             >
@@ -863,7 +863,7 @@ const fetchWalletBalance = async (userId) => {
                   <div className={`text-2xl font-bold text-${stat.color}-400`}>
                     {loadingStats ? '...' : orderStats[stat.key]}
                   </div>
-                  <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">{stat.label}</div>
                 </div>
                 <div className={`p-2 rounded-lg bg-${stat.color}-500 bg-opacity-20`}>
                   <IconComponent className={`h-5 w-5 text-${stat.color}-400`} />
@@ -876,19 +876,19 @@ const fetchWalletBalance = async (userId) => {
 
       {/* Orders Table Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-3">
-        <h3 className="text-lg font-semibold text-white">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
           {selectedFilter === 'all' ? 'All Orders' : `${selectedFilter.charAt(0).toUpperCase() + selectedFilter.slice(1)} Orders`} 
           <span className="text-blue-400 ml-2">({filteredOrders.length})</span>
         </h3>
         
-        <div className="flex items-center gap-2 text-sm text-gray-400">
+        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
           <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           <span>Last updated: {new Date().toLocaleTimeString()}</span>
         </div>
       </div>
 
       {/* Orders Table */}
-      <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+      <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
         {loading ? (
           <div className="p-8">
             <OrderSkeleton />
@@ -900,30 +900,30 @@ const fetchWalletBalance = async (userId) => {
               <table className="w-full">
                 <thead className="bg-gray-750">
                   <tr>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Customer
                     </th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Products
                     </th>
 
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase">
   Wallet Balance
 </th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Amount
                     </th>
 
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Payment
                     </th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Date
                     </th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
@@ -934,8 +934,8 @@ const fetchWalletBalance = async (userId) => {
                       <td colSpan="7" className="px-6 py-12 text-center">
                         <div className="flex flex-col items-center justify-center">
                           <Package className="h-16 w-16 text-gray-500 mb-4" />
-                          <p className="text-lg font-medium text-gray-300 mb-2">No orders found</p>
-                          <p className="text-gray-400 mb-4">
+                          <p className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">No orders found</p>
+                          <p className="text-gray-500 dark:text-gray-400 mb-4">
                             {searchTerm ? 'Try adjusting your search terms' : 'No orders match the current filter'}
                           </p>
                           {searchTerm && (
@@ -956,42 +956,42 @@ const fetchWalletBalance = async (userId) => {
                         <td className="px-6 py-4">
                           <div className="flex items-center space-x-3">
                             <div className="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center">
-                              <User className="h-5 w-5 text-white" />
+                              <User className="h-5 w-5 text-gray-900 dark:text-white" />
                             </div>
                             <div>
-                              <div className="text-white font-medium group-hover:text-blue-300 transition-colors">
+                              <div className="text-gray-900 dark:text-white font-medium group-hover:text-blue-300 transition-colors">
                                 {order.customerName}
                               </div>
-                              <div className="text-sm text-gray-400">{order.customerEmail}</div>
+                              <div className="text-sm text-gray-500 dark:text-gray-400">{order.customerEmail}</div>
                             </div>
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <div className="text-white text-sm max-w-[200px] max-h-[80px] overflow-y-auto scrollbar-hide">
+                          <div className="text-gray-900 dark:text-white text-sm max-w-[200px] max-h-[80px] overflow-y-auto scrollbar-hide">
     {formatProductDisplay(order)}
   </div>
                         </td>
-                       <td className="px-6 py-4 text-white font-semibold">
+                       <td className="px-6 py-4 text-gray-900 dark:text-white font-semibold">
   {walletBalances[order.userId] || 0} Coins
 </td>
                         <td className="px-6 py-4">
-                          <div className="text-white font-semibold text-lg">
+                          <div className="text-gray-900 dark:text-white font-semibold text-lg">
                             {formatCurrency(calculateOrderTotal(order))}
                           </div>
                         </td>
                         <td className="px-6 py-4">
                           <div className="space-y-1">
-                            <div className="text-sm text-gray-300">
+                            <div className="text-sm text-gray-700 dark:text-gray-300">
                               {order.paymentMethod || 'N/A'}
                             </div>
-                            <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPaymentStatusColor(order.paymentStatus)} text-white`}>
+                            <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPaymentStatusColor(order.paymentStatus)} text-gray-900 dark:text-white`}>
                               {order.paymentStatus}
                             </div>
                           </div>
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex flex-col space-y-2">
-                            <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)} text-white`}>
+                            <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)} text-gray-900 dark:text-white`}>
                              {order.orderStatus || order.status}
                             </div>
                             <div className="flex space-x-1">
@@ -1001,14 +1001,14 @@ const fetchWalletBalance = async (userId) => {
 
 <button
 onClick={()=>handleStatusSelectChange(order.id,"returned")}
-className="bg-green-600 text-white px-2 py-1 rounded text-xs"
+className="bg-green-600 text-gray-900 dark:text-white px-2 py-1 rounded text-xs"
 >
 Approve
 </button>
 
 <button
 onClick={()=>handleStatusSelectChange(order.id,"delivered")}
-className="bg-red-600 text-white px-2 py-1 rounded text-xs"
+className="bg-red-600 text-gray-900 dark:text-white px-2 py-1 rounded text-xs"
 >
 Reject
 </button>
@@ -1018,7 +1018,7 @@ Reject
 <select
 value={order.orderStatus || order.status}
 onChange={(e)=>handleStatusSelectChange(order.id,e.target.value)}
-className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-600"
+className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white text-xs px-2 py-1 rounded border border-gray-300 dark:border-gray-600"
 >
 <option value="pending">Pending</option>
 <option value="processing">Processing</option>
@@ -1032,7 +1032,7 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
                               {pendingStatusChanges[order.id] && pendingStatusChanges[order.id] !== order.status && (
                                 <button
                                   onClick={() => handleStatusUpdateClick(order.id, order.customerId)}
-                                  className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-2 py-1 rounded transition-colors"
+                                  className="bg-blue-600 hover:bg-blue-700 text-gray-900 dark:text-white text-xs px-2 py-1 rounded transition-colors"
                                 >
                                   Update
                                 </button>
@@ -1041,7 +1041,7 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <div className="text-gray-300 text-sm">
+                          <div className="text-gray-700 dark:text-gray-300 text-sm">
                             {formatDate(order.createdAt)}
                           </div>
                         </td>
@@ -1049,21 +1049,21 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
                           <div className="flex items-center space-x-2 opacity-100 transition-opacity">
                             <button 
                               onClick={() => handleView(order)}
-                              className="text-green-400 hover:text-green-300 p-1.5 rounded-lg hover:bg-gray-700 transition-colors"
+                              className="text-green-400 hover:text-green-300 p-1.5 rounded-lg hover:bg-gray-100 dark:bg-gray-700 transition-colors"
                               title="View Order"
                             >
                               <Eye size={16} />
                             </button>
                             <button 
                               onClick={() => handleEdit(order)}
-                              className="text-blue-400 hover:text-blue-300 p-1.5 rounded-lg hover:bg-gray-700 transition-colors"
+                              className="text-blue-400 hover:text-blue-300 p-1.5 rounded-lg hover:bg-gray-100 dark:bg-gray-700 transition-colors"
                               title="Edit Order"
                             >
                               <Edit size={16} />
                             </button>
                             <button 
                               onClick={() => handleDelete(order.id, order.customerId)}
-                              className="text-red-400 hover:text-red-300 p-1.5 rounded-lg hover:bg-gray-700 transition-colors"
+                              className="text-red-400 hover:text-red-300 p-1.5 rounded-lg hover:bg-gray-100 dark:bg-gray-700 transition-colors"
                               title="Delete Order"
                             >
                               <Trash2 size={16} />
@@ -1082,8 +1082,8 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
               {filteredOrders.length === 0 ? (
                 <div className="bg-gray-750 rounded-lg p-6 text-center">
                   <Package className="mx-auto h-12 w-12 text-gray-500 mb-4" />
-                  <p className="text-lg font-medium text-gray-300 mb-2">No orders found</p>
-                  <p className="text-gray-400">
+                  <p className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">No orders found</p>
+                  <p className="text-gray-500 dark:text-gray-400">
                     {searchTerm ? 'Try adjusting your search terms' : 'No orders available'}
                   </p>
                   {searchTerm && (
@@ -1103,18 +1103,18 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center space-x-3">
                         <div className="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center">
-                          <User className="h-5 w-5 text-white" />
+                          <User className="h-5 w-5 text-gray-900 dark:text-white" />
                         </div>
                         <div>
-                          <div className="text-white font-medium">{order.customerName}</div>
-                          <div className="text-xs text-gray-400">#{order.id}</div>
+                          <div className="text-gray-900 dark:text-white font-medium">{order.customerName}</div>
+                          <div className="text-xs text-gray-500 dark:text-gray-400">#{order.id}</div>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-white font-semibold text-lg">
+                        <div className="text-gray-900 dark:text-white font-semibold text-lg">
                           {formatCurrency(calculateOrderTotal(order))}
                         </div>
-                        <div className="text-xs text-gray-400">{formatDate(order.createdAt)}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">{formatDate(order.createdAt)}</div>
                       </div>
                     </div>
 
@@ -1122,42 +1122,42 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
                     <div className="space-y-2 mb-4">
                       <div className="flex justify-between">
                        
-                        <span className="text-sm text-white text-right">
+                        <span className="text-sm text-gray-900 dark:text-white text-right">
                         {formatProductDisplay(order)}
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-sm text-gray-400">Payment</span>
+                        <span className="text-sm text-gray-500 dark:text-gray-400">Payment</span>
                         <div className="text-right">
-                          <div className="text-sm text-white">{order.paymentMethod || 'N/A'}</div>
-                          <div className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getPaymentStatusColor(order.paymentStatus)} text-white mt-1`}>
+                          <div className="text-sm text-gray-900 dark:text-white">{order.paymentMethod || 'N/A'}</div>
+                          <div className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getPaymentStatusColor(order.paymentStatus)} text-gray-900 dark:text-white mt-1`}>
                             {order.paymentStatus}
                           </div>
                         </div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-400">Status</span>
-                        <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)} text-white`}>
+                        <span className="text-sm text-gray-500 dark:text-gray-400">Status</span>
+                        <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)} text-gray-900 dark:text-white`}>
                           {(order.orderStatus || order.status)?.replace("_", " ")}
                         </div>
                       </div>
                     </div>
 
                     {/* Actions */}
-                    <div className="space-y-2 pt-3 border-t border-gray-700">
+                    <div className="space-y-2 pt-3 border-t border-gray-200 dark:border-gray-700">
                     {order.status === "return_requested" ? (
 <div className="flex gap-2">
 
 <button
 onClick={()=>handleStatusSelectChange(order.id,"returned")}
-className="bg-green-600 text-white px-2 py-1 rounded text-xs"
+className="bg-green-600 text-gray-900 dark:text-white px-2 py-1 rounded text-xs"
 >
 Approve
 </button>
 
 <button
 onClick={()=>handleStatusSelectChange(order.id,"delivered")}
-className="bg-red-600 text-white px-2 py-1 rounded text-xs"
+className="bg-red-600 text-gray-900 dark:text-white px-2 py-1 rounded text-xs"
 >
 Reject
 </button>
@@ -1167,7 +1167,7 @@ Reject
 <select
 value={order.orderStatus || order.status}
 onChange={(e)=>handleStatusSelectChange(order.id,e.target.value)}
-className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-600"
+className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white text-xs px-2 py-1 rounded border border-gray-300 dark:border-gray-600"
 >
 <option value="pending">Pending</option>
 <option value="processing">Processing</option>
@@ -1182,21 +1182,21 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
                       <div className="flex gap-2">
                         <button 
                           onClick={() => handleView(order)}
-                          className="flex-1 bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded text-sm font-medium transition-colors flex items-center justify-center space-x-2"
+                          className="flex-1 bg-green-600 hover:bg-green-700 text-gray-900 dark:text-white px-3 py-2 rounded text-sm font-medium transition-colors flex items-center justify-center space-x-2"
                         >
                           <Eye size={16} />
                           <span>View</span>
                         </button>
                         <button 
                           onClick={() => handleEdit(order)}
-                          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm font-medium transition-colors flex items-center justify-center space-x-2"
+                          className="flex-1 bg-blue-600 hover:bg-blue-700 text-gray-900 dark:text-white px-3 py-2 rounded text-sm font-medium transition-colors flex items-center justify-center space-x-2"
                         >
                           <Edit size={16} />
                           <span>Edit</span>
                         </button>
                         <button 
                           onClick={() => handleDelete(order.id, order.customerId)}
-                          className="flex-1 bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded text-sm font-medium transition-colors flex items-center justify-center space-x-2"
+                          className="flex-1 bg-red-600 hover:bg-red-700 text-gray-900 dark:text-white px-3 py-2 rounded text-sm font-medium transition-colors flex items-center justify-center space-x-2"
                         >
                           <Trash2 size={16} />
                           <span>Delete</span>
@@ -1215,14 +1215,14 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
       {/* Order Form Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-gray-800 rounded-xl p-6 w-full max-w-md mx-auto">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto custom-scrollbar mx-auto">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold text-white">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                 {editingOrder ? 'Edit Order' : 'Add New Order'}
               </h3>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-gray-400 hover:text-white p-1 rounded-lg hover:bg-gray-700 transition-colors"
+                className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white p-1 rounded-lg hover:bg-gray-100 dark:bg-gray-700 transition-colors"
               >
                 <X size={24} />
               </button>
@@ -1231,7 +1231,7 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
             <form onSubmit={handleSave} className="space-y-4">
               {/* Form fields remain the same as your original */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Customer Name
                 </label>
                 <input
@@ -1239,13 +1239,13 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
                   disabled={!!editingOrder}
                   value={formData.customerName}
                   onChange={(e) => setFormData({...formData, customerName: e.target.value})}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Customer Email
                 </label>
                 <input
@@ -1253,13 +1253,13 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
                   disabled={!!editingOrder}
                   value={formData.customerEmail}
                   onChange={(e) => setFormData({...formData, customerEmail: e.target.value})}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Customer Phone
                 </label>
                 <input
@@ -1267,13 +1267,13 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
                   disabled={!!editingOrder}
                   value={formData.customerPhone}
                   onChange={(e) => setFormData({...formData, customerPhone: e.target.value})}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Amount
                 </label>
                 <input
@@ -1281,7 +1281,7 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
                   disabled={!!editingOrder}
                   value={formData.amount}
                   onChange={(e) => setFormData({...formData, amount: parseFloat(e.target.value) || 0})}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   required
                   min="0"
                   step="0.01"
@@ -1290,13 +1290,13 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Order Status
                   </label>
                   <select
                     value={formData.status}
                     onChange={(e) => setFormData({...formData, status: e.target.value})}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   >
                     <option value="pending">Pending</option>
                     <option value="processing">Processing</option>
@@ -1307,13 +1307,13 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Payment Status
                   </label>
                   <select
                     value={formData.paymentStatus}
                     onChange={(e) => setFormData({...formData, paymentStatus: e.target.value})}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   >
                     <option value="pending">Pending</option>
                     <option value="paid">Paid</option>
@@ -1323,14 +1323,14 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Items (JSON format)
                 </label>
                 <textarea
                   value={formData.items}
                   disabled={!!editingOrder}
                   onChange={(e) => setFormData({...formData, items: e.target.value})}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   rows="4"
                   placeholder='[{"name": "Product Name", "quantity": 1, "price": 100}]'
                 />
@@ -1340,14 +1340,14 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="flex-1 px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium"
+                  className="flex-1 px-6 py-3 bg-gray-100 dark:bg-gray-600 text-gray-900 dark:text-white rounded-lg hover:bg-gray-100 dark:bg-gray-700 transition-colors font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 px-6 py-3 bg-blue-600 text-gray-900 dark:text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Saving...' : editingOrder ? 'Update' : 'Add'}
                 </button>
@@ -1360,14 +1360,14 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
            {/* View Order Modal */}
       {showViewModal && viewingOrder && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-gray-800 rounded-xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold text-white">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                 Order Details - #{viewingOrder.id}
               </h3>
               <button
                 onClick={() => setShowViewModal(false)}
-                className="text-gray-400 hover:text-white p-1 rounded-lg hover:bg-gray-700 transition-colors"
+                className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white p-1 rounded-lg hover:bg-gray-100 dark:bg-gray-700 transition-colors"
               >
                 <X size={24} />
               </button>
@@ -1376,101 +1376,101 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
             <div className="space-y-6">
               {/* Customer Information */}
               <div className="bg-gray-750 rounded-lg p-4">
-                <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                   <User size={20} />
                   Customer Information
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm text-gray-400">Name</label>
-                    <p className="text-white font-medium">{viewingOrder.customerName || 'N/A'}</p>
+                    <label className="text-sm text-gray-500 dark:text-gray-400">Name</label>
+                    <p className="text-gray-900 dark:text-white font-medium">{viewingOrder.customerName || 'N/A'}</p>
                   </div>
                   <div>
-                    <label className="text-sm text-gray-400">Email</label>
-                    <p className="text-white font-medium">{viewingOrder.customerEmail || 'N/A'}</p>
+                    <label className="text-sm text-gray-500 dark:text-gray-400">Email</label>
+                    <p className="text-gray-900 dark:text-white font-medium">{viewingOrder.customerEmail || 'N/A'}</p>
                   </div>
                   <div>
-                    <label className="text-sm text-gray-400">Phone</label>
-                    <p className="text-white font-medium">{viewingOrder.customerPhone || 'N/A'}</p>
+                    <label className="text-sm text-gray-500 dark:text-gray-400">Phone</label>
+                    <p className="text-gray-900 dark:text-white font-medium">{viewingOrder.customerPhone || 'N/A'}</p>
                   </div>
                   <div>
-                    <label className="text-sm text-gray-400">Customer ID</label>
-                    <p className="text-white font-medium">{viewingOrder.customerId || 'N/A'}</p>
+                    <label className="text-sm text-gray-500 dark:text-gray-400">Customer ID</label>
+                    <p className="text-gray-900 dark:text-white font-medium">{viewingOrder.customerId || 'N/A'}</p>
                   </div>
                 </div>
               </div>
 
               {/* Order Information */}
               <div className="bg-gray-750 rounded-lg p-4">
-                <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                   <CreditCard size={20} />
                   Order Information
                 </h4>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div>
-                    <label className="text-sm text-gray-400">Total Amount</label>
-                    <p className="text-white font-medium text-lg">
+                    <label className="text-sm text-gray-500 dark:text-gray-400">Total Amount</label>
+                    <p className="text-gray-900 dark:text-white font-medium text-lg">
                       {formatCurrency(calculateOrderTotal(viewingOrder))}
                     </p>
                   </div>
                   <div>
-                    <label className="text-sm text-gray-400">Order Status</label>
-                    <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(viewingOrder.status)} text-white`}>
+                    <label className="text-sm text-gray-500 dark:text-gray-400">Order Status</label>
+                    <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(viewingOrder.status)} text-gray-900 dark:text-white`}>
                       {viewingOrder.status}
                     </div>
                   </div>
                   <div>
-                    <label className="text-sm text-gray-400">Payment Status</label>
-                    <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPaymentStatusColor(viewingOrder.paymentStatus)} text-white`}>
+                    <label className="text-sm text-gray-500 dark:text-gray-400">Payment Status</label>
+                    <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPaymentStatusColor(viewingOrder.paymentStatus)} text-gray-900 dark:text-white`}>
                       {viewingOrder.paymentStatus}
                     </div>
                   </div>
                   <div>
-                    <label className="text-sm text-gray-400">Payment Method</label>
-                    <p className="text-white font-medium">{viewingOrder.paymentMethod || 'N/A'}</p>
+                    <label className="text-sm text-gray-500 dark:text-gray-400">Payment Method</label>
+                    <p className="text-gray-900 dark:text-white font-medium">{viewingOrder.paymentMethod || 'N/A'}</p>
                   </div>
                 </div>
               </div>
 
               {/* Order Items */}
               <div className="bg-gray-750 rounded-lg p-4">
-                <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                   <Package size={20} />
                   Order Items
                 </h4>
                 {(() => {
                   const items = viewingOrder.items || viewingOrder.products || [];
                   if (items.length === 0) {
-                    return <p className="text-gray-400 text-center py-4">No items found</p>;
+                    return <p className="text-gray-500 dark:text-gray-400 text-center py-4">No items found</p>;
                   }
 
                   return (
                     <div className="space-y-3">
                       {items.map((item, index) => (
-                        <div key={index} className="flex justify-between items-center p-3 bg-gray-700 rounded-lg">
+                        <div key={index} className="flex justify-between items-center p-3 bg-gray-100 dark:bg-gray-700 rounded-lg">
                           <div className="flex-1">
-                            <p className="text-white font-medium">
+                            <p className="text-gray-900 dark:text-white font-medium">
                               {item.name || item.productName || `Item ${index + 1}`}
                             </p>
-                            <div className="text-sm text-gray-400 mt-1">
+                            <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                               SKU: {getSKUFromItem(item) || 'N/A'} | 
                               Qty: {item.quantity || item.qty || 1} | 
                               Price: {formatCurrency(item.price || item.sellingPrice || 0)}
                             </div>
                             {item.size && (
-                              <div className="text-xs text-gray-400">Size: {item.size}</div>
+                              <div className="text-xs text-gray-500 dark:text-gray-400">Size: {item.size}</div>
                             )}
                           </div>
                           <div className="text-right">
-                            <p className="text-white font-semibold">
+                            <p className="text-gray-900 dark:text-white font-semibold">
                               {formatCurrency((item.price || item.sellingPrice || 0) * (item.quantity || item.qty || 1))}
                             </p>
                           </div>
                         </div>
                       ))}
-                      <div className="border-t border-gray-600 pt-3 mt-3">
+                      <div className="border-t border-gray-300 dark:border-gray-600 pt-3 mt-3">
                         <div className="flex justify-between items-center text-lg font-semibold">
-                          <span className="text-white">Total</span>
+                          <span className="text-gray-900 dark:text-white">Total</span>
                           <span className="text-blue-400">
                             {formatCurrency(calculateOrderTotal(viewingOrder))}
                           </span>
@@ -1484,31 +1484,31 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
               {/* Shipping Information */}
               {viewingOrder.shippingAddress && (
                 <div className="bg-gray-750 rounded-lg p-4">
-                  <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                     <Package size={20} />
                     Shipping Information
                   </h4>
-                  <div className="bg-gray-700 rounded-lg p-3">
-                    <p className="text-white whitespace-pre-wrap">{viewingOrder.shippingAddress}</p>
+                  <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-3">
+                    <p className="text-gray-900 dark:text-white whitespace-pre-wrap">{viewingOrder.shippingAddress}</p>
                   </div>
                 </div>
               )}
 
               {/* Order Timeline */}
               <div className="bg-gray-750 rounded-lg p-4">
-                <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                     <Calendar size={20} />
                     Order Timeline
                 </h4>
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-400">Order Created</span>
-                    <span className="text-white">{formatDate(viewingOrder.createdAt)}</span>
+                    <span className="text-gray-500 dark:text-gray-400">Order Created</span>
+                    <span className="text-gray-900 dark:text-white">{formatDate(viewingOrder.createdAt)}</span>
                   </div>
                   {viewingOrder.updatedAt && viewingOrder.updatedAt !== viewingOrder.createdAt && (
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-400">Last Updated</span>
-                      <span className="text-white">{formatDate(viewingOrder.updatedAt)}</span>
+                      <span className="text-gray-500 dark:text-gray-400">Last Updated</span>
+                      <span className="text-gray-900 dark:text-white">{formatDate(viewingOrder.updatedAt)}</span>
                     </div>
                   )}
                 </div>
@@ -1521,14 +1521,14 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
                     setShowViewModal(false);
                     handleEdit(viewingOrder);
                   }}
-                  className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center gap-2"
+                  className="flex-1 px-6 py-3 bg-blue-600 text-gray-900 dark:text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center gap-2"
                 >
                   <Edit size={18} />
                   Edit Order
                 </button>
                 <button
                   onClick={() => setShowViewModal(false)}
-                  className="flex-1 px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium"
+                  className="flex-1 px-6 py-3 bg-gray-100 dark:bg-gray-600 text-gray-900 dark:text-white rounded-lg hover:bg-gray-100 dark:bg-gray-700 transition-colors font-medium"
                 >
                   Close
                 </button>
@@ -1537,8 +1537,15 @@ className="bg-gray-700 text-white text-xs px-2 py-1 rounded border border-gray-6
           </div>
         </div>
       )}
+    
+      <style>{`
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #9ca3af; border-radius: 10px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #4b5563; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+      `}</style>
     </div>
   );
 };
-
 export default Orders;

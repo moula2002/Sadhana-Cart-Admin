@@ -140,11 +140,11 @@ const RefundRequests = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto bg-gray-900 p-4 md:p-8 min-h-screen text-white relative font-sans">
+    <div className="max-w-7xl mx-auto bg-gray-50 dark:bg-gray-900 p-4 md:p-8 min-h-screen text-gray-900 dark:text-white relative font-sans">
       
       {/* Toast Notification */}
       {copyFeedback && (
-        <div className="fixed top-8 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-8 py-3 rounded-2xl shadow-2xl z-[60] animate-in fade-in slide-in-from-top-4 duration-300 flex items-center gap-2">
+        <div className="fixed top-8 left-1/2 -translate-x-1/2 bg-blue-600 text-gray-900 dark:text-white px-8 py-3 rounded-2xl shadow-2xl z-[60] animate-in fade-in slide-in-from-top-4 duration-300 flex items-center gap-2">
           <CheckCircle size={18} />
           <span className="font-semibold">{copyFeedback}</span>
         </div>
@@ -153,14 +153,14 @@ const RefundRequests = () => {
       {/* Rejection Modal */}
       {rejectionModal.isOpen && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[70] flex items-center justify-center p-4">
-          <div className="bg-gray-800 border border-gray-700 rounded-3xl p-6 w-full max-w-md shadow-2xl">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-3xl p-6 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl">
             <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
               <XCircle className="text-red-500" />
               Reject Return Request
             </h3>
-            <p className="text-gray-400 text-sm mb-4">Please provide a reason for rejecting this return request. This will be visible to the customer.</p>
+            <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">Please provide a reason for rejecting this return request. This will be visible to the customer.</p>
             <textarea
-              className="w-full bg-gray-900 border border-gray-700 rounded-xl p-4 text-sm outline-none focus:ring-2 focus:ring-red-500 mb-6 min-h-[120px]"
+              className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-4 text-sm outline-none focus:ring-2 focus:ring-red-500 mb-6 min-h-[120px]"
               placeholder="e.g., Item shows signs of heavy usage, missing original packaging..."
               value={rejectionModal.reason}
               onChange={(e) => setRejectionModal(prev => ({ ...prev, reason: e.target.value }))}
@@ -168,7 +168,7 @@ const RefundRequests = () => {
             <div className="flex gap-3">
               <button 
                 onClick={() => setRejectionModal({ isOpen: false, item: null, reason: '' })}
-                className="flex-1 px-4 py-3 bg-gray-700 hover:bg-gray-600 rounded-xl font-semibold transition-colors"
+                className="flex-1 px-4 py-3 bg-gray-100 dark:bg-gray-700 hover:bg-gray-100 dark:bg-gray-600 rounded-xl font-semibold transition-colors"
               >
                 Cancel
               </button>
@@ -188,12 +188,12 @@ const RefundRequests = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
         <div>
           <h2 className="text-2xl md:text-4xl font-black tracking-tight">Returns <span className="text-blue-500">& Refunds</span></h2>
-          <p className="text-gray-400 mt-1 font-medium">Lifecycle management for customer return requests</p>
+          <p className="text-gray-500 dark:text-gray-400 mt-1 font-medium">Lifecycle management for customer return requests</p>
         </div>
         <div className="flex items-center gap-3">
           <button 
             onClick={fetchRefunds} 
-            className="flex items-center gap-2 bg-gray-800 px-4 py-2.5 rounded-xl border border-gray-700 hover:bg-gray-750 active:scale-95 transition-all text-sm font-semibold"
+            className="flex items-center gap-2 bg-white dark:bg-gray-800 px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-gray-750 active:scale-95 transition-all text-sm font-semibold"
           >
             <RefreshCw size={18} className={loading ? 'animate-spin' : ''} />
             Refresh Data
@@ -210,9 +210,9 @@ const RefundRequests = () => {
           { label: 'Refunded', count: stats.completed, icon: CheckCircle, color: 'text-green-500', border: 'border-green-500/20' },
           { label: 'Rejected', count: stats.rejected, icon: XCircle, color: 'text-red-500', border: 'border-red-500/20' }
         ].map((stat, i) => (
-          <div key={i} className={`bg-gray-800/50 p-4 rounded-2xl border ${stat.border} flex flex-col gap-1`}>
+          <div key={i} className={`bg-white/80 dark:bg-gray-800/50 p-4 rounded-2xl border ${stat.border} flex flex-col gap-1`}>
             <stat.icon className={`${stat.color} mb-1`} size={20} />
-            <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">{stat.label}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase tracking-wider">{stat.label}</p>
             <p className="text-2xl font-black">{stat.count}</p>
           </div>
         ))}
@@ -225,12 +225,12 @@ const RefundRequests = () => {
           <input
             type="text" placeholder="Search by Order ID or Customer Name..." value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-12 pr-4 py-3.5 bg-gray-800 border border-gray-700 rounded-2xl focus:ring-2 focus:ring-blue-500/50 outline-none text-sm transition-all shadow-inner"
+            className="w-full pl-12 pr-4 py-3.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl focus:ring-2 focus:ring-blue-500/50 outline-none text-sm transition-all shadow-inner"
           />
         </div>
         <select 
           value={selectedFilter} onChange={(e) => setSelectedFilter(e.target.value)}
-          className="bg-gray-800 border border-gray-700 rounded-2xl px-6 py-3.5 text-sm font-bold outline-none cursor-pointer hover:bg-gray-750 transition-colors"
+          className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl px-6 py-3.5 text-sm font-bold outline-none cursor-pointer hover:bg-gray-750 transition-colors"
         >
           <option value="all">View All Requests</option>
           <option value="return_requested">New Requests</option>
@@ -246,14 +246,14 @@ const RefundRequests = () => {
       {loading ? (
         <div className="flex flex-col items-center justify-center py-32 gap-4">
           <RefreshCw className="animate-spin text-blue-500" size={48} />
-          <p className="text-gray-400 font-medium animate-pulse">Syncing return records...</p>
+          <p className="text-gray-500 dark:text-gray-400 font-medium animate-pulse">Syncing return records...</p>
         </div>
       ) : filteredRefunds.length === 0 ? (
-        <div className="text-center py-32 bg-gray-800/30 rounded-[32px] border-2 border-dashed border-gray-700/50">
-          <div className="bg-gray-800 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="text-center py-32 bg-white/60 dark:bg-gray-800/30 rounded-[32px] border-2 border-dashed border-gray-200 dark:border-gray-700/50">
+          <div className="bg-white dark:bg-gray-800 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
             <ShieldCheck className="text-gray-600" size={40} />
           </div>
-          <h3 className="text-xl font-bold text-gray-300">No Return Requests Found</h3>
+          <h3 className="text-xl font-bold text-gray-700 dark:text-gray-300">No Return Requests Found</h3>
           <p className="text-gray-500 mt-2">Adjust your filters or search terms</p>
         </div>
       ) : (
@@ -263,9 +263,9 @@ const RefundRequests = () => {
             const StatusIcon = config.icon;
 
             return (
-              <div key={item.id} className="bg-gray-800/80 rounded-[28px] border border-gray-700 overflow-hidden hover:border-gray-500 transition-all group shadow-xl">
+              <div key={item.id} className="bg-white/90 dark:bg-gray-800/80 rounded-[28px] border border-gray-200 dark:border-gray-700 overflow-hidden hover:border-gray-500 transition-all group shadow-xl">
                 <div className="p-1">
-                  <div className="bg-gray-900/40 rounded-[24px] p-6">
+                  <div className="bg-gray-50/80 dark:bg-gray-900/40 rounded-[24px] p-6">
                     {/* Top Row */}
                     <div className="flex flex-col lg:flex-row justify-between gap-6 mb-6">
                       <div className="flex gap-4">
@@ -275,8 +275,8 @@ const RefundRequests = () => {
                         <div>
                           <h3 className="text-xl font-black">{item.userName}</h3>
                           <div className="flex items-center gap-2 mt-1">
-                            <span className="text-xs font-mono text-gray-500 bg-gray-900 px-2 py-0.5 rounded-full border border-gray-700">#{item.orderId?.slice(-8) || item.id?.slice(-8)}</span>
-                            <span className="text-xs text-gray-400 font-medium">{item.customerEmail}</span>
+                            <span className="text-xs font-mono text-gray-500 bg-gray-50 dark:bg-gray-900 px-2 py-0.5 rounded-full border border-gray-200 dark:border-gray-700">#{item.orderId?.slice(-8) || item.id?.slice(-8)}</span>
+                            <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">{item.customerEmail}</span>
                           </div>
                         </div>
                       </div>
@@ -287,16 +287,16 @@ const RefundRequests = () => {
                           {config.label}
                         </div>
                         
-                        <div className="flex items-center gap-4 bg-gray-900/60 px-6 py-2 rounded-2xl border border-gray-700">
-                          <div className="text-center px-4 border-r border-gray-700">
+                        <div className="flex items-center gap-4 bg-gray-900/60 px-6 py-2 rounded-2xl border border-gray-200 dark:border-gray-700">
+                          <div className="text-center px-4 border-r border-gray-200 dark:border-gray-700">
                             <p className="text-[10px] text-gray-500 font-black uppercase">Cash Refund</p>
                             <p className="text-lg font-black text-green-500">₹{item.refundAmount || 0}</p>
                           </div>
                           <div className="text-center px-4">
-                            <p className="text-[10px] text-gray-400 font-black uppercase">Coins Spent</p>
+                            <p className="text-[10px] text-gray-500 dark:text-gray-400 font-black uppercase">Coins Spent</p>
                             <div className="flex items-center gap-1 justify-center">
                               <Coins size={14} className="text-yellow-500" />
-                              <p className="text-lg font-black text-white">{item.coinsToRefund || 0}</p>
+                              <p className="text-lg font-black text-gray-900 dark:text-white">{item.coinsToRefund || 0}</p>
                             </div>
                           </div>
                         </div>
@@ -305,25 +305,25 @@ const RefundRequests = () => {
 
                     {/* Middle Section: Request Details */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                      <div className="bg-gray-900/60 p-5 rounded-2xl border border-gray-700/50">
+                      <div className="bg-gray-900/60 p-5 rounded-2xl border border-gray-200 dark:border-gray-700/50">
                         <div className="flex items-center gap-2 mb-3">
-                          <Package size={16} className="text-gray-400" />
-                          <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest">Return Product</h4>
+                          <Package size={16} className="text-gray-500 dark:text-gray-400" />
+                          <h4 className="text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-widest">Return Product</h4>
                         </div>
                         <p className="text-sm font-bold text-gray-200">{item.product?.name || "Multiple Items"}</p>
-                        <div className="mt-4 pt-4 border-t border-gray-700/50">
+                        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700/50">
                           <div className="flex items-center gap-2 mb-2">
                             <AlertCircle size={16} className="text-purple-400" />
                             <h4 className="text-xs font-black text-purple-400 uppercase tracking-widest">Customer Reason</h4>
                           </div>
-                          <p className="text-sm italic text-gray-300">"{item.reason || "No reason provided"}"</p>
+                          <p className="text-sm italic text-gray-700 dark:text-gray-300">"{item.reason || "No reason provided"}"</p>
                         </div>
                       </div>
 
-                      <div className="bg-gray-900/60 p-5 rounded-2xl border border-gray-700/50">
+                      <div className="bg-gray-900/60 p-5 rounded-2xl border border-gray-200 dark:border-gray-700/50">
                         <div className="flex items-center gap-2 mb-4">
-                          <CreditCard size={16} className="text-gray-400" />
-                          <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest">Original Bank Proof</h4>
+                          <CreditCard size={16} className="text-gray-500 dark:text-gray-400" />
+                          <h4 className="text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-widest">Original Bank Proof</h4>
                         </div>
                         <div className="space-y-3">
                           <div className="flex justify-between items-center group/btn">
@@ -332,9 +332,9 @@ const RefundRequests = () => {
                           </div>
                           <button 
                             onClick={() => copyToClipboard(item.bankDetails?.accountNumber, 'ACC')}
-                            className="flex justify-between items-center w-full bg-gray-800 hover:bg-gray-750 p-3 rounded-xl border border-gray-750 hover:border-blue-500/30 transition-all group/copy"
+                            className="flex justify-between items-center w-full bg-white dark:bg-gray-800 hover:bg-gray-750 p-3 rounded-xl border border-gray-750 hover:border-blue-500/30 transition-all group/copy"
                           >
-                            <span className="text-xs text-gray-400 font-bold uppercase">Account No:</span>
+                            <span className="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase">Account No:</span>
                             <div className="flex items-center gap-2">
                               <span className="text-sm font-mono font-bold text-blue-400">{item.bankDetails?.accountNumber || "N/A"}</span>
                               <Copy size={14} className="text-gray-600 group-hover/copy:text-blue-500 transition-colors" />
@@ -342,9 +342,9 @@ const RefundRequests = () => {
                           </button>
                           <button 
                             onClick={() => copyToClipboard(item.bankDetails?.ifsc, 'IFSC')}
-                            className="flex justify-between items-center w-full bg-gray-800 hover:bg-gray-750 p-3 rounded-xl border border-gray-750 hover:border-blue-500/30 transition-all group/copy"
+                            className="flex justify-between items-center w-full bg-white dark:bg-gray-800 hover:bg-gray-750 p-3 rounded-xl border border-gray-750 hover:border-blue-500/30 transition-all group/copy"
                           >
-                            <span className="text-xs text-gray-400 font-bold uppercase">IFSC Code:</span>
+                            <span className="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase">IFSC Code:</span>
                             <div className="flex items-center gap-2">
                               <span className="text-sm font-mono font-bold text-blue-400">{item.bankDetails?.ifsc || "N/A"}</span>
                               <Copy size={14} className="text-gray-600 group-hover/copy:text-blue-500 transition-colors" />
@@ -361,7 +361,7 @@ const RefundRequests = () => {
                           <ShieldCheck className="text-blue-500" />
                           <div>
                             <p className="text-sm font-black">Admin Action Required</p>
-                            <p className="text-[11px] text-gray-400">Following the system protocol for {config.label}</p>
+                            <p className="text-[11px] text-gray-500 dark:text-gray-400">Following the system protocol for {config.label}</p>
                           </div>
                         </div>
 
@@ -435,7 +435,7 @@ const RefundRequests = () => {
                                 <AlertCircle size={14} />
                                 <span className="text-xs font-black uppercase tracking-wider">Rejection Reason</span>
                               </div>
-                              <p className="text-sm text-gray-400 font-medium font-italic italic">"{item.rejectionReason || "No details provided"}"</p>
+                              <p className="text-sm text-gray-500 dark:text-gray-400 font-medium font-italic italic">"{item.rejectionReason || "No details provided"}"</p>
                             </div>
                           )}
                         </div>
@@ -448,8 +448,15 @@ const RefundRequests = () => {
           })}
         </div>
       )}
+    
+      <style>{`
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #9ca3af; border-radius: 10px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #4b5563; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+      `}</style>
     </div>
   );
 };
-
 export default RefundRequests;

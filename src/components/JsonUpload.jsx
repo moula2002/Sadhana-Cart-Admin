@@ -375,17 +375,17 @@ const JsonUpload = ({ isOpen, onClose, onUpload }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-800 rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-700 flex-shrink-0">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
           <div>
-            <h2 className="text-2xl font-bold text-white">JSON Bulk Upload</h2>
-            <p className="text-sm text-gray-400 mt-1">Upload multiple products using JSON file</p>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">JSON Bulk Upload</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Upload multiple products using JSON file</p>
           </div>
           <button
             onClick={handleClose}
             disabled={uploadStatus === 'processing'}
-            className="p-2 hover:bg-gray-700 rounded-full transition-colors disabled:opacity-50 text-gray-400 hover:text-white"
+            className="p-2 hover:bg-gray-100 dark:bg-gray-700 rounded-full transition-colors disabled:opacity-50 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white"
           >
             <X className="w-6 h-6" />
           </button>
@@ -409,12 +409,12 @@ const JsonUpload = ({ isOpen, onClose, onUpload }) => {
             
             <button
               onClick={downloadTemplate}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-gray-900 dark:text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               <Download className="w-4 h-4" />
               Download JSON Template (Optional)
             </button>
-            <p className="text-sm text-gray-400 mt-2">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
               Template download is optional - you can use any JSON format<br/>
               <span className="text-yellow-400">⚠️ 5MB file size limit (unlimited products)</span>
             </p>
@@ -423,7 +423,7 @@ const JsonUpload = ({ isOpen, onClose, onUpload }) => {
           {/* File Upload Area */}
           <div
             className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-              file ? 'border-green-500 bg-green-900/20' : 'border-gray-600 hover:border-gray-500'
+              file ? 'border-green-500 bg-green-900/20' : 'border-gray-300 dark:border-gray-600 hover:border-gray-500'
             }`}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
@@ -440,16 +440,16 @@ const JsonUpload = ({ isOpen, onClose, onUpload }) => {
               </div>
             ) : (
               <div>
-                <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-lg font-medium text-white mb-2">
+                <Upload className="w-12 h-12 text-gray-500 dark:text-gray-400 mx-auto mb-4" />
+                <p className="text-lg font-medium text-gray-900 dark:text-white mb-2">
                   Drop your JSON file here
                 </p>
-                <p className="text-sm text-gray-400 mb-4">
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
                   or click to select file (only .json files)
                 </p>
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-6 py-2 bg-blue-600 text-gray-900 dark:text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Select File
                 </button>
@@ -519,50 +519,50 @@ const JsonUpload = ({ isOpen, onClose, onUpload }) => {
           {/* Data Preview */}
           {jsonData.length > 0 && (
             <div className="mt-6">
-              <h4 className="font-medium text-white mb-3">
+              <h4 className="font-medium text-gray-900 dark:text-white mb-3">
                 Valid Products Preview ({jsonData.length} items):
               </h4>
-              <div className="bg-gray-700 rounded-lg p-4 max-h-60 overflow-auto">
+              <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 max-h-60 overflow-auto">
                 <div className="space-y-4">
                   {jsonData.map((item, index) => (
-                    <div key={index} className="p-4 bg-gray-800 rounded border border-gray-700 space-y-3">
+                    <div key={index} className="p-4 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 space-y-3">
                       <div className="grid grid-cols-3 gap-4">
                         <div>
-                          <div className="text-sm text-gray-400">Product ID</div>
-                          <div className="text-white font-medium">{item.productId || 'Auto-generated'}</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">Product ID</div>
+                          <div className="text-gray-900 dark:text-white font-medium">{item.productId || 'Auto-generated'}</div>
                         </div>
                         <div>
-                          <div className="text-sm text-gray-400">Name</div>
-                          <div className="text-white font-medium">{item.name}</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">Name</div>
+                          <div className="text-gray-900 dark:text-white font-medium">{item.name}</div>
                         </div>
                         <div>
-                          <div className="text-sm text-gray-400">Category</div>
-                          <div className="text-white">{item.category}</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">Category</div>
+                          <div className="text-gray-900 dark:text-white">{item.category}</div>
                         </div>
                       </div>
                       
                       <div className="grid grid-cols-4 gap-4">
                         <div>
-                          <div className="text-sm text-gray-400">Price</div>
-                          <div className="text-white">₹{item.price}</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">Price</div>
+                          <div className="text-gray-900 dark:text-white">₹{item.price}</div>
                         </div>
                         <div>
-                          <div className="text-sm text-gray-400">Offer Price</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">Offer Price</div>
                           <div className="text-green-400">₹{item.offerPrice || 'N/A'}</div>
                         </div>
                         <div>
-                          <div className="text-sm text-gray-400">Stock</div>
-                          <div className="text-white">{item.stock}</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">Stock</div>
+                          <div className="text-gray-900 dark:text-white">{item.stock}</div>
                         </div>
                         <div>
-                          <div className="text-sm text-gray-400">Rating</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">Rating</div>
                           <div className="text-yellow-400">{item.rating || 'N/A'} ⭐</div>
                         </div>
                       </div>
                       
                       {item.images && item.images.length > 0 && (
                         <div>
-                          <div className="text-sm text-gray-400 mb-1">Images ({item.images.length})</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Images ({item.images.length})</div>
                           <div className="text-blue-400 text-sm truncate">{item.images[0]}</div>
                           {item.images.length > 1 && (
                             <div className="text-gray-500 text-xs">+{item.images.length - 1} more images</div>
@@ -572,7 +572,7 @@ const JsonUpload = ({ isOpen, onClose, onUpload }) => {
                       
                       {(item.variants && item.variants.length > 0) || (item.sizeVariants && item.sizeVariants.length > 0) ? (
                         <div>
-                          <div className="text-sm text-gray-400 mb-1">
+                          <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">
                             {item.variants && item.variants.length > 0 ? `Variants (${item.variants.length})` : ''}
                             {item.variants && item.variants.length > 0 && item.sizeVariants && item.sizeVariants.length > 0 ? ' | ' : ''}
                             {item.sizeVariants && item.sizeVariants.length > 0 ? `Size Variants (${item.sizeVariants.length})` : ''}
@@ -588,7 +588,7 @@ const JsonUpload = ({ isOpen, onClose, onUpload }) => {
                                     </span>
                                   ))}
                                   {item.variants.length > 3 && (
-                                    <span className="px-2 py-1 bg-gray-700 text-gray-400 text-xs rounded">
+                                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-xs rounded">
                                       +{item.variants.length - 3} more
                                     </span>
                                   )}
@@ -605,7 +605,7 @@ const JsonUpload = ({ isOpen, onClose, onUpload }) => {
                                     </span>
                                   ))}
                                   {item.sizeVariants.length > 3 && (
-                                    <span className="px-2 py-1 bg-gray-700 text-gray-400 text-xs rounded">
+                                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-xs rounded">
                                       +{item.sizeVariants.length - 3} more
                                     </span>
                                   )}
@@ -618,11 +618,11 @@ const JsonUpload = ({ isOpen, onClose, onUpload }) => {
                       
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <div className="text-sm text-gray-400">Brand</div>
-                          <div className="text-gray-300">{item.brand || 'N/A'}</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">Brand</div>
+                          <div className="text-gray-700 dark:text-gray-300">{item.brand || 'N/A'}</div>
                         </div>
                         <div>
-                          <div className="text-sm text-gray-400">COD</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">COD</div>
                           <div className={`text-sm ${item.cashOnDelivery ? 'text-green-400' : 'text-red-400'}`}>
                             {item.cashOnDelivery ? 'Available' : 'Not Available'}
                           </div>
@@ -638,18 +638,18 @@ const JsonUpload = ({ isOpen, onClose, onUpload }) => {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-700 bg-gray-900 flex-shrink-0">
+        <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 flex-shrink-0">
           <button
             onClick={handleClose}
             disabled={uploadStatus === 'processing'}
-            className="px-6 py-2 text-gray-300 bg-gray-700 border border-gray-600 rounded-lg hover:bg-gray-600 transition-colors disabled:opacity-50"
+            className="px-6 py-2 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:bg-gray-600 transition-colors disabled:opacity-50"
           >
             Cancel
           </button>
           <button
             onClick={handleUpload}
             disabled={jsonData.length === 0 || uploadStatus === 'processing' || errors.length > 0}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-6 py-2 bg-blue-600 text-gray-900 dark:text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
             {uploadStatus === 'processing' ? (
               <>

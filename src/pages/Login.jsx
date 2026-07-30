@@ -154,21 +154,21 @@ const Login = ({ setIsAuthenticated }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 dark:from-gray-900 via-white dark:via-gray-800 to-gray-50 dark:to-gray-900 flex items-center justify-center px-4">
       <div className="max-w-md w-full space-y-8">
         {/* Logo and Title */}
         <div className="text-center">
           <div className="flex justify-center mb-4">
             <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center">
-              <ShoppingBag size={32} className="text-white" />
+              <ShoppingBag size={32} className="text-gray-900 dark:text-white" />
             </div>
           </div>
-          <h2 className="text-3xl font-bold text-white mb-2">Admin Login</h2>
-          <p className="text-gray-400">Sign in to your admin account</p>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Admin Login</h2>
+          <p className="text-gray-500 dark:text-gray-400">Sign in to your admin account</p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-gray-800 rounded-lg shadow-xl p-8 border border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8 border border-gray-200 dark:border-gray-700">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* General Error */}
             {errors.general && (
@@ -179,12 +179,12 @@ const Login = ({ setIsAuthenticated }) => {
 
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Email Address
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User className="h-5 w-5 text-gray-400" />
+                  <User className="h-5 w-5 text-gray-500 dark:text-gray-400" />
                 </div>
                 <input
                   id="email"
@@ -192,8 +192,8 @@ const Login = ({ setIsAuthenticated }) => {
                   type="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className={`w-full pl-10 pr-4 py-3 bg-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400 ${
-                    errors.email ? 'border-red-500' : 'border-gray-600'
+                  className={`w-full pl-10 pr-4 py-3 bg-gray-100 dark:bg-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white placeholder-gray-400 ${
+                    errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                   }`}
                   placeholder="Enter your email"
                 />
@@ -205,12 +205,12 @@ const Login = ({ setIsAuthenticated }) => {
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Password
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
+                  <Lock className="h-5 w-5 text-gray-500 dark:text-gray-400" />
                 </div>
                 <input
                   id="password"
@@ -218,8 +218,8 @@ const Login = ({ setIsAuthenticated }) => {
                   type={showPassword ? 'text' : 'password'}
                   value={formData.password}
                   onChange={handleInputChange}
-                  className={`w-full pl-10 pr-12 py-3 bg-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400 ${
-                    errors.password ? 'border-red-500' : 'border-gray-600'
+                  className={`w-full pl-10 pr-12 py-3 bg-gray-100 dark:bg-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white placeholder-gray-400 ${
+                    errors.password ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                   }`}
                   placeholder="Enter your password"
                 />
@@ -229,9 +229,9 @@ const Login = ({ setIsAuthenticated }) => {
                   className="absolute inset-y-0 right-0 pr-3 flex items-center"
                 >
                   {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-300" />
+                    <EyeOff className="h-5 w-5 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300" />
                   ) : (
-                    <Eye className="h-5 w-5 text-gray-400 hover:text-gray-300" />
+                    <Eye className="h-5 w-5 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300" />
                   )}
                 </button>
               </div>
@@ -247,9 +247,9 @@ const Login = ({ setIsAuthenticated }) => {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-600 bg-gray-700 rounded"
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 rounded"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
+                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
                   Remember me
                 </label>
               </div>
@@ -269,7 +269,7 @@ const Login = ({ setIsAuthenticated }) => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-gray-900 dark:text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {isLoading ? (
                 <div className="flex items-center">
@@ -288,7 +288,7 @@ const Login = ({ setIsAuthenticated }) => {
                 type="button"
                 onClick={handleFixAdmins}
                 disabled={isFixing}
-                className="w-full py-2 px-4 rounded-lg bg-yellow-600 text-white hover:bg-yellow-700"
+                className="w-full py-2 px-4 rounded-lg bg-yellow-600 text-gray-900 dark:text-white hover:bg-yellow-700"
               >
                 {isFixing ? 'Fixing...' : 'Fix Admin Accounts'}
               </button>

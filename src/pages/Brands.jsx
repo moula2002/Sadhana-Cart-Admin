@@ -198,9 +198,9 @@ const Brands = () => {
   // ---------------------------------
 
   return (
-    <div className="p-4 lg:p-6 bg-gray-900 h-full min-h-screen">
+    <div className="p-4 lg:p-6 bg-gray-50 dark:bg-gray-900 h-full min-h-screen">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
-        <h2 className="text-2xl font-semibold text-white">Brands Management</h2>
+        <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Brands Management</h2>
         <div className="flex items-center space-x-3 w-full md:w-auto">
           <button 
             onClick={() => {
@@ -212,14 +212,14 @@ const Brands = () => {
               setSelectedCategory("");
               setIsModalOpen(true);
             }}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors text-sm"
+            className="bg-blue-600 hover:bg-blue-700 text-gray-900 dark:text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors text-sm"
           >
             <Plus size={20} />
             <span>Add Brand</span>
           </button>
           <button 
             onClick={handleRefresh}
-            className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded-lg transition-colors"
+            className="bg-gray-100 dark:bg-gray-700 hover:bg-gray-100 dark:bg-gray-600 text-gray-900 dark:text-white p-2 rounded-lg transition-colors"
           >
             <RefreshCw size={20} />
           </button>
@@ -227,18 +227,18 @@ const Brands = () => {
       </div>
       
       {/* --- SEARCH BAR --- */}
-      <div className="mb-6 flex items-center justify-between p-4 bg-gray-800 rounded-lg">
-        <h3 className="text-lg font-medium text-white hidden sm:block">
+      <div className="mb-6 flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg">
+        <h3 className="text-lg font-medium text-gray-900 dark:text-white hidden sm:block">
           My Brands ({filteredBrands.length})
         </h3>
         <div className="relative w-full sm:w-80">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400" size={18} />
           <input
             type="text"
             placeholder="Search by brand or sub category..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
       </div>
@@ -246,69 +246,69 @@ const Brands = () => {
 
 
       {/* Desktop Table View */}
-      <div className="hidden lg:block bg-gray-800 rounded-lg overflow-hidden">
+      <div className="hidden lg:block bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-700">
+            <thead className="bg-gray-100 dark:bg-gray-700">
               <tr>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-300">Logo</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-300">Banner</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-300">Brands Name</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-300">Sub Categories</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-300">Description</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-300">Added Date</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-300" colSpan="2">Actions</th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Logo</th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Banner</th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Brands Name</th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Sub Categories</th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Description</th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Added Date</th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300" colSpan="2">Actions</th>
               </tr>
             </thead>
             <tbody>
               {loading && brands.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="px-6 py-12 text-center text-gray-400">
+                  <td colSpan="5" className="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
                     <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500 mx-auto"></div>
                     <p className="mt-2">Loading brands...</p>
                   </td>
                 </tr>
               ) : filteredBrands.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="px-6 py-12 text-center text-gray-400">
+                  <td colSpan="5" className="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
                     {searchTerm ? `No brands found matching "${searchTerm}"` : 'No brands available'}
                   </td>
                 </tr>
               ) : (
                 filteredBrands.map((brand) => (
-                  <tr key={brand.id} className="border-t border-gray-700 hover:bg-gray-700">
+                  <tr key={brand.id} className="border-t border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:bg-gray-700">
                     <td className="px-6 py-4">
                       {brand.image ? (
-                        <img src={brand.image} alt={brand.name} className="h-10 w-10 rounded-lg object-cover bg-gray-700" />
+                        <img src={brand.image} alt={brand.name} className="h-10 w-10 rounded-lg object-cover bg-gray-100 dark:bg-gray-700" />
                       ) : (
-                        <div className="h-10 w-10 rounded-lg bg-gray-700 flex items-center justify-center">
+                        <div className="h-10 w-10 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
                           <ImageIcon size={20} className="text-gray-500" />
                         </div>
                       )}
                     </td>
                      <td className="px-6 py-4">
                       {brand.bannerImage ? (
-                        <img src={brand.bannerImage} alt="Banner" className="h-10 w-20 rounded-lg object-cover bg-gray-700" />
+                        <img src={brand.bannerImage} alt="Banner" className="h-10 w-20 rounded-lg object-cover bg-gray-100 dark:bg-gray-700" />
                       ) : (
-                        <div className="h-10 w-20 rounded-lg bg-gray-700 flex items-center justify-center">
+                        <div className="h-10 w-20 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
                           <ImageIcon size={20} className="text-gray-500" />
                         </div>
                       )}
                     </td>
-                    <td className="px-6 py-4 text-white font-medium">{brand.name}</td>
-                    <td className="px-6 py-4 text-gray-300">
+                    <td className="px-6 py-4 text-gray-900 dark:text-white font-medium">{brand.name}</td>
+                    <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
                       <div className="flex flex-wrap gap-1">
                         {brand.subCategories ? brand.subCategories.map((sub, i) => (
-                          <span key={i} className="px-2 py-1 bg-gray-700 rounded text-xs">{sub}</span>
+                          <span key={i} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-xs">{sub}</span>
                         )) : brand.subCategory && (
-                          <span className="px-2 py-1 bg-gray-700 rounded text-xs">{brand.subCategory}</span>
+                          <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-xs">{brand.subCategory}</span>
                         )}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-gray-400 text-sm max-w-xs truncate">
+                    <td className="px-6 py-4 text-gray-500 dark:text-gray-400 text-sm max-w-xs truncate">
                       {brand.description || 'No description'}
                     </td>
-                    <td className="px-6 py-4 text-gray-300">
+                    <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
                       {brand.createdAt && brand.createdAt.seconds ? new Date(brand.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}
                     </td>
                     <td className="px-6 py-4 w-1">
@@ -340,48 +340,48 @@ const Brands = () => {
       {/* Mobile Card View */}
       <div className="lg:hidden space-y-4">
         {loading && brands.length === 0 ? (
-          <div className="bg-gray-800 rounded-lg p-6 text-center text-gray-400">
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center text-gray-500 dark:text-gray-400">
             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500 mx-auto"></div>
             <p className="mt-2">Loading brands...</p>
           </div>
         ) : filteredBrands.length === 0 ? (
-          <div className="bg-gray-800 rounded-lg p-6 text-center text-gray-400">
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center text-gray-500 dark:text-gray-400">
             {searchTerm ? `No brands found matching "${searchTerm}"` : 'No brands available'}
           </div>
         ) : (
            filteredBrands.map((brand) => (
-            <div key={brand.id} className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+            <div key={brand.id} className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
               <div className="flex items-center space-x-4 mb-4">
                 {brand.image ? (
-                  <img src={brand.image} alt={brand.name} className="h-16 w-16 rounded-lg object-cover bg-gray-700 shrink-0" />
+                  <img src={brand.image} alt={brand.name} className="h-16 w-16 rounded-lg object-cover bg-gray-100 dark:bg-gray-700 shrink-0" />
                 ) : (
-                  <div className="h-16 w-16 rounded-lg bg-gray-700 flex items-center justify-center shrink-0">
+                  <div className="h-16 w-16 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center shrink-0">
                     <ImageIcon size={30} className="text-gray-500" />
                   </div>
                 )}
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-white font-medium text-lg truncate">{brand.name}</h3>
-                  <p className="text-gray-300 text-sm mt-1 truncate">Sub Category: **{brand.subCategory}**</p>
+                  <h3 className="text-gray-900 dark:text-white font-medium text-lg truncate">{brand.name}</h3>
+                  <p className="text-gray-700 dark:text-gray-300 text-sm mt-1 truncate">Sub Category: **{brand.subCategory}**</p>
                   {brand.description && (
-                    <p className="text-gray-400 text-xs mt-1 line-clamp-2">{brand.description}</p>
+                    <p className="text-gray-500 dark:text-gray-400 text-xs mt-1 line-clamp-2">{brand.description}</p>
                   )}
                 </div>
               </div>
-              <div className="flex justify-between items-center mt-3 pt-3 border-t border-gray-700">
-                <div className="text-gray-400 text-xs">
+              <div className="flex justify-between items-center mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                <div className="text-gray-500 dark:text-gray-400 text-xs">
                   Added: {brand.createdAt && brand.createdAt.seconds ? new Date(brand.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}
                 </div>
                 <div className="flex space-x-2">
                   <button 
                     onClick={() => handleEdit(brand)}
-                    className="text-blue-400 hover:text-blue-300 p-2 bg-gray-700 rounded-lg"
+                    className="text-blue-400 hover:text-blue-300 p-2 bg-gray-100 dark:bg-gray-700 rounded-lg"
                     disabled={loading}
                   >
                     <Edit size={16} />
                   </button>
                   <button 
                     onClick={() => handleDelete(brand.id)}
-                    className="text-red-400 hover:text-red-300 p-2 bg-gray-700 rounded-lg"
+                    className="text-red-400 hover:text-red-300 p-2 bg-gray-100 dark:bg-gray-700 rounded-lg"
                     disabled={loading}
                   >
                     <Trash2 size={16} />
@@ -395,13 +395,13 @@ const Brands = () => {
 
       {/* Add Brand Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-gray-800 rounded-lg p-6 w-full max-w-md mx-4">
-            <div className="flex items-center justify-between mb-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 w-full max-w-3xl mx-auto max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl">
+            <div className="flex items-center justify-between mb-4 sticky top-0 bg-white dark:bg-gray-800 z-10 pb-4 border-b border-gray-100 dark:border-gray-700">
               <h3 className="text-xl font-semibold text-blue-400">{selectedBrand ? 'EDIT BRAND' : 'ADD BRAND'}</h3>
               <button 
                 onClick={handleCancel}
-                className="text-gray-400 hover:text-white"
+                className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white"
               >
                 <X size={20} />
               </button>
@@ -410,11 +410,11 @@ const Brands = () => {
             <form onSubmit={handleSubmit}>
               {/* Image Upload */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Brand Image
                 </label>
                 <div className="flex items-center space-x-4">
-                  <div className="relative h-24 w-24 rounded-lg bg-gray-700 overflow-hidden flex items-center justify-center border-2 border-dashed border-gray-600">
+                  <div className="relative h-24 w-24 rounded-lg bg-gray-100 dark:bg-gray-700 overflow-hidden flex items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-600">
                     {imagePreview ? (
                       <img src={imagePreview} alt="Preview" className="h-full w-full object-cover" />
                     ) : (
@@ -429,8 +429,8 @@ const Brands = () => {
                     />
                   </div>
                   <div className="flex-1">
-                    <p className="text-xs text-gray-400 mb-2">Recommended: Square image, max 2MB</p>
-                    <label className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg cursor-pointer flex items-center justify-center space-x-2 transition-colors text-sm border border-gray-600">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">Recommended: Square image, max 2MB</p>
+                    <label className="bg-gray-100 dark:bg-gray-700 hover:bg-gray-100 dark:bg-gray-600 text-gray-900 dark:text-white px-4 py-2 rounded-lg cursor-pointer flex items-center justify-center space-x-2 transition-colors text-sm border border-gray-300 dark:border-gray-600">
                       <Upload size={16} />
                       <span>{imageFile ? 'Change Image' : 'Upload Image'}</span>
                       <input
@@ -447,11 +447,11 @@ const Brands = () => {
 
                {/* Banner Image Upload */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Brand Banner Image
                 </label>
                 <div className="flex flex-col space-y-3">
-                  <div className="relative h-32 w-full rounded-lg bg-gray-700 overflow-hidden flex items-center justify-center border-2 border-dashed border-gray-600">
+                  <div className="relative h-32 w-full rounded-lg bg-gray-100 dark:bg-gray-700 overflow-hidden flex items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-600">
                     {bannerImagePreview ? (
                       <img src={bannerImagePreview} alt="Banner Preview" className="h-full w-full object-cover" />
                     ) : (
@@ -468,13 +468,13 @@ const Brands = () => {
                       className="absolute inset-0 opacity-0 cursor-pointer"
                     />
                   </div>
-                  <p className="text-[10px] text-gray-400">Recommended: Wide banner (e.g., 1200x400), max 3MB</p>
+                  <p className="text-[10px] text-gray-500 dark:text-gray-400">Recommended: Wide banner (e.g., 1200x400), max 3MB</p>
                 </div>
               </div>
 
               {/* Category Selection Dropdown */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   1. Select Category
                 </label>
                 <select
@@ -483,7 +483,7 @@ const Brands = () => {
                     setSelectedCategory(e.target.value);
                     setFormData(prev => ({ ...prev, subCategories: [] })); // Clear subcats when category changes
                   }}
-                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 >
                   <option value="">Select Category</option>
@@ -498,23 +498,23 @@ const Brands = () => {
               {/* Sub Categories Multi-Select (Filtered) */}
               {selectedCategory && (
                 <div className="mb-6 animate-in fade-in slide-in-from-top-2 duration-300">
-                  <label className="block text-sm font-medium text-gray-300 mb-3">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                     2. Select Sub Categories for {selectedCategory} *
                   </label>
-                  <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto p-3 bg-gray-900 border border-gray-700 rounded-lg custom-scrollbar">
+                  <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg custom-scrollbar">
                     {subCategories
                       .filter(sub => sub.category === selectedCategory)
                       .map((sub) => (
-                        <label key={sub.id} className="flex items-center space-x-2 cursor-pointer group p-2 hover:bg-gray-800 rounded-md transition-colors">
+                        <label key={sub.id} className="flex items-center space-x-2 cursor-pointer group p-2 hover:bg-white dark:bg-gray-800 rounded-md transition-colors">
                           <input
                             type="checkbox"
                             name="subCategories"
                             value={sub.name}
                             checked={formData.subCategories.includes(sub.name)}
                             onChange={handleInputChange}
-                            className="w-4 h-4 rounded border-gray-500 bg-gray-600 text-blue-600 focus:ring-blue-500 focus:ring-offset-gray-800"
+                            className="w-4 h-4 rounded border-gray-500 bg-gray-100 dark:bg-gray-600 text-blue-600 focus:ring-blue-500 focus:ring-offset-gray-800"
                           />
-                          <span className="text-sm text-gray-300 group-hover:text-white transition-colors">{sub.name}</span>
+                          <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:text-white transition-colors">{sub.name}</span>
                         </label>
                       ))}
                   </div>
@@ -529,7 +529,7 @@ const Brands = () => {
               
               {/* Brand Name */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Brand Name *
                 </label>
                 <input
@@ -538,14 +538,14 @@ const Brands = () => {
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder="Enter brand name"
-                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
 
               {/* Brand Description */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Brand Description
                 </label>
                 <textarea
@@ -554,7 +554,7 @@ const Brands = () => {
                   onChange={handleInputChange}
                   placeholder="Enter brand description"
                   rows="3"
-                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                  className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                 />
               </div>
               
@@ -563,13 +563,13 @@ const Brands = () => {
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors"
+                  className="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-600 text-gray-900 dark:text-white rounded-lg hover:bg-gray-500 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+                  className="flex-1 px-4 py-2 bg-blue-600 text-gray-900 dark:text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
                   disabled={loading}
                 >
                   {loading ? (selectedBrand ? 'Updating...' : 'Adding...') : (selectedBrand ? 'Update' : 'Submit')}
@@ -579,6 +579,13 @@ const Brands = () => {
           </div>
         </div>
       )}
+      <style>{`
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #9ca3af; border-radius: 10px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #4b5563; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+      `}</style>
     </div>
   );
 };

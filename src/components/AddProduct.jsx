@@ -617,16 +617,16 @@ useEffect(() => {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Enter product name"
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                     required
                     disabled={loading}
                   />
                   {formData.searchkeywords.length > 0 && (
                     <div className="mt-2">
-                      <label className="block text-xs font-medium text-gray-400 mb-1">
+                      <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
                         Generated Search Keywords ({formData.searchkeywords.length}):
                       </label>
-                      <div className="flex flex-wrap gap-1 max-h-20 overflow-y-auto p-2 bg-gray-800/50 rounded-lg">
+                      <div className="flex flex-wrap gap-1 max-h-20 overflow-y-auto p-2 bg-white/80 dark:bg-gray-800/50 rounded-lg">
                         {formData.searchkeywords.slice(0, 20).map((keyword, index) => (
                           <span 
                             key={index} 
@@ -636,7 +636,7 @@ useEffect(() => {
                           </span>
                         ))}
                         {formData.searchkeywords.length > 20 && (
-                          <span className="inline-block px-2 py-1 text-xs bg-gray-600 text-gray-400 rounded-md">
+                          <span className="inline-block px-2 py-1 text-xs bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-400 rounded-md">
                             +{formData.searchkeywords.length - 20} more
                           </span>
                         )}
@@ -654,7 +654,7 @@ useEffect(() => {
                     value={formData.description}
                     onChange={handleInputChange}
                     placeholder="Write a detailed product description..."
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none transition-all duration-200"
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none transition-all duration-200"
                     rows="5"
                     disabled={loading}
                   />
@@ -669,7 +669,7 @@ useEffect(() => {
                       name="brand"
                       value={formData.brand}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       disabled={loading}
                     >
                      {uniqueBrands.map((brand) => (
@@ -689,7 +689,7 @@ useEffect(() => {
                       value={formData.color}
                       onChange={handleInputChange}
                       placeholder="Product color"
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       disabled={loading}
                     />
                   </div>
@@ -706,7 +706,7 @@ useEffect(() => {
                       name="category"
                       value={formData.category}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       required
                       disabled={loading}
                     >
@@ -726,7 +726,7 @@ useEffect(() => {
                       name="subcategory"
                       value={formData.subcategory}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       required
                       disabled={loading}
                     >
@@ -751,7 +751,7 @@ useEffect(() => {
                       value={formData.basesku}
                       onChange={handleInputChange}
                       placeholder="Base SKU code"
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       disabled={loading}
                     />
                   </div>
@@ -765,7 +765,7 @@ useEffect(() => {
                       value={formData.productid}
                       onChange={handleInputChange}
                       placeholder="Product ID"
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       disabled={loading}
                     />
                   </div>
@@ -782,7 +782,7 @@ useEffect(() => {
                     value={formData.sellerid}
                     onChange={handleInputChange}
                     placeholder="Enter Seller ID"
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                     required
                     disabled={loading}
                   />
@@ -797,7 +797,7 @@ useEffect(() => {
           <div className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                   <DollarSign size={20} />
                   Pricing Information
                 </h3>
@@ -813,7 +813,7 @@ useEffect(() => {
                       value={formData.price}
                       onChange={handleInputChange}
                       placeholder="0.00"
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       required
                       min="0"
                       step="0.01"
@@ -830,7 +830,7 @@ useEffect(() => {
                       value={formData.offerprice}
                       onChange={handleInputChange}
                       placeholder="0.00"
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       min="0"
                       step="0.01"
                       disabled={loading}
@@ -849,7 +849,7 @@ useEffect(() => {
                       value={formData.stock}
                       onChange={handleInputChange}
                       placeholder="0"
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       required
                       min="0"
                       disabled={loading}
@@ -866,7 +866,7 @@ useEffect(() => {
                       value={formData.hsncode}
                       onChange={handleInputChange}
                       placeholder="Enter HSN Code"
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       required
                       disabled={loading}
                     />
@@ -875,7 +875,7 @@ useEffect(() => {
               </div>
 
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-white">SEO & Identification</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">SEO & Identification</h3>
                 
                 <div>
                   <label className="block text-sm font-semibold text-gray-200 mb-2">
@@ -887,7 +887,7 @@ useEffect(() => {
                     value={formData.seourl}
                     onChange={handleInputChange}
                     placeholder="SEO-friendly URL"
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                     disabled={loading}
                   />
                 </div>
@@ -901,7 +901,7 @@ useEffect(() => {
                       name="gender"
                       value={formData.gender}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       disabled={loading}
                     >
                       <option value="">Select Gender</option>
@@ -921,7 +921,7 @@ useEffect(() => {
                       value={formData.occasion}
                       onChange={handleInputChange}
                       placeholder="Occasion"
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       disabled={loading}
                     />
                   </div>
@@ -946,7 +946,7 @@ useEffect(() => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Image Upload Area */}
                 <div>
-                  <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-gray-600 rounded-2xl cursor-pointer bg-gray-800/50 hover:bg-gray-800 transition-all duration-300 hover:border-blue-500 group">
+                  <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-2xl cursor-pointer bg-white/80 dark:bg-gray-800/50 hover:bg-white dark:bg-gray-800 transition-all duration-300 hover:border-blue-500 group">
                     {imagePreviews.length > 0 ? (
                       <div className="grid grid-cols-2 gap-3 p-4 w-full h-full overflow-auto">
                         {imagePreviews.map((preview, index) => (
@@ -959,13 +959,13 @@ useEffect(() => {
                             <button
                               type="button"
                               onClick={() => removeImage(index)}
-                              className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover/image:opacity-100 transition-opacity hover:bg-red-700"
+                              className="absolute -top-2 -right-2 bg-red-600 text-gray-900 dark:text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover/image:opacity-100 transition-opacity hover:bg-red-700"
                               disabled={loading}
                             >
                               ×
                             </button>
                             {index < existingImages.length && (
-                              <div className="absolute bottom-1 left-1 bg-blue-600 text-white text-xs px-1 rounded">
+                              <div className="absolute bottom-1 left-1 bg-blue-600 text-gray-900 dark:text-white text-xs px-1 rounded">
                                 Existing
                               </div>
                             )}
@@ -973,7 +973,7 @@ useEffect(() => {
                         ))}
                       </div>
                     ) : (
-                      <div className="flex flex-col items-center justify-center text-gray-400 group-hover:text-blue-400 transition-colors">
+                      <div className="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 group-hover:text-blue-400 transition-colors">
                         <Upload className="w-12 h-12 mb-4 opacity-60" />
                         <p className="text-lg font-medium">Upload Product Images</p>
                         <span className="text-sm text-gray-500 mt-2 text-center">
@@ -998,9 +998,9 @@ useEffect(() => {
                 </div>
 
                 {/* Image Guidelines */}
-                <div className="bg-gray-800/30 rounded-2xl p-6 border border-gray-700">
-                  <h4 className="text-sm font-semibold text-white mb-3">Image Guidelines</h4>
-                  <ul className="text-xs text-gray-400 space-y-2">
+                <div className="bg-white/60 dark:bg-gray-800/30 rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
+                  <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Image Guidelines</h4>
+                  <ul className="text-xs text-gray-500 dark:text-gray-400 space-y-2">
                     <li className="flex items-start gap-2">
                       <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 flex-shrink-0"></div>
                       Use high-quality, clear images
@@ -1029,7 +1029,7 @@ useEffect(() => {
           <div className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                   <Ruler size={20} />
                   Dimensions & Weight
                 </h3>
@@ -1045,7 +1045,7 @@ useEffect(() => {
                       value={formData["height(cm)"]}
                       onChange={handleInputChange}
                       placeholder="Height in cm"
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       step="0.1"
                       disabled={loading}
                     />
@@ -1060,7 +1060,7 @@ useEffect(() => {
                       value={formData["width(cm)"]}
                       onChange={handleInputChange}
                       placeholder="Width in cm"
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       step="0.1"
                       disabled={loading}
                     />
@@ -1078,7 +1078,7 @@ useEffect(() => {
                       value={formData["length(cm)"]}
                       onChange={handleInputChange}
                       placeholder="Length in cm"
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       step="0.1"
                       disabled={loading}
                     />
@@ -1093,7 +1093,7 @@ useEffect(() => {
                       value={formData["weight(g)"]}
                       onChange={handleInputChange}
                       placeholder="Weight in grams"
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       step="0.1"
                       disabled={loading}
                     />
@@ -1102,7 +1102,7 @@ useEffect(() => {
               </div>
 
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                   <Palette size={20} />
                   Product Attributes
                 </h3>
@@ -1117,7 +1117,7 @@ useEffect(() => {
                       value={formData.material}
                       onChange={handleInputChange}
                       placeholder="Product material"
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       disabled={loading}
                     />
                 </div>
@@ -1132,7 +1132,7 @@ useEffect(() => {
                     value={formData.pattern}
                     onChange={handleInputChange}
                     placeholder="e.g., Gotta Patti, Floral, Geometric"
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                     disabled={loading}
                   />
                 </div>
@@ -1146,14 +1146,14 @@ useEffect(() => {
                     value={formData.careinstructions}
                     onChange={handleInputChange}
                     placeholder="Care instructions..."
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none transition-all duration-200"
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none transition-all duration-200"
                     rows="3"
                     disabled={loading}
                   />
                 </div>
 
                 {/* Featured Product Toggle */}
-                <div className="mt-6 pt-6 border-t border-gray-700">
+                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
                   <div className="flex items-center justify-between mb-4">
                     <label className="text-sm font-semibold text-gray-200">
                       Make this a Featured Product
@@ -1167,7 +1167,7 @@ useEffect(() => {
                       className={`relative inline-flex h-8 w-16 items-center rounded-full transition-colors ${
                         formData.isFeatured
                           ? 'bg-green-600 hover:bg-green-700'
-                          : 'bg-gray-600 hover:bg-gray-700'
+                          : 'bg-gray-100 dark:bg-gray-600 hover:bg-gray-100 dark:bg-gray-700'
                       }`}
                       disabled={loading}
                     >
@@ -1181,7 +1181,7 @@ useEffect(() => {
 
                   {/* Featured Product Fields - Show only if isFeatured is true */}
                   {formData.isFeatured && (
-                    <div className="mt-6 bg-gray-800/50 rounded-xl p-6 border border-gray-700 border-dashed space-y-4">
+                    <div className="mt-6 bg-white/80 dark:bg-gray-800/50 rounded-xl p-6 border border-gray-200 dark:border-gray-700 border-dashed space-y-4">
                       <h4 className="text-sm font-semibold text-green-400 flex items-center gap-2 mb-4">
                         <span className="w-2 h-2 bg-green-400 rounded-full"></span>
                         Featured Product Details
@@ -1202,7 +1202,7 @@ useEffect(() => {
                             }
                           }))}
                           placeholder="Enter featured product title"
-                          className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200"
+                          className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200"
                           disabled={loading}
                         />
                       </div>
@@ -1221,7 +1221,7 @@ useEffect(() => {
                             }
                           }))}
                           placeholder="Why is this product featured? (e.g., Best Seller, New Arrival, Trending)"
-                          className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500 resize-none transition-all duration-200"
+                          className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500 resize-none transition-all duration-200"
                           rows="2"
                           disabled={loading}
                         />
@@ -1242,7 +1242,7 @@ useEffect(() => {
                             }
                           }))}
                           placeholder="Position in featured products list (1, 2, 3...)"
-                          className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200"
+                          className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200"
                           min="1"
                           disabled={loading}
                         />
@@ -1259,14 +1259,14 @@ useEffect(() => {
         return (
           <div className="space-y-6">
             <div className="flex justify-between items-center">
-              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                 <Package size={20} />
                 Size Variants
               </h3>
               <button
                 type="button"
                 onClick={addSizeVariant}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-all duration-200 flex items-center gap-2 hover:scale-105 disabled:opacity-50"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-gray-900 dark:text-white rounded-xl font-medium transition-all duration-200 flex items-center gap-2 hover:scale-105 disabled:opacity-50"
                 disabled={loading}
               >
                 <Plus size={18} />
@@ -1275,17 +1275,17 @@ useEffect(() => {
             </div>
 
             {sizeVariants.length === 0 ? (
-              <div className="text-center py-12 bg-gray-800/30 rounded-2xl border-2 border-dashed border-gray-600">
+              <div className="text-center py-12 bg-white/60 dark:bg-gray-800/30 rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-600">
                 <Package className="w-12 h-12 text-gray-500 mx-auto mb-4" />
-                <p className="text-gray-400 font-medium">No size variants added yet</p>
+                <p className="text-gray-500 dark:text-gray-400 font-medium">No size variants added yet</p>
                 <p className="text-sm text-gray-500 mt-1">Add your first size variant to get started</p>
               </div>
             ) : (
               <div className="space-y-4">
                 {sizeVariants.map((variant, index) => (
-                  <div key={index} className="bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-gray-600 transition-all duration-200">
+                  <div key={index} className="bg-white/80 dark:bg-gray-800/50 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:border-gray-600 transition-all duration-200">
                     <div className="flex justify-between items-center mb-4">
-                      <h4 className="text-sm font-semibold text-white">Variant #{index + 1}</h4>
+                      <h4 className="text-sm font-semibold text-gray-900 dark:text-white">Variant #{index + 1}</h4>
                       <button
                         type="button"
                         onClick={() => removeSizeVariant(index)}
@@ -1298,47 +1298,47 @@ useEffect(() => {
                     
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-2">Size</label>
+                        <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">Size</label>
                         <input
                           type="text"
                           placeholder="e.g., S, M, L"
                           value={variant.size}
                           onChange={(e) => updateSizeVariant(index, 'size', e.target.value)}
-                          className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                          className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                           disabled={loading}
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-2">Price (₹)</label>
+                        <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">Price (₹)</label>
                         <input
                           type="number"
                           placeholder="0.00"
                           value={variant.price}
                           onChange={(e) => updateSizeVariant(index, 'price', e.target.value)}
-                          className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                          className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                           step="0.01"
                           disabled={loading}
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-2">SKU</label>
+                        <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">SKU</label>
                         <input
                           type="text"
                           placeholder="Variant SKU"
                           value={variant.sku}
                           onChange={(e) => updateSizeVariant(index, 'sku', e.target.value)}
-                          className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                          className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                           disabled={loading}
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-2">Stock</label>
+                        <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">Stock</label>
                         <input
                           type="number"
                           placeholder="0"
                           value={variant.stock}
                           onChange={(e) => updateSizeVariant(index, 'stock', e.target.value)}
-                          className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                          className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                           min="0"
                           disabled={loading}
                         />
@@ -1358,24 +1358,24 @@ useEffect(() => {
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-xl flex items-center justify-center z-50 p-4">
-      <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-6 w-full max-w-6xl shadow-2xl border border-gray-700 relative overflow-hidden max-h-[95vh] transition-all duration-300">
+      <div className="bg-gradient-to-br from-gray-50 dark:from-gray-900 to-white dark:to-gray-800 rounded-3xl p-6 w-full max-w-6xl shadow-2xl border border-gray-200 dark:border-gray-700 relative overflow-hidden max-h-[95vh] transition-all duration-300">
         
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 pointer-events-none"></div>
         
         {/* Header */}
-        <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-700 relative">
+        <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-200 dark:border-gray-700 relative">
           <div>
-            <h3 className="text-2xl font-bold text-white tracking-tight">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
               {editingProduct ? 'Edit Product' : 'Add New Product'}
             </h3>
-            <p className="text-gray-400 mt-1 text-sm">
+            <p className="text-gray-500 dark:text-gray-400 mt-1 text-sm">
               {editingProduct ? 'Update your product information' : 'Create a new product listing'}
             </p>
           </div>
           <button
             onClick={handleClose}
-            className="text-gray-400 hover:text-white hover:bg-gray-700 p-2 rounded-xl transition-all duration-200"
+            className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white hover:bg-gray-100 dark:bg-gray-700 p-2 rounded-xl transition-all duration-200"
             disabled={loading}
           >
             <X size={22} />
@@ -1384,7 +1384,7 @@ useEffect(() => {
 
         {/* Navigation Tabs */}
         <div className="mb-6">
-          <div className="flex space-x-1 bg-gray-800/50 rounded-2xl p-1">
+          <div className="flex space-x-1 bg-white/80 dark:bg-gray-800/50 rounded-2xl p-1">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               return (
@@ -1393,8 +1393,8 @@ useEffect(() => {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 flex-1 justify-center ${
                     activeTab === tab.id
-                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25'
-                      : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
+                      ? 'bg-blue-600 text-gray-900 dark:text-white shadow-lg shadow-blue-500/25'
+                      : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white hover:bg-gray-100/80 dark:bg-gray-700/50'
                   }`}
                   disabled={loading}
                 >
@@ -1413,12 +1413,12 @@ useEffect(() => {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex justify-between items-center pt-6 mt-6 border-t border-gray-700 relative">
+          <div className="flex justify-between items-center pt-6 mt-6 border-t border-gray-200 dark:border-gray-700 relative">
             <div>
               <button
                 type="button"
                 onClick={handleClose}
-                className="px-8 py-3 rounded-xl bg-gray-700 hover:bg-gray-600 text-white font-medium transition-all duration-200 hover:scale-105 disabled:opacity-50"
+                className="px-8 py-3 rounded-xl bg-gray-100 dark:bg-gray-700 hover:bg-gray-100 dark:bg-gray-600 text-gray-900 dark:text-white font-medium transition-all duration-200 hover:scale-105 disabled:opacity-50"
                 disabled={loading}
               >
                 Cancel
@@ -1437,7 +1437,7 @@ useEffect(() => {
                       setActiveTab(tabIds[currentIndex - 1]);
                     }
                   }}
-                  className="px-8 py-3 rounded-xl bg-gray-600 hover:bg-gray-500 text-white font-medium transition-all duration-200 hover:scale-105 disabled:opacity-50"
+                  className="px-8 py-3 rounded-xl bg-gray-100 dark:bg-gray-600 hover:bg-gray-500 text-gray-900 dark:text-white font-medium transition-all duration-200 hover:scale-105 disabled:opacity-50"
                   disabled={loading}
                 >
                   ← Previous
@@ -1455,7 +1455,7 @@ useEffect(() => {
                       setActiveTab(tabIds[currentIndex + 1]);
                     }
                   }}
-                  className="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg hover:shadow-blue-500/30 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-gray-900 dark:text-white font-semibold shadow-lg hover:shadow-blue-500/30 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={loading || uploadingImages}
                 >
                   Next →
@@ -1466,7 +1466,7 @@ useEffect(() => {
               {activeTab === 'variants' && (
                 <button
                   type="submit"
-                  className="px-8 py-3 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold shadow-lg hover:shadow-green-500/30 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  className="px-8 py-3 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-gray-900 dark:text-white font-semibold shadow-lg hover:shadow-green-500/30 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                   disabled={loading || uploadingImages}
                 >
                   {loading ? (

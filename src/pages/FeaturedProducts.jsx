@@ -32,7 +32,7 @@ const FeaturedProducts = () => {
   };
 
   const handleRemoveFeatured = async (itemId) => {
-    if (!window.confirm('Remove this product from featured?')) return;
+    if (!window.confirm('Remove this product from new arrivals?')) return;
     try {
       const db = getFirestore();
       // Delete featuredProducts doc
@@ -52,24 +52,24 @@ const FeaturedProducts = () => {
 
       setFeatured(prev => prev.filter(f => f.id !== itemId));
     } catch (error) {
-      console.error('Error removing featured product:', error);
-      alert('Failed to remove featured product');
+      console.error('Error removing new arrivals product:', error);
+      alert('Failed to remove new arrivals product');
     }
   };
 
   return (
     <div className="p-6">
-      <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl border border-gray-700/50 p-6">
-        <h2 className="text-xl font-semibold text-white mb-4">Featured Products</h2>
+      <div className="bg-gradient-to-br from-white/80 dark:from-gray-800/50 to-gray-50/80 dark:to-gray-900/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 p-6">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">New Arrivals</h2>
 
         {loading ? (
-          <div className="text-gray-400">Loading...</div>
+          <div className="text-gray-500 dark:text-gray-400">Loading...</div>
         ) : featured.length === 0 ? (
-          <div className="text-gray-400">No featured products.</div>
+          <div className="text-gray-500 dark:text-gray-400">No new arrivals products.</div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left">
-              <thead className="text-xs text-gray-300 uppercase tracking-wider border-b border-gray-700/50">
+              <thead className="text-xs text-gray-700 dark:text-gray-300 uppercase tracking-wider border-b border-gray-200 dark:border-gray-700/50">
                 <tr>
                   <th className="px-4 py-3">Product</th>
                   <th className="px-4 py-3">Price</th>
@@ -78,28 +78,28 @@ const FeaturedProducts = () => {
                   <th className="px-4 py-3">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-700/50">
+              <tbody className="divide-y divide-gray-200 dark:divide-gray-700/50">
                 {featured.map(item => (
-                  <tr key={item.id} className="hover:bg-gray-800/30 transition-colors">
+                  <tr key={item.id} className="hover:bg-white/60 dark:bg-gray-800/30 transition-colors">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-gray-700 rounded-lg overflow-hidden">
+                        <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">
                           {item.images?.[0] ? (
                             // eslint-disable-next-line jsx-a11y/img-redundant-alt
                             <img src={item.images[0]} alt={`Image`} className="w-full h-full object-cover" />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center text-gray-400"><Package /></div>
+                            <div className="w-full h-full flex items-center justify-center text-gray-500 dark:text-gray-400"><Package /></div>
                           )}
                         </div>
                         <div>
-                          <div className="text-white font-medium">{item.name}</div>
-                          <div className="text-sm text-gray-400">{item.featuredProductInfo?.title || ''}</div>
+                          <div className="text-gray-900 dark:text-white font-medium">{item.name}</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">{item.featuredProductInfo?.title || ''}</div>
                         </div>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-white">₹{item.price ?? 0}</td>
-                    <td className="px-4 py-3 text-gray-400">{item.sellerid || 'N/A'}</td>
-                    <td className="px-4 py-3 text-gray-400">{item.featuredProductInfo?.displayOrder ?? '-'}</td>
+                    <td className="px-4 py-3 text-gray-900 dark:text-white">₹{item.price ?? 0}</td>
+                    <td className="px-4 py-3 text-gray-500 dark:text-gray-400">{item.sellerid || 'N/A'}</td>
+                    <td className="px-4 py-3 text-gray-500 dark:text-gray-400">{item.featuredProductInfo?.displayOrder ?? '-'}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
                         <button onClick={() => handleView(item)} className="p-2 rounded-lg text-blue-400 hover:bg-blue-500/10">

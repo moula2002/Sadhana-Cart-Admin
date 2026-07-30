@@ -52,22 +52,22 @@ const RecommendedProducts = () => {
 
   return (
     <div className="p-6">
-      <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl border border-gray-700/50 p-6">
+      <div className="bg-gradient-to-br from-white/80 dark:from-gray-800/50 to-gray-50/80 dark:to-gray-900/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 p-6">
 
-        <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
           <Zap className="text-yellow-400" />
           Recommended Products
         </h2>
 
         {loading ? (
-          <div className="text-gray-400">Loading...</div>
+          <div className="text-gray-500 dark:text-gray-400">Loading...</div>
         ) : recommended.length === 0 ? (
-          <div className="text-gray-400">No recommended products.</div>
+          <div className="text-gray-500 dark:text-gray-400">No recommended products.</div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left">
 
-              <thead className="text-xs text-gray-300 uppercase tracking-wider border-b border-gray-700/50">
+              <thead className="text-xs text-gray-700 dark:text-gray-300 uppercase tracking-wider border-b border-gray-200 dark:border-gray-700/50">
                 <tr>
                   <th className="px-4 py-3">Product</th>
                   <th className="px-4 py-3">Price</th>
@@ -77,13 +77,13 @@ const RecommendedProducts = () => {
                 </tr>
               </thead>
 
-              <tbody className="divide-y divide-gray-700/50">
+              <tbody className="divide-y divide-gray-200 dark:divide-gray-700/50">
                 {recommended.map(item => (
-                  <tr key={item.id} className="hover:bg-gray-800/30 transition-colors">
+                  <tr key={item.id} className="hover:bg-white/60 dark:bg-gray-800/30 transition-colors">
 
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-gray-700 rounded-lg overflow-hidden">
+                        <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">
                           {item.images?.[0] ? (
                             <img
                               src={item.images[0]}
@@ -91,26 +91,26 @@ const RecommendedProducts = () => {
                               className="w-full h-full object-cover"
                             />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center text-gray-400">
+                            <div className="w-full h-full flex items-center justify-center text-gray-500 dark:text-gray-400">
                               <Package />
                             </div>
                           )}
                         </div>
 
                         <div>
-                          <div className="text-white font-medium">{item.name}</div>
-                          <div className="text-sm text-gray-400">{item.category}</div>
+                          <div className="text-gray-900 dark:text-white font-medium">{item.name}</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">{item.category}</div>
                         </div>
                       </div>
                     </td>
 
-                    <td className="px-4 py-3 text-white">₹{item.price ?? 0}</td>
+                    <td className="px-4 py-3 text-gray-900 dark:text-white">₹{item.price ?? 0}</td>
 
-                    <td className="px-4 py-3 text-gray-400">
+                    <td className="px-4 py-3 text-gray-500 dark:text-gray-400">
                       {item.sellerid || 'Admin'}
                     </td>
 
-                    <td className="px-4 py-3 text-gray-400">
+                    <td className="px-4 py-3 text-gray-500 dark:text-gray-400">
                       {item.stock ?? 0}
                     </td>
 

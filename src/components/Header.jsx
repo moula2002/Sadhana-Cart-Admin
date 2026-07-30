@@ -26,25 +26,25 @@ const Header = ({ onToggleSidebar, setIsAuthenticated }) => {
   };
 
   return (
-    <header className="bg-gray-800/80 backdrop-blur-lg border-b border-gray-700 px-6 py-4 sticky top-0 z-40">
+    <header className="bg-white/90 dark:bg-gray-800/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700 px-6 py-4 sticky top-0 z-40">
       <div className="flex items-center justify-between">
         {/* Left Section - Menu Button & Title */}
         <div className="flex items-center space-x-4">
           <button 
             onClick={onToggleSidebar}
-            className="lg:hidden p-2 rounded-lg hover:bg-gray-700 transition-colors"
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:bg-gray-700 transition-colors"
           >
             <Menu size={20} />
           </button>
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center">
-              <ShoppingBag size={20} className="text-white" />
+              <ShoppingBag size={20} className="text-gray-900 dark:text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <h1 className="text-xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                 SadhanaCart
               </h1>
-              <p className="text-gray-400 text-sm">Admin Dashboard</p>
+              <p className="text-gray-500 dark:text-gray-400 text-sm">Admin Dashboard</p>
             </div>
           </div>
         </div>
@@ -54,19 +54,19 @@ const Header = ({ onToggleSidebar, setIsAuthenticated }) => {
           {/* User Profile Dropdown */}
           <div className="relative">
             <button 
-              className="flex items-center space-x-3 bg-gray-700/50 hover:bg-gray-700 px-3 py-2 rounded-xl transition-all duration-300 border border-gray-600 hover:border-gray-500"
+              className="flex items-center space-x-3 bg-gray-100/80 dark:bg-gray-700/50 hover:bg-gray-100 dark:bg-gray-700 px-3 py-2 rounded-xl transition-all duration-300 border border-gray-300 dark:border-gray-600 hover:border-gray-500"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
               <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
-                <User size={16} className="text-white" />
+                <User size={16} className="text-gray-900 dark:text-white" />
               </div>
               <div className="hidden sm:block text-left">
-                <div className="text-white font-medium text-sm">{userData.name}</div>
-                <div className="text-gray-400 text-xs">{userData.email}</div>
+                <div className="text-gray-900 dark:text-white font-medium text-sm">{userData.name}</div>
+                <div className="text-gray-500 dark:text-gray-400 text-xs">{userData.email}</div>
               </div>
               <ChevronDown 
                 size={16} 
-                className={`text-gray-400 transition-transform duration-300 ${
+                className={`text-gray-500 dark:text-gray-400 transition-transform duration-300 ${
                   isDropdownOpen ? 'rotate-180' : ''
                 } hidden sm:block`} 
               />
@@ -74,16 +74,16 @@ const Header = ({ onToggleSidebar, setIsAuthenticated }) => {
 
             {/* Dropdown Menu */}
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-64 bg-gray-800 rounded-xl shadow-2xl border border-gray-700 z-50 animate-in fade-in slide-in-from-top-5">
+              <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 z-50 animate-in fade-in slide-in-from-top-5">
                 {/* User Info */}
-                <div className="p-4 border-b border-gray-700">
+                <div className="p-4 border-b border-gray-200 dark:border-gray-700">
                   <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-                      <User size={20} className="text-white" />
+                      <User size={20} className="text-gray-900 dark:text-white" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-white font-semibold truncate">{userData.name}</p>
-                      <p className="text-gray-400 text-sm truncate">{userData.email}</p>
+                      <p className="text-gray-900 dark:text-white font-semibold truncate">{userData.name}</p>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm truncate">{userData.email}</p>
                     </div>
                   </div>
                 </div>
@@ -95,7 +95,7 @@ const Header = ({ onToggleSidebar, setIsAuthenticated }) => {
                       navigate('/profile');
                       setIsDropdownOpen(false);
                     }}
-                    className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors"
+                    className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:bg-gray-700 hover:text-gray-900 dark:text-white rounded-lg transition-colors"
                   >
                     <UserCircle size={18} />
                     <span>My Profile</span>
@@ -106,7 +106,7 @@ const Header = ({ onToggleSidebar, setIsAuthenticated }) => {
                       navigate('/settings');
                       setIsDropdownOpen(false);
                     }}
-                    className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors"
+                    className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:bg-gray-700 hover:text-gray-900 dark:text-white rounded-lg transition-colors"
                   >
                     <Settings size={18} />
                     <span>Settings</span>
@@ -117,14 +117,14 @@ const Header = ({ onToggleSidebar, setIsAuthenticated }) => {
                       navigate('/orders');
                       setIsDropdownOpen(false);
                     }}
-                    className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors"
+                    className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:bg-gray-700 hover:text-gray-900 dark:text-white rounded-lg transition-colors"
                   >
                     <ShoppingBag size={18} />
                     <span>Order Management</span>
                   </button>
 
                   {/* Logout */}
-                  <div className="border-t border-gray-700 mt-2 pt-2">
+                  <div className="border-t border-gray-200 dark:border-gray-700 mt-2 pt-2">
                     <button 
                       onClick={handleLogout}
                       className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-red-400 hover:bg-red-500/20 hover:text-red-300 rounded-lg transition-colors"

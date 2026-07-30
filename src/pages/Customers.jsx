@@ -331,7 +331,7 @@ const Customers = () => {
       case 'active': return 'bg-green-500/20 text-green-400 border-green-500/30';
       case 'blocked': return 'bg-red-500/20 text-red-400 border-red-500/30';
       case 'inactive': return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
-      default: return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
+      default: return 'bg-gray-500/20 text-gray-500 dark:text-gray-400 border-gray-500/30';
     }
   };
 
@@ -381,19 +381,19 @@ const Customers = () => {
   }
 
   return (
-    <div className="p-4 md:p-6 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen">
+    <div className="p-4 md:p-6 bg-gradient-to-br from-gray-50 dark:from-gray-900 via-white dark:via-gray-800 to-gray-50 dark:to-gray-900 min-h-screen">
       {/* Header Section */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-6 gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-white bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
             Customer Management
           </h1>
-          <p className="text-gray-400 mt-1">Manage and communicate with your customers</p>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">Manage and communicate with your customers</p>
         </div>
         
         <div className="flex items-center gap-4">
           <div className="bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-500/30 rounded-xl px-4 py-2">
-            <span className="text-white font-semibold text-sm md:text-base">
+            <span className="text-gray-900 dark:text-white font-semibold text-sm md:text-base">
               Total: {totalCount || customers.length} Customers
               {searchTerm && filteredCustomers.length !== customers.length && (
                 <span className="text-green-300 ml-1">
@@ -406,7 +406,7 @@ const Customers = () => {
           {/* Button to fetch specific customer - for testing */}
             {/* <button
               onClick={() => handleFetchSpecificCustomer('Enr6Vm4xptfgs4iclINWHtTkOvf2')}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors"
+              className="bg-blue-600 hover:bg-blue-700 text-gray-900 dark:text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors"
             >
               Test Fetch User
             </button> */}
@@ -414,20 +414,20 @@ const Customers = () => {
       </div>
 
       {/* Enhanced Search Bar */}
-      <div className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-4 mb-6 border border-gray-700">
+      <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-lg rounded-xl p-4 mb-6 border border-gray-200 dark:border-gray-700">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500 dark:text-gray-400" />
           <input
             type="text"
             placeholder="Search customers by name, email, phone, address, status, or ID..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-gray-700/50 text-white border border-gray-600 rounded-lg py-3 pl-12 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-150 placeholder-gray-400"
+            className="w-full bg-gray-100/80 dark:bg-gray-700/50 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg py-3 pl-12 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-150 placeholder-gray-400"
           />
           {searchTerm && (
             <button
               onClick={clearSearch}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white transition-colors"
             >
               <X className="h-4 w-4" />
             </button>
@@ -451,43 +451,43 @@ const Customers = () => {
       </div>
 
       {/* Desktop Table View */}
-      <div className="hidden lg:block bg-gray-800/50 backdrop-blur-lg rounded-xl border border-gray-700 overflow-hidden shadow-2xl">
+      <div className="hidden lg:block bg-white/80 dark:bg-gray-800/50 backdrop-blur-lg rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden shadow-2xl">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-700/50">
+            <thead className="bg-gray-100/80 dark:bg-gray-700/50">
               <tr>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                   Customer
                 </th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                   Contact Information
                 </th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                   Orders
                 </th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-700/50">
+            <tbody className="divide-y divide-gray-200 dark:divide-gray-700/50">
               {filteredCustomers.length === 0 ? (
                 <tr>
                   <td colSpan="5" className="px-6 py-12 text-center">
                     <Users className="mx-auto h-16 w-16 text-gray-500 mb-4" />
-                    <p className="text-lg font-medium text-gray-300 mb-2">
+                    <p className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
                       {searchTerm ? `No customers found for "${searchTerm}"` : 'No customers found'}
                     </p>
-                    <p className="text-gray-400">
+                    <p className="text-gray-500 dark:text-gray-400">
                       {searchTerm ? 'Try adjusting your search terms' : 'Start by adding your first customer'}
                     </p>
                     {searchTerm && (
                       <button
                         onClick={clearSearch}
-                        className="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
+                        className="mt-3 bg-blue-600 hover:bg-blue-700 text-gray-900 dark:text-white px-4 py-2 rounded-lg transition-colors"
                       >
                         Clear Search
                       </button>
@@ -496,22 +496,22 @@ const Customers = () => {
                 </tr>
               ) : (
                 filteredCustomers.map((customer) => (
-                  <tr key={customer.id} className="hover:bg-gray-700/30 transition-colors group">
+                  <tr key={customer.id} className="hover:bg-gray-100/80 dark:bg-gray-700/30 transition-colors group">
                     <td className="px-6 py-4">
                       <div className="flex items-center space-x-3">
                         <div className="relative">
                           <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-blue-500 flex items-center justify-center shadow-lg">
-                            <User className="h-6 w-6 text-white" />
+                            <User className="h-6 w-6 text-gray-900 dark:text-white" />
                           </div>
                           <div className="absolute -bottom-1 -right-1">
                             {getStatusIcon(customer.status)}
                           </div>
                         </div>
                         <div>
-                          <div className="text-white font-semibold group-hover:text-blue-300 transition-colors">
+                          <div className="text-gray-900 dark:text-white font-semibold group-hover:text-blue-300 transition-colors">
                             {customer.name || 'Unknown Customer'}
                           </div>
-                          <div className="text-gray-400 text-sm font-mono">
+                          <div className="text-gray-500 dark:text-gray-400 text-sm font-mono">
                             ID: {customer.id.substring(0, 8)}...
                           </div>
                         </div>
@@ -519,18 +519,18 @@ const Customers = () => {
                     </td>
                     <td className="px-6 py-4">
                       <div className="space-y-2">
-                        <div className="flex items-center text-sm text-gray-300">
+                        <div className="flex items-center text-sm text-gray-700 dark:text-gray-300">
                           <Mail className="h-4 w-4 mr-3 text-blue-400" />
                           <span className="break-all">{customer.email || 'No email'}</span>
                         </div>
-                        <div className="flex items-center text-sm text-gray-300">
+                        <div className="flex items-center text-sm text-gray-700 dark:text-gray-300">
                           <Smartphone className="h-4 w-4 mr-3 text-green-400" />
-                          <span className={customer.phone ? 'text-white font-medium' : 'text-gray-500'}>
+                          <span className={customer.phone ? 'text-gray-900 dark:text-white font-medium' : 'text-gray-500'}>
                             {customer.phone || 'No phone'}
                           </span>
                         </div>
                         {customer.address && (
-                          <div className="flex items-center text-sm text-gray-300">
+                          <div className="flex items-center text-sm text-gray-700 dark:text-gray-300">
                             <MapPin className="h-4 w-4 mr-3 text-purple-400" />
                             <span className="truncate max-w-xs">{customer.address}</span>
                           </div>
@@ -544,7 +544,7 @@ const Customers = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="flex items-center text-white font-semibold">
+                      <div className="flex items-center text-gray-900 dark:text-white font-semibold">
                         <ShoppingBag className="h-4 w-4 mr-2 text-yellow-400" />
                         {customer.totalOrders || 0}
                       </div>
@@ -553,21 +553,21 @@ const Customers = () => {
                       <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
                         <button 
                           onClick={() => handleViewCustomer(customer)}
-                          className="p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors shadow-lg"
+                          className="p-2 bg-blue-600 hover:bg-blue-700 text-gray-900 dark:text-white rounded-lg transition-colors shadow-lg"
                           title="View Details"
                         >
                           <User size={16} />
                         </button>
                         <button 
                           onClick={() => handleMessageCustomer(customer)}
-                          className="p-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors shadow-lg"
+                          className="p-2 bg-green-600 hover:bg-green-700 text-gray-900 dark:text-white rounded-lg transition-colors shadow-lg"
                           title="Send Message"
                         >
                           <MessageSquare size={16} />
                         </button>
                         <button 
                           onClick={() => handleBlockCustomer(customer.id)}
-                          className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors shadow-lg"
+                          className="p-2 bg-red-600 hover:bg-red-700 text-gray-900 dark:text-white rounded-lg transition-colors shadow-lg"
                           title="Block Customer"
                         >
                           <Shield size={16} />
@@ -585,18 +585,18 @@ const Customers = () => {
       {/* Mobile Card View */}
       <div className="lg:hidden space-y-4">
         {filteredCustomers.length === 0 ? (
-          <div className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-8 text-center border border-gray-700">
+          <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-lg rounded-xl p-8 text-center border border-gray-200 dark:border-gray-700">
             <Users className="mx-auto h-16 w-16 text-gray-500 mb-4" />
-            <p className="text-lg font-medium text-gray-300 mb-2">
+            <p className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
               {searchTerm ? `No customers found for "${searchTerm}"` : 'No customers found'}
             </p>
-            <p className="text-gray-400">
+            <p className="text-gray-500 dark:text-gray-400">
               {searchTerm ? 'Try adjusting your search terms' : 'Start by adding your first customer'}
             </p>
             {searchTerm && (
               <button
                 onClick={clearSearch}
-                className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
+                className="mt-4 bg-blue-600 hover:bg-blue-700 text-gray-900 dark:text-white px-6 py-2 rounded-lg transition-colors"
               >
                 Clear Search
               </button>
@@ -604,21 +604,21 @@ const Customers = () => {
           </div>
         ) : (
           filteredCustomers.map((customer) => (
-            <div key={customer.id} className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-6 border border-gray-700 hover:border-gray-600 transition-all duration-300 shadow-lg">
+            <div key={customer.id} className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-lg rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:border-gray-600 transition-all duration-300 shadow-lg">
               {/* Customer Header */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
                   <div className="relative">
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-blue-500 flex items-center justify-center shadow-lg">
-                      <User className="h-6 w-6 text-white" />
+                      <User className="h-6 w-6 text-gray-900 dark:text-white" />
                     </div>
                     <div className="absolute -bottom-1 -right-1">
                       {getStatusIcon(customer.status)}
                     </div>
                   </div>
                   <div>
-                    <div className="text-white font-semibold">{customer.name || 'Unknown Customer'}</div>
-                    <div className="text-gray-400 text-xs font-mono">ID: {customer.id.substring(0, 8)}...</div>
+                    <div className="text-gray-900 dark:text-white font-semibold">{customer.name || 'Unknown Customer'}</div>
+                    <div className="text-gray-500 dark:text-gray-400 text-xs font-mono">ID: {customer.id.substring(0, 8)}...</div>
                   </div>
                 </div>
                 <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(customer.status)}`}>
@@ -630,61 +630,61 @@ const Customers = () => {
               {/* Customer Details */}
               <div className="space-y-3 mb-4">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center text-sm text-gray-300">
+                  <div className="flex items-center text-sm text-gray-700 dark:text-gray-300">
                     <Mail className="h-4 w-4 mr-2 text-blue-400" />
                     Email
                   </div>
-                  <span className="text-white text-sm break-all text-right">{customer.email || 'No email'}</span>
+                  <span className="text-gray-900 dark:text-white text-sm break-all text-right">{customer.email || 'No email'}</span>
                 </div>
                 
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center text-sm text-gray-300">
+                  <div className="flex items-center text-sm text-gray-700 dark:text-gray-300">
                     <Smartphone className="h-4 w-4 mr-2 text-green-400" />
                     Phone
                   </div>
-                  <span className={customer.phone ? 'text-white text-sm font-medium' : 'text-gray-500 text-sm'}>
+                  <span className={customer.phone ? 'text-gray-900 dark:text-white text-sm font-medium' : 'text-gray-500 text-sm'}>
                     {customer.phone || 'No phone'}
                   </span>
                 </div>
 
                 {customer.address && (
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center text-sm text-gray-300">
+                    <div className="flex items-center text-sm text-gray-700 dark:text-gray-300">
                       <MapPin className="h-4 w-4 mr-2 text-purple-400" />
                       Address
                     </div>
-                    <span className="text-white text-sm text-right break-words max-w-xs">{customer.address}</span>
+                    <span className="text-gray-900 dark:text-white text-sm text-right break-words max-w-xs">{customer.address}</span>
                   </div>
                 )}
 
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center text-sm text-gray-300">
+                  <div className="flex items-center text-sm text-gray-700 dark:text-gray-300">
                     <ShoppingBag className="h-4 w-4 mr-2 text-yellow-400" />
                     Orders
                   </div>
-                  <span className="text-white font-semibold">{customer.totalOrders || 0}</span>
+                  <span className="text-gray-900 dark:text-white font-semibold">{customer.totalOrders || 0}</span>
                 </div>
               </div>
 
               {/* Actions */}
-              <div className="flex gap-2 pt-4 border-t border-gray-700">
+              <div className="flex gap-2 pt-4 border-t border-gray-200 dark:border-gray-700">
                 <button 
                   onClick={() => handleViewCustomer(customer)}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 shadow-lg"
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-gray-900 dark:text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 shadow-lg"
                 >
                   <User size={16} />
                   View
                 </button>
                 <button 
                   onClick={() => handleMessageCustomer(customer)}
-                  className="flex-1 bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 shadow-lg"
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-gray-900 dark:text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 shadow-lg"
                 >
                   <MessageSquare size={16} />
                   Message
                 </button>
                 <button 
                   onClick={() => handleBlockCustomer(customer.id)}
-                  className="flex-1 bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 shadow-lg"
+                  className="flex-1 bg-red-600 hover:bg-red-700 text-gray-900 dark:text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 shadow-lg"
                 >
                   <Shield size={16} />
                   Block
@@ -701,7 +701,7 @@ const Customers = () => {
           <button
             onClick={() => fetchCustomers(true)}
             disabled={isFetchingMore}
-            className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white px-8 py-3 rounded-xl font-semibold shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 mb-10"
+            className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-gray-900 dark:text-white px-8 py-3 rounded-xl font-semibold shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 mb-10"
           >
             {isFetchingMore ? (
               <>
@@ -721,14 +721,14 @@ const Customers = () => {
       {/* Enhanced View Detail Modal */}
       {showModal && selectedCustomer && (
         <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-700 shadow-2xl">
-            <div className="flex justify-between items-center p-6 border-b border-gray-700">
-              <h2 className="text-2xl font-bold text-white bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-700 shadow-2xl">
+            <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
                 Customer Details
               </h2>
               <button
                 onClick={closeModal}
-                className="text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-700 rounded-xl"
+                className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white transition-colors p-2 hover:bg-gray-100 dark:bg-gray-700 rounded-xl"
               >
                 <X className="h-6 w-6" />
               </button>
@@ -736,15 +736,15 @@ const Customers = () => {
             <div className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
-                  <div className="bg-gray-700/50 rounded-xl p-4 border border-gray-600">
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Personal Information</label>
+                  <div className="bg-gray-100/80 dark:bg-gray-700/50 rounded-xl p-4 border border-gray-300 dark:border-gray-600">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Personal Information</label>
                     <div className="space-y-3">
                       <div>
-                        <span className="text-gray-400 text-sm">Name:</span>
-                        <p className="text-white font-medium">{selectedCustomer.name || 'N/A'}</p>
+                        <span className="text-gray-500 dark:text-gray-400 text-sm">Name:</span>
+                        <p className="text-gray-900 dark:text-white font-medium">{selectedCustomer.name || 'N/A'}</p>
                       </div>
                       <div>
-                        <span className="text-gray-400 text-sm">Status:</span>
+                        <span className="text-gray-500 dark:text-gray-400 text-sm">Status:</span>
                         <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ml-2 ${getStatusColor(selectedCustomer.status)}`}>
                           {selectedCustomer.status || 'active'}
                         </span>
@@ -752,35 +752,35 @@ const Customers = () => {
                     </div>
                   </div>
                   
-                  <div className="bg-gray-700/50 rounded-xl p-4 border border-gray-600">
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Contact Details</label>
+                  <div className="bg-gray-100/80 dark:bg-gray-700/50 rounded-xl p-4 border border-gray-300 dark:border-gray-600">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Contact Details</label>
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
-                        <span className="text-gray-400 text-sm">Email:</span>
-                        <span className="text-white text-sm break-all">{selectedCustomer.email || 'N/A'}</span>
+                        <span className="text-gray-500 dark:text-gray-400 text-sm">Email:</span>
+                        <span className="text-gray-900 dark:text-white text-sm break-all">{selectedCustomer.email || 'N/A'}</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-gray-400 text-sm">Phone:</span>
-                        <span className="text-white font-medium">{selectedCustomer.phone || 'N/A'}</span>
+                        <span className="text-gray-500 dark:text-gray-400 text-sm">Phone:</span>
+                        <span className="text-gray-900 dark:text-white font-medium">{selectedCustomer.phone || 'N/A'}</span>
                       </div>
                     </div>
                   </div>
                 </div>
                 
                 <div className="space-y-4">
-                  <div className="bg-gray-700/50 rounded-xl p-4 border border-gray-600">
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Account Information</label>
+                  <div className="bg-gray-100/80 dark:bg-gray-700/50 rounded-xl p-4 border border-gray-300 dark:border-gray-600">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Account Information</label>
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
-                        <span className="text-gray-400 text-sm">Total Orders:</span>
-                        <span className="text-white font-semibold">{selectedCustomer.totalOrders || 0}</span>
+                        <span className="text-gray-500 dark:text-gray-400 text-sm">Total Orders:</span>
+                        <span className="text-gray-900 dark:text-white font-semibold">{selectedCustomer.totalOrders || 0}</span>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="bg-gray-700/50 rounded-xl p-4 border border-gray-600">
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Customer ID</label>
-                    <p className="text-white font-mono text-sm bg-gray-600 p-2 rounded-lg break-all">
+                  <div className="bg-gray-100/80 dark:bg-gray-700/50 rounded-xl p-4 border border-gray-300 dark:border-gray-600">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Customer ID</label>
+                    <p className="text-gray-900 dark:text-white font-mono text-sm bg-gray-100 dark:bg-gray-600 p-2 rounded-lg break-all">
                       {selectedCustomer.id}
                     </p>
                   </div>
@@ -788,16 +788,16 @@ const Customers = () => {
               </div>
               
               {selectedCustomer.address && (
-                <div className="mt-6 bg-gray-700/50 rounded-xl p-4 border border-gray-600">
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Address</label>
-                  <p className="text-white">{selectedCustomer.address}</p>
+                <div className="mt-6 bg-gray-100/80 dark:bg-gray-700/50 rounded-xl p-4 border border-gray-300 dark:border-gray-600">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Address</label>
+                  <p className="text-gray-900 dark:text-white">{selectedCustomer.address}</p>
                 </div>
               )}
               
               <div className="mt-6 flex justify-end space-x-3">
                 <button
                   onClick={() => handleMessageCustomer(selectedCustomer)}
-                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-3 rounded-xl transition-all duration-200 font-semibold shadow-lg flex items-center gap-2"
+                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-gray-900 dark:text-white px-6 py-3 rounded-xl transition-all duration-200 font-semibold shadow-lg flex items-center gap-2"
                 >
                   <MessageSquare size={18} />
                   Send Message
@@ -807,13 +807,13 @@ const Customers = () => {
                     handleBlockCustomer(selectedCustomer.id);
                     closeModal();
                   }}
-                  className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 py-3 rounded-xl transition-all duration-200 font-semibold shadow-lg"
+                  className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-gray-900 dark:text-white px-6 py-3 rounded-xl transition-all duration-200 font-semibold shadow-lg"
                 >
                   Block Customer
                 </button>
                 <button
                   onClick={closeModal}
-                  className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-xl transition-colors font-semibold"
+                  className="bg-gray-100 dark:bg-gray-600 hover:bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white px-6 py-3 rounded-xl transition-colors font-semibold"
                 >
                   Close
                 </button>
@@ -826,21 +826,21 @@ const Customers = () => {
       {/* Enhanced Message Modal with Preview */}
       {showMessageModal && selectedCustomer && (
         <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-800 rounded-2xl max-w-md w-full border border-gray-700 shadow-2xl">
-            <div className="flex justify-between items-center p-6 border-b border-gray-700">
-              <h2 className="text-xl font-bold text-white">Send Message</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-md w-full border border-gray-200 dark:border-gray-700 shadow-2xl">
+            <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">Send Message</h2>
               <button
                 onClick={closeMessageModal}
-                className="text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-700 rounded-xl"
+                className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white transition-colors p-2 hover:bg-gray-100 dark:bg-gray-700 rounded-xl"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
             <div className="p-6">
-              <div className="mb-6 bg-gray-700/50 rounded-xl p-4 border border-gray-600">
-                <label className="block text-sm font-medium text-gray-300 mb-2">Customer</label>
-                <p className="text-white font-semibold">{selectedCustomer.name || selectedCustomer.email}</p>
-                <div className="flex items-center gap-4 mt-2 text-sm text-gray-400">
+              <div className="mb-6 bg-gray-100/80 dark:bg-gray-700/50 rounded-xl p-4 border border-gray-300 dark:border-gray-600">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Customer</label>
+                <p className="text-gray-900 dark:text-white font-semibold">{selectedCustomer.name || selectedCustomer.email}</p>
+                <div className="flex items-center gap-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
                   {selectedCustomer.phone && (
                     <span className="flex items-center gap-1">
                       <Smartphone size={14} />
@@ -857,26 +857,26 @@ const Customers = () => {
               </div>
               
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-300 mb-3">Message Content</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Message Content</label>
                 <textarea
                   value={messageText}
                   onChange={(e) => setMessageText(e.target.value)}
-                  className="w-full bg-gray-700 text-white p-4 rounded-xl border border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 resize-none"
+                  className="w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white p-4 rounded-xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 resize-none"
                   rows="4"
                   placeholder="Type your message here..."
                 />
               </div>
               
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-300 mb-3">Send Via</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Send Via</label>
                 <div className="grid grid-cols-3 gap-3">
                   <button
                     onClick={() => handleSendConfirmation('whatsapp')}
                     disabled={!selectedCustomer.phone}
                     className={`flex items-center justify-center gap-2 p-3 rounded-xl font-semibold transition-all duration-200 ${
                       selectedCustomer.phone 
-                        ? 'bg-green-600 hover:bg-green-700 text-white shadow-lg hover:shadow-xl' 
-                        : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                        ? 'bg-green-600 hover:bg-green-700 text-gray-900 dark:text-white shadow-lg hover:shadow-xl' 
+                        : 'bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
                     }`}
                   >
                     <MessageCircle size={18} />
@@ -887,8 +887,8 @@ const Customers = () => {
                     disabled={!selectedCustomer.email}
                     className={`flex items-center justify-center gap-2 p-3 rounded-xl font-semibold transition-all duration-200 ${
                       selectedCustomer.email 
-                        ? 'bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-xl' 
-                        : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                        ? 'bg-red-600 hover:bg-red-700 text-gray-900 dark:text-white shadow-lg hover:shadow-xl' 
+                        : 'bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
                     }`}
                   >
                     <Mail size={18} />
@@ -900,7 +900,7 @@ const Customers = () => {
               <div className="flex justify-end space-x-3">
                 <button
                   onClick={closeMessageModal}
-                  className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-xl transition-colors font-semibold"
+                  className="bg-gray-100 dark:bg-gray-600 hover:bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white px-6 py-3 rounded-xl transition-colors font-semibold"
                 >
                   Cancel
                 </button>
@@ -913,9 +913,9 @@ const Customers = () => {
       {/* Confirmation Modal */}
       {showConfirmationModal && selectedCustomer && (
         <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-800 rounded-2xl max-w-md w-full border border-gray-700 shadow-2xl">
-            <div className="flex justify-between items-center p-6 border-b border-gray-700">
-              <h2 className="text-xl font-bold text-white flex items-center gap-2">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-md w-full border border-gray-200 dark:border-gray-700 shadow-2xl">
+            <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
                 {sending ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
@@ -931,7 +931,7 @@ const Customers = () => {
               {!sending && (
                 <button
                   onClick={closeConfirmationModal}
-                  className="text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-700 rounded-xl"
+                  className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white transition-colors p-2 hover:bg-gray-100 dark:bg-gray-700 rounded-xl"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -941,29 +941,29 @@ const Customers = () => {
               {!sending ? (
                 <>
                   <div className="mb-6">
-                    <p className="text-gray-300 mb-4">
+                    <p className="text-gray-700 dark:text-gray-300 mb-4">
                       Are you sure you want to send this message via{' '}
-                      <span className="font-semibold text-white">
+                      <span className="font-semibold text-gray-900 dark:text-white">
                         {selectedChannel === 'whatsapp' ? 'WhatsApp' : selectedChannel === 'gmail' ? 'Gmail' : 'Email (Mailto)'}
                       </span>?
                     </p>
-                    <div className="bg-gray-700/50 rounded-xl p-4 border border-gray-600">
-                      <label className="block text-sm font-medium text-gray-300 mb-2">Message Preview</label>
-                      <p className="text-white text-sm whitespace-pre-wrap">{messageText}</p>
+                    <div className="bg-gray-100/80 dark:bg-gray-700/50 rounded-xl p-4 border border-gray-300 dark:border-gray-600">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message Preview</label>
+                      <p className="text-gray-900 dark:text-white text-sm whitespace-pre-wrap">{messageText}</p>
                     </div>
                   </div>
                   
                   <div className="flex justify-end space-x-3">
                     <button
                       onClick={closeConfirmationModal}
-                      className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-xl transition-colors font-semibold"
+                      className="bg-gray-100 dark:bg-gray-600 hover:bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white px-6 py-3 rounded-xl transition-colors font-semibold"
                       disabled={sending}
                     >
                       Cancel
                     </button>
                     <button
                       onClick={handleSendMessage}
-                      className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-3 rounded-xl transition-all duration-200 font-semibold shadow-lg flex items-center gap-2"
+                      className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-gray-900 dark:text-white px-6 py-3 rounded-xl transition-all duration-200 font-semibold shadow-lg flex items-center gap-2"
                       disabled={sending}
                     >
                       <Send size={18} />
@@ -974,8 +974,8 @@ const Customers = () => {
               ) : (
                 <div className="text-center py-8">
                   <CheckCircle className="h-16 w-16 text-green-400 mx-auto mb-4" />
-                  <p className="text-white font-semibold">Message sent successfully!</p>
-                  <p className="text-gray-400 text-sm mt-2">Redirecting you back...</p>
+                  <p className="text-gray-900 dark:text-white font-semibold">Message sent successfully!</p>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm mt-2">Redirecting you back...</p>
                 </div>
               )}
             </div>

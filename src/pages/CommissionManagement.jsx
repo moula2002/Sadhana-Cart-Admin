@@ -193,25 +193,25 @@ const CommissionManagement = () => {
 
     // Custom Confirmation Modal Component
     const ConfirmationModal = () => (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50">
-            <div className="bg-gray-800 p-8 rounded-xl shadow-2xl max-w-sm w-full border border-red-700/50">
+        <div className="fixed inset-0 bg-gray-50 dark:bg-gray-900 bg-opacity-75 flex items-center justify-center z-50">
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-2xl max-w-sm w-full border border-red-700/50">
                 <div className='flex items-center space-x-3 mb-4'>
                     <AlertTriangle className='h-6 w-6 text-red-500'/>
-                    <h3 className="text-xl font-bold text-white">Confirm Deletion</h3>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">Confirm Deletion</h3>
                 </div>
-                <p className="text-gray-300 mb-6">
+                <p className="text-gray-700 dark:text-gray-300 mb-6">
                     Are you sure you want to remove the override for **{itemToRemove?.sellerName}**? This action cannot be undone.
                 </p>
                 <div className="flex justify-end space-x-3">
                     <button
                         onClick={() => { setShowConfirmModal(false); setItemToRemove(null); }}
-                        className="px-4 py-2 text-sm font-medium rounded-lg text-gray-300 bg-gray-700 hover:bg-gray-600 transition-colors"
+                        className="px-4 py-2 text-sm font-medium rounded-lg text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-100 dark:bg-gray-600 transition-colors"
                     >
                         Cancel
                     </button>
                     <button
                         onClick={confirmRemove}
-                        className="px-4 py-2 text-sm font-medium rounded-lg bg-red-600 hover:bg-red-700 text-white transition-colors flex items-center"
+                        className="px-4 py-2 text-sm font-medium rounded-lg bg-red-600 hover:bg-red-700 text-gray-900 dark:text-white transition-colors flex items-center"
                     >
                         <Trash2 className='h-4 w-4 mr-2'/> Delete Override
                     </button>
@@ -222,7 +222,7 @@ const CommissionManagement = () => {
 
     if (isLoading) {
         return (
-            <div className="p-8 bg-gray-900 h-screen flex items-center justify-center text-white">
+            <div className="p-8 bg-gray-50 dark:bg-gray-900 h-screen flex items-center justify-center text-gray-900 dark:text-white">
                 <div className="flex items-center space-x-3">
                     <div className="w-6 h-6 border-2 border-yellow-500 border-t-transparent rounded-full animate-spin"></div>
                     <p className="text-lg">Loading Commission Data...</p>
@@ -232,29 +232,29 @@ const CommissionManagement = () => {
     }
 
     return (
-        <div className="p-4 lg:p-6 bg-gray-900 h-full min-h-screen text-white font-[Inter]">
+        <div className="p-4 lg:p-6 bg-gray-50 dark:bg-gray-900 h-full min-h-screen text-gray-900 dark:text-white font-[Inter]">
             {showConfirmModal && <ConfirmationModal />}
             
             {/* Header */}
-            <div className="flex items-center space-x-3 mb-6 border-b border-gray-700 pb-4">
+            <div className="flex items-center space-x-3 mb-6 border-b border-gray-200 dark:border-gray-700 pb-4">
                 <Settings className="h-8 w-8 text-yellow-500" />
                 <h1 className="text-3xl font-extrabold">Commission Management</h1>
-                <p className='text-sm text-gray-400 ml-4 hidden sm:block'>Control default rates and seller-specific exceptions.</p>
+                <p className='text-sm text-gray-500 dark:text-gray-400 ml-4 hidden sm:block'>Control default rates and seller-specific exceptions.</p>
             </div>
 
             {/* Display User ID (MANDATORY for Firebase app identification) */}
-            <p className="text-xs text-gray-500 mb-6 bg-gray-800 p-2 rounded-lg break-all">
+            <p className="text-xs text-gray-500 mb-6 bg-white dark:bg-gray-800 p-2 rounded-lg break-all">
                 **User ID:** {userId}
             </p>
 
             {/* Tab Navigation */}
-            <div className="flex border-b border-gray-700 mb-8">
+            <div className="flex border-b border-gray-200 dark:border-gray-700 mb-8">
                 <button
                     onClick={() => setActiveTab('category')}
                     className={`py-3 px-6 text-base font-semibold transition-colors flex items-center ${
                         activeTab === 'category'
                             ? 'border-b-4 border-yellow-500 text-yellow-400'
-                            : 'text-gray-400 hover:text-white'
+                            : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white'
                     }`}
                 >
                     <Tag className='h-5 w-5 mr-2'/> Category Rules ({categoryRules.length})
@@ -264,7 +264,7 @@ const CommissionManagement = () => {
                     className={`py-3 px-6 text-base font-semibold transition-colors flex items-center ${
                         activeTab === 'seller'
                             ? 'border-b-4 border-yellow-500 text-yellow-400'
-                            : 'text-gray-400 hover:text-white'
+                            : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white'
                     }`}
                 >
                     <Users className='h-5 w-5 mr-2'/> Seller Overrides ({sellerOverrides.length})
@@ -274,39 +274,39 @@ const CommissionManagement = () => {
             {/* --- TAB CONTENT: Category Rules --- */}
             {activeTab === 'category' && (
                 <div className="space-y-6">
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-800 p-4 rounded-xl border border-gray-700/50 shadow-lg">
-                        <h2 className="text-xl font-semibold text-white mb-3 sm:mb-0">Default Category Rates</h2>
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700/50 shadow-lg">
+                        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 sm:mb-0">Default Category Rates</h2>
                         <button 
                             onClick={() => console.log('[ACTION] Add New Category Rule Modal')}
-                            className="bg-yellow-600 hover:bg-yellow-700 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center shadow-md hover:shadow-yellow-500/30"
+                            className="bg-yellow-600 hover:bg-yellow-700 text-gray-900 dark:text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center shadow-md hover:shadow-yellow-500/30"
                         >
                             <TrendingUp className='h-4 w-4 mr-2'/> Add New Rule
                         </button>
                     </div>
 
-                    <div className="bg-gray-800 rounded-xl overflow-hidden shadow-2xl border border-gray-700">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700">
                         <div className="overflow-x-auto">
                             <table className="min-w-full divide-y divide-gray-700">
-                                <thead className="bg-gray-700/50">
+                                <thead className="bg-gray-100/80 dark:bg-gray-700/50">
                                     <tr>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Category</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Rate</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Est. Monthly Revenue</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Sellers Affected</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Category</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Rate</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Est. Monthly Revenue</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Sellers Affected</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-700">
                                     {categoryRules.length === 0 ? (
                                         <tr>
-                                            <td colSpan="5" className="px-6 py-8 text-center text-gray-400">
+                                            <td colSpan="5" className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
                                                 No category rules found. Add one to start defining default commissions.
                                             </td>
                                         </tr>
                                     ) : (
                                         categoryRules.map((rule) => (
-                                            <tr key={rule.id} className="hover:bg-gray-700 transition-colors">
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">{rule.name || 'N/A'}</td>
+                                            <tr key={rule.id} className="hover:bg-gray-100 dark:bg-gray-700 transition-colors">
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{rule.name || 'N/A'}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-2xl font-extrabold text-yellow-400">
                                                     {rule.rate?.toFixed(1) || '0.0'}%
                                                 </td>
@@ -316,7 +316,7 @@ const CommissionManagement = () => {
                                                         {formatCurrency(rule.estRevenue || 0)}
                                                     </div>
                                                 </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
                                                     {rule.sellers || 0} Sellers
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm">
@@ -340,58 +340,58 @@ const CommissionManagement = () => {
             {/* --- TAB CONTENT: Seller Overrides --- */}
             {activeTab === 'seller' && (
                 <div className="space-y-6">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center p-4 rounded-xl border border-gray-700/50 bg-gray-800 shadow-lg">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center p-4 rounded-xl border border-gray-200 dark:border-gray-700/50 bg-white dark:bg-gray-800 shadow-lg">
                         <div className='flex items-center w-full md:w-auto mb-3 md:mb-0'>
-                            <Search className="h-5 w-5 text-gray-400 mr-2" />
+                            <Search className="h-5 w-5 text-gray-500 dark:text-gray-400 mr-2" />
                             <input
                                 type="text"
                                 placeholder="Search seller or reason..."
                                 value={overrideSearchTerm}
                                 onChange={(e) => setOverrideSearchTerm(e.target.value)}
-                                className="w-full md:w-64 py-2 px-4 bg-gray-700/70 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500 text-sm transition-all"
+                                className="w-full md:w-64 py-2 px-4 bg-gray-700/70 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500 text-sm transition-all"
                             />
                         </div>
                         <button 
                             onClick={() => handleEditRate('new', 'Seller Override')}
-                            className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition-colors flex items-center shadow-md hover:shadow-green-500/30"
+                            className="bg-green-600 hover:bg-green-700 text-gray-900 dark:text-white font-bold py-2 px-6 rounded-lg transition-colors flex items-center shadow-md hover:shadow-green-500/30"
                         >
                             <Zap className='h-5 w-5 mr-2'/> Apply New Override
                         </button>
                     </div>
 
-                    <div className="bg-gray-800 rounded-xl overflow-hidden shadow-2xl border border-gray-700">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700">
                         <div className="overflow-x-auto">
                             <table className="min-w-full divide-y divide-gray-700">
-                                <thead className="bg-gray-700/50">
+                                <thead className="bg-gray-100/80 dark:bg-gray-700/50">
                                     <tr>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Seller</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Default Rate</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Override Rate</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Reason / Terms</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Expiry</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Seller</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Default Rate</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Override Rate</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Reason / Terms</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Expiry</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-700">
                                     {filteredSellerOverrides.length === 0 ? (
                                         <tr>
-                                            <td colSpan="6" className="px-6 py-8 text-center text-gray-400">
+                                            <td colSpan="6" className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
                                                 No seller overrides found matching your criteria.
                                             </td>
                                         </tr>
                                     ) : (
                                         filteredSellerOverrides.map((override) => (
-                                            <tr key={override.id} className="hover:bg-gray-700 transition-colors">
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
+                                            <tr key={override.id} className="hover:bg-gray-100 dark:bg-gray-700 transition-colors">
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                                                     {override.sellerName || 'N/A'} <span className='text-gray-500 text-xs ml-2'>({override.id})</span>
                                                 </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                                     {override.defaultRate?.toFixed(1) || '0.0'}%
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-lg font-bold text-yellow-400">
                                                     {override.overrideRate?.toFixed(1) || '0.0'}%
                                                 </td>
-                                                <td className="px-6 py-4 text-sm text-gray-300 max-w-xs truncate">
+                                                <td className="px-6 py-4 text-sm text-gray-700 dark:text-gray-300 max-w-xs truncate">
                                                     {override.reason || 'No specific reason provided'}
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">

@@ -158,16 +158,16 @@ const SubUnderCategory = () => {
   // Centralized Loading State
   if (loading && subUnderCategories.length === 0) {
     return (
-      <div className="flex justify-center items-center h-screen bg-gray-900">
+      <div className="flex justify-center items-center h-screen bg-gray-50 dark:bg-gray-900">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="p-4 lg:p-6 bg-gray-900 h-full min-h-screen">
+    <div className="p-4 lg:p-6 bg-gray-50 dark:bg-gray-900 h-full min-h-screen">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
-        <h2 className="text-2xl font-semibold text-white">Sub Under Categories</h2>
+        <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Sub Under Categories</h2>
         <div className="flex items-center space-x-3 w-full md:w-auto">
           <button
             onClick={() => {
@@ -179,14 +179,14 @@ const SubUnderCategory = () => {
               });
               setIsModalOpen(true);
             }}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors text-sm"
+            className="bg-blue-600 hover:bg-blue-700 text-gray-900 dark:text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors text-sm"
           >
             <Plus size={20} />
             <span>Add Sub Under Category</span>
           </button>
           <button
             onClick={handleRefresh}
-            className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded-lg transition-colors"
+            className="bg-gray-100 dark:bg-gray-700 hover:bg-gray-100 dark:bg-gray-600 text-gray-900 dark:text-white p-2 rounded-lg transition-colors"
           >
             <RefreshCw size={20} />
           </button>
@@ -194,54 +194,54 @@ const SubUnderCategory = () => {
       </div>
 
       {/* --- SEARCH BAR --- */}
-      <div className="mb-6 flex items-center justify-between p-4 bg-gray-800 rounded-lg">
-        <h3 className="text-lg font-medium text-white hidden sm:block">
+      <div className="mb-6 flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg">
+        <h3 className="text-lg font-medium text-gray-900 dark:text-white hidden sm:block">
           Sub Under Categories ({filteredSubUnderCategories.length})
         </h3>
         <div className="relative w-full sm:w-80">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400" size={18} />
           <input
             type="text"
             placeholder="Search by name or sub category..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
       </div>
       {/* ------------------ */}
 
-      <div className="bg-gray-800 rounded-lg overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-700">
+            <thead className="bg-gray-100 dark:bg-gray-700">
               <tr>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-300">Sub Category</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-300">Sub Under Category Name</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-300">Actions</th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Sub Category</th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Sub Under Category Name</th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Actions</th>
               </tr>
             </thead>
             <tbody>
               {loading && subUnderCategories.length > 0 ? (
                 <tr>
-                   <td colSpan="3" className="px-6 py-4 text-center text-gray-400">
+                   <td colSpan="3" className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
                     <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500 mx-auto"></div>
                     <p className="mt-2">Refreshing data...</p>
                   </td>
                 </tr>
               ) : filteredSubUnderCategories.length === 0 ? (
                 <tr>
-                  <td colSpan="3" className="px-6 py-12 text-center text-gray-400">
+                  <td colSpan="3" className="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
                     {searchTerm ? `No sub under categories found matching "${searchTerm}"` : 'No sub under categories available'}
                   </td>
                 </tr>
               ) : (
                 filteredSubUnderCategories.map((subUnderCategory) => (
-                  <tr key={subUnderCategory.id} className="border-b border-gray-700 hover:bg-gray-700">
-                    <td className="px-6 py-4 text-sm text-gray-300">
+                  <tr key={subUnderCategory.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:bg-gray-700">
+                    <td className="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">
                       {getSubCategoryName(subUnderCategory.data.subCategoryId)}
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-300 font-medium">
+                    <td className="px-6 py-4 text-sm text-gray-700 dark:text-gray-300 font-medium">
                       {subUnderCategory.data.name}
                     </td>
                     <td className="px-6 py-4 text-sm font-medium space-x-2">
@@ -269,14 +269,14 @@ const SubUnderCategory = () => {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-gray-800 rounded-lg p-6 w-full max-w-md">
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto custom-scrollbar">
             <div className='flex items-center justify-between mb-4'>
-                <h2 className="text-xl font-bold text-white">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">
                   {selectedSubUnderCategory ? 'Edit Sub Under Category' : 'Add Sub Under Category'}
                 </h2>
                 <button 
                     onClick={handleCancel}
-                    className="text-gray-400 hover:text-white"
+                    className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white"
                 >
                     <X size={20} />
                 </button>
@@ -284,14 +284,14 @@ const SubUnderCategory = () => {
             
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Sub Category *
                 </label>
                 <select
                   name="subCategoryId"
                   value={formData.subCategoryId}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 >
                   <option value="">Select Sub Category</option>
@@ -304,7 +304,7 @@ const SubUnderCategory = () => {
               </div>
               
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Sub Under Category Name *
                 </label>
                 <input
@@ -313,7 +313,7 @@ const SubUnderCategory = () => {
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder="Enter name"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
@@ -322,13 +322,13 @@ const SubUnderCategory = () => {
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="px-4 py-2 text-gray-300 border border-gray-600 rounded-md hover:bg-gray-700 transition-colors"
+                  className="px-4 py-2 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:bg-gray-700 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                  className="px-4 py-2 bg-blue-600 text-gray-900 dark:text-white rounded-md hover:bg-blue-700 transition-colors"
                 >
                   {selectedSubUnderCategory ? 'Update' : 'Submit'}
                 </button>
@@ -337,8 +337,15 @@ const SubUnderCategory = () => {
           </div>
         </div>
       )}
+    
+      <style>{`
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #9ca3af; border-radius: 10px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #4b5563; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+      `}</style>
     </div>
   );
 };
-
 export default SubUnderCategory;

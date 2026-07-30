@@ -735,9 +735,9 @@ const Messages = () => {
   const getMessageStatusIcon = (status) => {
     switch (status) {
       case 'sent':
-        return <Check size={14} className="text-gray-400" />;
+        return <Check size={14} className="text-gray-500 dark:text-gray-400" />;
       case 'delivered':
-        return <CheckCheck size={14} className="text-gray-400" />;
+        return <CheckCheck size={14} className="text-gray-500 dark:text-gray-400" />;
       case 'read':
         return <CheckCheck size={14} className="text-blue-500" />;
       default:
@@ -746,17 +746,17 @@ const Messages = () => {
   };
 
   return (
-    <div className="p-4 lg:p-6 bg-gray-900 h-full">
+    <div className="p-4 lg:p-6 bg-gray-50 dark:bg-gray-900 h-full">
       <div className="max-w-7xl mx-auto h-full">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-bold text-white">Messages</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Messages</h1>
           <div className="flex items-center space-x-4">
             {/* Notification Status */}
             <div className={`flex items-center space-x-2 px-3 py-2 rounded-lg ${
               notificationsEnabled 
-                ? 'bg-green-600 text-white' 
-                : 'bg-gray-600 text-gray-300'
+                ? 'bg-green-600 text-gray-900 dark:text-white' 
+                : 'bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300'
             }`}>
               {notificationsEnabled ? <Bell size={16} /> : <BellOff size={16} />}
               <span className="text-sm font-medium">
@@ -764,7 +764,7 @@ const Messages = () => {
               </span>
             </div>
 
-            <div className="bg-blue-600 text-white px-4 py-2 rounded-lg">
+            <div className="bg-blue-600 text-gray-900 dark:text-white px-4 py-2 rounded-lg">
               <span className="text-sm font-medium">
                 {conversations.reduce((total, conv) => total + (conv.unreadCount || 0), 0)} Unread
               </span>
@@ -774,7 +774,7 @@ const Messages = () => {
 
         {/* Notification Banner */}
         {notificationBanner.show && (
-          <div className="mb-4 p-4 bg-blue-600 text-white rounded-lg flex items-center justify-between">
+          <div className="mb-4 p-4 bg-blue-600 text-gray-900 dark:text-white rounded-lg flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <Bell size={20} />
               <div>
@@ -784,7 +784,7 @@ const Messages = () => {
             </div>
             <button
               onClick={() => setNotificationBanner({ show: false, title: '', message: '' })}
-              className="text-white hover:text-gray-200 p-1 rounded transition-colors"
+              className="text-gray-900 dark:text-white hover:text-gray-200 p-1 rounded transition-colors"
             >
               ✕
             </button>
@@ -792,22 +792,22 @@ const Messages = () => {
         )}
 
         {/* Chat Interface */}
-        <div className="bg-gray-800 rounded-lg h-[calc(100vh-200px)] flex">
+        <div className="bg-white dark:bg-gray-800 rounded-lg h-[calc(100vh-200px)] flex">
           {/* Conversations List */}
-          <div className={`${selectedConversation ? 'hidden lg:flex' : 'flex'} w-full lg:w-1/3 border-r border-gray-700 flex-col`}>
+          <div className={`${selectedConversation ? 'hidden lg:flex' : 'flex'} w-full lg:w-1/3 border-r border-gray-200 dark:border-gray-700 flex-col`}>
             {/* Search */}
-            <div className="p-4 border-b border-gray-700">
+            <div className="p-4 border-b border-gray-200 dark:border-gray-700">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-white">Messages</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Messages</h2>
               </div>
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400" size={20} />
                 <input
                   type="text"
                   placeholder="Search conversations..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
@@ -817,10 +817,10 @@ const Messages = () => {
               {/* Available Users Section */}
               {filteredAvailableUsers.length > 0 && (
                 <>
-                  <div className="p-3 bg-gray-750 border-b border-gray-600 flex items-center justify-between">
-                <span className="text-xs font-medium text-gray-300 uppercase tracking-wide">Available Users</span>
+                  <div className="p-3 bg-gray-750 border-b border-gray-300 dark:border-gray-600 flex items-center justify-between">
+                <span className="text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wide">Available Users</span>
                 <div className="flex items-center space-x-2">
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
                     {users.filter(u => u.fcmToken).length}/{users.length} have tokens
                   </span>
                   <button
@@ -846,7 +846,7 @@ const Messages = () => {
                       showNotificationInUI('Complete', `Generated ${successCount} FCM tokens successfully`);
                       await loadUsers(); // Reload to show updated tokens
                     }}
-                    className="px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white text-xs rounded transition-colors"
+                    className="px-2 py-1 bg-blue-500 hover:bg-blue-600 text-gray-900 dark:text-white text-xs rounded transition-colors"
                     title="Generate FCM tokens for all users without tokens"
                   >
                     Generate All
@@ -857,7 +857,7 @@ const Messages = () => {
                     <div
                       key={`user-${user.id}`}
                       onClick={() => handleUserClick(user)}
-                      className="p-3 border-b border-gray-700 hover:bg-gray-700 transition-colors cursor-pointer"
+                      className="p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:bg-gray-700 transition-colors cursor-pointer"
                     >
                       <div className="flex items-center space-x-3">
                         {/* User Avatar */}
@@ -865,17 +865,17 @@ const Messages = () => {
                           {user.profileImage ? (
                             <img src={user.profileImage} alt={user.name || user.email} className="w-10 h-10 rounded-full object-cover" />
                           ) : (
-                            <User size={20} className="text-white" />
+                            <User size={20} className="text-gray-900 dark:text-white" />
                           )}
                         </div>
                         
                         {/* User Info */}
                         <div className="flex-1 min-w-0">
-                          <h4 className="text-sm font-medium text-white truncate">
+                          <h4 className="text-sm font-medium text-gray-900 dark:text-white truncate">
                             {user.name || user.email || 'Unknown User'}
                           </h4>
                           {user.email && user.name && (
-                            <p className="text-xs text-gray-400 truncate">{user.email}</p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user.email}</p>
                           )}
                           {user.phone && (
                             <p className="text-xs text-gray-500">{user.phone}</p>
@@ -894,7 +894,7 @@ const Messages = () => {
                               e.stopPropagation();
                               sendNotificationToSelectedUser(user);
                             }}
-                            className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full transition-colors"
+                            className="bg-blue-600 hover:bg-blue-700 text-gray-900 dark:text-white p-2 rounded-full transition-colors"
                             title="Send notification to user"
                           >
                             <Bell size={14} />
@@ -908,7 +908,7 @@ const Messages = () => {
                               e.stopPropagation();
                               generateTokenForUser(user);
                             }}
-                            className="p-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white transition-colors"
+                            className="p-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-gray-900 dark:text-white transition-colors"
                             title="Generate FCM token for this user"
                           >
                             🔑
@@ -923,8 +923,8 @@ const Messages = () => {
               {/* Active Conversations Section */}
               {filteredConversations.length > 0 && (
                 <>
-                  <div className="p-3 bg-gray-750 border-b border-gray-600">
-                    <span className="text-xs font-medium text-gray-300 uppercase tracking-wide">Active Conversations</span>
+                  <div className="p-3 bg-gray-750 border-b border-gray-300 dark:border-gray-600">
+                    <span className="text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wide">Active Conversations</span>
                   </div>
                   {filteredConversations.map((conversation) => (
                     <div
@@ -934,8 +934,8 @@ const Messages = () => {
                         setSelectedConversation(conversation);
                         // Removed test-only message structure check
                       }}
-                      className={`p-4 border-b border-gray-700 cursor-pointer hover:bg-gray-700 transition-colors ${
-                        selectedConversation?.id === conversation.id ? 'bg-gray-700' : ''
+                      className={`p-4 border-b border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-100 dark:bg-gray-700 transition-colors ${
+                        selectedConversation?.id === conversation.id ? 'bg-gray-100 dark:bg-gray-700' : ''
                       }`}
                     >
                       <div className="flex items-center space-x-3">
@@ -945,7 +945,7 @@ const Messages = () => {
                             {conversation.avatar ? (
                               <img src={conversation.avatar} alt={conversation.customerName} className="w-12 h-12 rounded-full object-cover" />
                             ) : (
-                              <User size={24} className="text-white" />
+                              <User size={24} className="text-gray-900 dark:text-white" />
                             )}
                           </div>
                           {(usersPresence[conversation.customerId]?.isOnline || conversation.isOnline) && (
@@ -956,15 +956,15 @@ const Messages = () => {
                         {/* Conversation Info */}
                         <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between">
-                              <h3 className="text-white font-medium truncate">
+                              <h3 className="text-gray-900 dark:text-white font-medium truncate">
                                 {conversation.customerName}
                                 {conversation.isSupportConversation && (
-                                  <span className="ml-2 bg-red-500 text-white px-2 py-0.5 rounded text-xs font-semibold">
+                                  <span className="ml-2 bg-red-500 text-gray-900 dark:text-white px-2 py-0.5 rounded text-xs font-semibold">
                                     SUPPORT
                                   </span>
                                 )}
                               </h3>
-                              <span className="text-xs text-gray-400">
+                              <span className="text-xs text-gray-500 dark:text-gray-400">
                                 {conversation.lastMessageTime ? 
                                   new Date(conversation.lastMessageTime.seconds * 1000).toLocaleTimeString('en-US', { 
                                     hour: '2-digit', 
@@ -974,13 +974,13 @@ const Messages = () => {
                                 }
                               </span>
                             </div>
-                            <p className="text-sm text-gray-400 truncate">{conversation.lastMessage}</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400 truncate">{conversation.lastMessage}</p>
                             <p className="text-xs text-gray-500 mt-1">{conversation.customerEmail}</p>
                           </div>
 
                         {/* Unread Count */}
                         {(conversation.unreadCount || 0) > 0 && (
-                          <div className="bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                          <div className="bg-blue-500 text-gray-900 dark:text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                             {conversation.unreadCount}
                           </div>
                         )}
@@ -997,7 +997,7 @@ const Messages = () => {
                                 fcmToken: conversation.customerToken
                               });
                             }}
-                            className="bg-green-600 hover:bg-green-700 text-white p-1 rounded-full transition-colors ml-2"
+                            className="bg-green-600 hover:bg-green-700 text-gray-900 dark:text-white p-1 rounded-full transition-colors ml-2"
                             title="Send notification to customer"
                           >
                             <Bell size={12} />
@@ -1013,7 +1013,7 @@ const Messages = () => {
               
               {/* Empty State */}
               {users.length === 0 && conversations.length === 0 && (
-                <div className="p-8 text-center text-gray-400">
+                <div className="p-8 text-center text-gray-500 dark:text-gray-400">
                   <User size={48} className="mx-auto mb-4 opacity-50" />
                   <h3 className="text-lg font-medium mb-2">No users or conversations</h3>
                   <p className="text-sm">Users will appear here when they register</p>
@@ -1027,11 +1027,11 @@ const Messages = () => {
             {selectedConversation ? (
               <>
                 {/* Chat Header */}
-                <div className="p-4 border-b border-gray-700 flex items-center justify-between">
+                <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <button 
                       onClick={() => setSelectedConversation(null)}
-                      className="lg:hidden text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-700 transition-colors mr-2"
+                      className="lg:hidden text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white p-2 rounded-lg hover:bg-gray-100 dark:bg-gray-700 transition-colors mr-2"
                     >
                       ←
                     </button>
@@ -1040,7 +1040,7 @@ const Messages = () => {
                         {selectedConversation.avatar ? (
                           <img src={selectedConversation.avatar} alt={selectedConversation.customerName} className="w-10 h-10 rounded-full object-cover" />
                         ) : (
-                          <User size={20} className="text-white" />
+                          <User size={20} className="text-gray-900 dark:text-white" />
                         )}
                       </div>
                       {(usersPresence[selectedConversation.customerId]?.isOnline || selectedConversation.isOnline) && (
@@ -1048,15 +1048,15 @@ const Messages = () => {
                       )}
                     </div>
                     <div>
-                      <h3 className="text-white font-medium">
+                      <h3 className="text-gray-900 dark:text-white font-medium">
                         {selectedConversation.customerName}
                         {selectedConversation.isSupportConversation && (
-                          <span className="ml-2 bg-red-500 text-white px-2 py-0.5 rounded text-xs font-semibold">
+                          <span className="ml-2 bg-red-500 text-gray-900 dark:text-white px-2 py-0.5 rounded text-xs font-semibold">
                             SUPPORT
                           </span>
                         )}
                       </h3>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
                         {usersPresence[selectedConversation.customerId]?.isOnline || selectedConversation.isOnline ? 'Online' : 'Offline'}
                       </p>
                     </div>
@@ -1068,19 +1068,19 @@ const Messages = () => {
                       className={`p-2 rounded-lg transition-colors ${
                         notificationsEnabled 
                           ? 'text-blue-400 hover:text-blue-300 hover:bg-blue-900/20' 
-                          : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                          : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white hover:bg-gray-100 dark:bg-gray-700'
                       }`}
                       title={notificationsEnabled ? 'Disable notifications' : 'Enable notifications'}
                     >
                       {notificationsEnabled ? <Bell size={20} /> : <BellOff size={20} />}
                     </button>
-                    <button className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors">
+                    <button className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white hover:bg-gray-100 dark:bg-gray-700 rounded-lg transition-colors">
                       <Phone size={20} />
                     </button>
-                    <button className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors">
+                    <button className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white hover:bg-gray-100 dark:bg-gray-700 rounded-lg transition-colors">
                       <Video size={20} />
                     </button>
-                    <button className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors">
+                    <button className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white hover:bg-gray-100 dark:bg-gray-700 rounded-lg transition-colors">
                       <MoreVertical size={20} />
                     </button>
                   </div>
@@ -1091,7 +1091,7 @@ const Messages = () => {
                   {console.log('🖥️ RENDERING MESSAGES - Current messages state:', messages)}
                   {console.log('🖥️ Messages length:', messages.length)}
                   {messages.length === 0 ? (
-                    <div className="text-center text-gray-400 py-8">
+                    <div className="text-center text-gray-500 dark:text-gray-400 py-8">
                       <User size={48} className="mx-auto mb-4 opacity-50" />
                       <p>No messages yet</p>
                       <p className="text-sm mt-2">Start a conversation by typing below</p>
@@ -1106,8 +1106,8 @@ const Messages = () => {
                         >
                           <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
                             message.senderType === 'admin'
-                              ? 'bg-blue-600 text-white'
-                              : 'bg-gray-700 text-white'
+                              ? 'bg-blue-600 text-gray-900 dark:text-white'
+                              : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white'
                           }`}>
                             <p className="text-sm">{message.message}</p>
                             <div className={`flex items-center justify-between mt-1 ${
@@ -1137,19 +1137,19 @@ const Messages = () => {
                 </div>
 
                 {/* Message Input */}
-                <div className="p-4 border-t border-gray-700">
+                <div className="p-4 border-t border-gray-200 dark:border-gray-700">
                   <form onSubmit={handleSendMessage} className="flex items-center space-x-2">
                     <input
                       type="text"
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
                       placeholder="Type your message..."
-                      className="flex-1 px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                     <button
                       type="submit"
                       disabled={!newMessage.trim()}
-                      className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white p-2 rounded-lg transition-colors"
+                      className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-100 dark:bg-gray-600 disabled:cursor-not-allowed text-gray-900 dark:text-white p-2 rounded-lg transition-colors"
                     >
                       <Send size={20} />
                     </button>
@@ -1159,11 +1159,11 @@ const Messages = () => {
             ) : (
               <div className="flex-1 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <User size={32} className="text-gray-400" />
+                  <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <User size={32} className="text-gray-500 dark:text-gray-400" />
                   </div>
-                  <h3 className="text-xl font-medium text-white mb-2">Select a conversation</h3>
-                  <p className="text-gray-400">Choose a conversation from the list to start messaging</p>
+                  <h3 className="text-xl font-medium text-gray-900 dark:text-white mb-2">Select a conversation</h3>
+                  <p className="text-gray-500 dark:text-gray-400">Choose a conversation from the list to start messaging</p>
                 </div>
               </div>
             )}

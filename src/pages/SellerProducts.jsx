@@ -82,18 +82,18 @@ const SellerProductsDashboard = () => {
   const items = filtered.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 
   return (
-    <div className="min-h-screen bg-gray-900 p-6">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
 
       {/* HEADER */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-white">Products Overview</h1>
-          <p className="text-gray-400">View and manage all products</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Products Overview</h1>
+          <p className="text-gray-500 dark:text-gray-400">View and manage all products</p>
         </div>
 
         <button
           onClick={loadProducts}
-          className="px-4 py-2 bg-gray-700 text-white rounded-lg"
+          className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg"
         >
           <RefreshCw size={16} />
         </button>
@@ -102,18 +102,18 @@ const SellerProductsDashboard = () => {
       {/* SEARCH */}
       <div className="mb-6 flex items-center gap-3">
         <div className="relative">
-          <Search className="absolute left-3 top-3 text-gray-400" size={16} />
+          <Search className="absolute left-3 top-3 text-gray-500 dark:text-gray-400" size={16} />
           <input
             type="text"
             placeholder="Search products"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 pr-4 py-2 bg-gray-800 text-white rounded-lg"
+            className="pl-10 pr-4 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg"
           />
         </div>
 
         <select
-          className="bg-gray-800 text-white px-3 py-2 rounded-lg"
+          className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 py-2 rounded-lg"
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
         >
@@ -125,16 +125,16 @@ const SellerProductsDashboard = () => {
 
         <button
           onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
-          className="px-3 py-2 bg-gray-700 text-white rounded-lg"
+          className="px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg"
         >
           {sortOrder === "asc" ? <ChevronDown /> : <ChevronUp />}
         </button>
       </div>
 
       {/* PRODUCT TABLE */}
-      <div className="bg-gray-800 rounded-xl p-4">
-        <table className="w-full text-white">
-          <thead className="text-gray-400">
+      <div className="bg-white dark:bg-gray-800 rounded-xl p-4">
+        <table className="w-full text-gray-900 dark:text-white">
+          <thead className="text-gray-500 dark:text-gray-400">
             <tr>
               <th className="py-3 text-left">Product</th>
               <th className="py-3 text-left">Category</th>
@@ -151,7 +151,7 @@ const SellerProductsDashboard = () => {
               </tr>
             ) : items.length === 0 ? (
               <tr>
-                <td colSpan="5" className="text-center py-8 text-gray-400">
+                <td colSpan="5" className="text-center py-8 text-gray-500 dark:text-gray-400">
                   No products found
                 </td>
               </tr>
@@ -159,11 +159,11 @@ const SellerProductsDashboard = () => {
               items.map((p) => (
                 <tr
                   key={p.id}
-                  className="border-b border-gray-700 hover:bg-gray-700/40"
+                  className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-700/40"
                 >
                   <td className="py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-gray-600 rounded-lg overflow-hidden">
+                      <div className="w-12 h-12 bg-gray-100 dark:bg-gray-600 rounded-lg overflow-hidden">
                         {p.images?.length ? (
                           <img
                             src={p.images[0]}
@@ -171,12 +171,12 @@ const SellerProductsDashboard = () => {
                             alt={p.name}
                           />
                         ) : (
-                          <Package className="text-gray-300 m-auto" />
+                          <Package className="text-gray-700 dark:text-gray-300 m-auto" />
                         )}
                       </div>
                       <div>
                         <div className="font-semibold">{p.name}</div>
-                        <div className="text-gray-400 text-sm">
+                        <div className="text-gray-500 dark:text-gray-400 text-sm">
                           Seller: {p.sellerid}
                         </div>
                       </div>
@@ -229,19 +229,19 @@ const SellerProductsDashboard = () => {
             <button
               disabled={page === 1}
               onClick={() => setPage(page - 1)}
-              className="px-3 py-2 bg-gray-700 text-white rounded-lg disabled:opacity-30"
+              className="px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg disabled:opacity-30"
             >
               Previous
             </button>
 
-            <div className="text-gray-400">
+            <div className="text-gray-500 dark:text-gray-400">
               Page {page} of {totalPages}
             </div>
 
             <button
               disabled={page === totalPages}
               onClick={() => setPage(page + 1)}
-              className="px-3 py-2 bg-gray-700 text-white rounded-lg disabled:opacity-30"
+              className="px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg disabled:opacity-30"
             >
               Next
             </button>
@@ -252,7 +252,7 @@ const SellerProductsDashboard = () => {
       {/* VIEW PRODUCT MODAL */}
       {isViewOpen && viewProduct && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-          <div className="bg-gray-900 w-full max-w-3xl rounded-xl p-6 relative text-white overflow-y-auto max-h-[90vh]">
+          <div className="bg-gray-50 dark:bg-gray-900 w-full max-w-3xl rounded-xl p-6 relative text-gray-900 dark:text-white overflow-y-auto max-h-[90vh]">
 
             <button
               className="absolute top-3 right-3"

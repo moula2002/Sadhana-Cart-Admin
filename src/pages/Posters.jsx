@@ -294,7 +294,7 @@ const Posters = () => {
 
 
   return (
-    <div className="p-4 lg:p-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen font-sans">
+    <div className="p-4 lg:p-8 bg-gradient-to-br from-gray-50 dark:from-gray-900 via-white dark:via-gray-800 to-gray-50 dark:to-gray-900 min-h-screen font-sans">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-10 gap-6">
           <div className="flex items-center space-x-4">
@@ -302,8 +302,8 @@ const Posters = () => {
               <Plus className="h-8 w-8 text-blue-500" />
             </div>
             <div>
-              <h2 className="text-3xl font-black text-white tracking-tight">Posters & Banners</h2>
-              <p className="text-gray-400 font-medium">Manage your storefront visual offers</p>
+              <h2 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight">Posters & Banners</h2>
+              <p className="text-gray-500 dark:text-gray-400 font-medium">Manage your storefront visual offers</p>
             </div>
           </div>
           
@@ -315,21 +315,21 @@ const Posters = () => {
                 placeholder="Search banners..."
                 value={posterSearchTerm}
                 onChange={(e) => setPosterSearchTerm(e.target.value)}
-                className="w-full sm:w-72 pl-12 pr-4 py-3 bg-gray-800/50 backdrop-blur-md border border-gray-700 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
+                className="w-full sm:w-72 pl-12 pr-4 py-3 bg-white/80 dark:bg-gray-800/50 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-2xl text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
               />
             </div>
             
             <div className="flex items-center gap-3">
               <button 
                 onClick={handleOpenProductForm}
-                className="flex-1 sm:flex-none bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 py-3 rounded-2xl flex items-center justify-center space-x-2 transition-all font-bold shadow-lg shadow-green-900/20 transform active:scale-95"
+                className="flex-1 sm:flex-none bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-gray-900 dark:text-white px-6 py-3 rounded-2xl flex items-center justify-center space-x-2 transition-all font-bold shadow-lg shadow-green-900/20 transform active:scale-95"
               >
                 <Plus size={20} />
                 <span>Add Banner</span>
               </button>
               <button 
                 onClick={fetchPosters}
-                className="p-3 bg-gray-800 text-gray-400 hover:text-white rounded-2xl border border-gray-700 transition-colors"
+                className="p-3 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white rounded-2xl border border-gray-200 dark:border-gray-700 transition-colors"
               >
                 <RefreshCw size={20} className={loading ? 'animate-spin' : ''} />
               </button>
@@ -338,23 +338,23 @@ const Posters = () => {
         </div>
 
       {/* Desktop Table View */}
-      <div className="hidden md:block bg-gray-800/40 backdrop-blur-xl rounded-3xl overflow-hidden border border-gray-700/50 shadow-2xl">
+      <div className="hidden md:block bg-white/80 dark:bg-gray-800/40 backdrop-blur-xl rounded-3xl overflow-hidden border border-gray-200 dark:border-gray-700/50 shadow-2xl">
         <div className="overflow-x-auto custom-scrollbar">
           <table className="w-full text-left">
             <thead>
-              <tr className="bg-gray-800/60 border-b border-gray-700/50">
+              <tr className="bg-white/90 dark:bg-gray-800/60 border-b border-gray-200 dark:border-gray-700/50">
                 <th className="px-6 py-5 text-xs font-bold text-gray-500 uppercase tracking-[0.15em]">Banner Asset</th>
                 <th className="px-6 py-5 text-xs font-bold text-gray-500 uppercase tracking-[0.15em]">Status</th>
                 <th className="px-6 py-5 text-right text-xs font-bold text-gray-500 uppercase tracking-[0.15em]">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-700/50">
+            <tbody className="divide-y divide-gray-200 dark:divide-gray-700/50">
               {loading && filteredPosters.length === 0 ? (
                 <tr>
                   <td colSpan="6" className="px-6 py-20 text-center">
                     <div className="flex flex-col items-center">
                       <RefreshCw size={32} className="animate-spin text-blue-500 mb-4" />
-                      <p className="text-gray-400 font-medium">Synchronizing catalogs...</p>
+                      <p className="text-gray-500 dark:text-gray-400 font-medium">Synchronizing catalogs...</p>
                     </div>
                   </td>
                 </tr>
@@ -366,22 +366,22 @@ const Posters = () => {
                 </tr>
               ) : (
                 filteredPosters.map((poster) => (
-                  <tr key={poster.id} className="group hover:bg-gray-700/30 transition-colors">
+                  <tr key={poster.id} className="group hover:bg-gray-100/80 dark:bg-gray-700/30 transition-colors">
                     <td className="px-6 py-6">
                       <div className="flex items-center space-x-4">
                         {poster.image ? (
                           <img 
                             src={poster.image} 
                             alt={poster.bannerName}
-                            className="w-14 h-14 object-cover rounded-xl shadow-lg border border-gray-700"
+                            className="w-14 h-14 object-cover rounded-xl shadow-lg border border-gray-200 dark:border-gray-700"
                           />
                         ) : (
-                          <div className="w-14 h-14 bg-gray-700 rounded-xl flex items-center justify-center border border-gray-600">
-                            <Camera size={20} className="text-gray-400" />
+                          <div className="w-14 h-14 bg-gray-100 dark:bg-gray-700 rounded-xl flex items-center justify-center border border-gray-300 dark:border-gray-600">
+                            <Camera size={20} className="text-gray-500 dark:text-gray-400" />
                           </div>
                         )}
                         <div>
-                          <p className="text-sm font-bold text-white leading-tight mb-1">{poster.bannerName}</p>
+                          <p className="text-sm font-bold text-gray-900 dark:text-white leading-tight mb-1">{poster.bannerName}</p>
                         </div>
                       </div>
                     </td>
@@ -398,14 +398,14 @@ const Posters = () => {
                       <div className="flex items-center justify-end space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
                         <button
                           onClick={() => handleEdit(poster)}
-                          className="p-2.5 bg-blue-600/10 text-blue-400 hover:bg-blue-600 hover:text-white rounded-xl transition-all border border-blue-600/20"
+                          className="p-2.5 bg-blue-600/10 text-blue-400 hover:bg-blue-600 hover:text-gray-900 dark:text-white rounded-xl transition-all border border-blue-600/20"
                           title="Edit"
                         >
                           <Edit size={16} />
                         </button>
                         <button
                           onClick={() => handleDelete(poster.id)}
-                          className="p-2.5 bg-red-600/10 text-red-400 hover:bg-red-600 hover:text-white rounded-xl transition-all border border-red-600/20"
+                          className="p-2.5 bg-red-600/10 text-red-400 hover:bg-red-600 hover:text-gray-900 dark:text-white rounded-xl transition-all border border-red-600/20"
                           title="Delete"
                         >
                           <Trash2 size={16} />
@@ -423,18 +423,18 @@ const Posters = () => {
       {/* Mobile Card View */}
       <div className="md:hidden space-y-4">
         {loading ? (
-          <div className="bg-gray-800 rounded-lg p-6 text-center">
-            <p className="text-gray-400">Loading posters...</p>
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center">
+            <p className="text-gray-500 dark:text-gray-400">Loading posters...</p>
           </div>
         ) : filteredPosters.length === 0 ? (
-          <div className="bg-gray-800 rounded-lg p-6 text-center">
-            <p className="text-gray-400">
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center">
+            <p className="text-gray-500 dark:text-gray-400">
               {posterSearchTerm ? 'No posters found matching your search.' : 'No posters available'}
             </p>
           </div>
         ) : (
           filteredPosters.map((poster) => (
-            <div key={poster.id} className="bg-gray-800/50 backdrop-blur-md rounded-3xl p-5 border border-gray-700/50 relative overflow-hidden">
+            <div key={poster.id} className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-md rounded-3xl p-5 border border-gray-200 dark:border-gray-700/50 relative overflow-hidden">
               <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0">
                   {poster.image ? (
@@ -444,7 +444,7 @@ const Posters = () => {
                       className="w-20 h-24 object-cover rounded-2xl shadow-lg"
                     />
                   ) : (
-                    <div className="w-20 h-24 bg-gray-700 rounded-2xl flex items-center justify-center border border-gray-600">
+                    <div className="w-20 h-24 bg-gray-100 dark:bg-gray-700 rounded-2xl flex items-center justify-center border border-gray-300 dark:border-gray-600">
                       <Camera size={28} className="text-gray-500" />
                     </div>
                   )}
@@ -459,7 +459,7 @@ const Posters = () => {
                       {poster.status}
                     </span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-1 truncate">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 truncate">
                     {poster.bannerName}
                   </h3>
                 </div>
@@ -468,14 +468,14 @@ const Posters = () => {
               <div className="flex space-x-3 mt-6">
                 <button
                   onClick={() => handleEdit(poster)}
-                  className="flex-1 bg-gray-800 hover:bg-gray-700 text-white py-3 rounded-2xl text-xs font-bold transition-all border border-gray-700 flex items-center justify-center gap-2"
+                  className="flex-1 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white py-3 rounded-2xl text-xs font-bold transition-all border border-gray-200 dark:border-gray-700 flex items-center justify-center gap-2"
                 >
                   <Edit size={14} />
                   Edit
                 </button>
                 <button
                   onClick={() => handleDelete(poster.id)}
-                  className="flex-1 bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white py-3 rounded-2xl text-xs font-bold transition-all border border-red-500/20 flex items-center justify-center gap-2"
+                  className="flex-1 bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-gray-900 dark:text-white py-3 rounded-2xl text-xs font-bold transition-all border border-red-500/20 flex items-center justify-center gap-2"
                 >
                   <Trash2 size={14} />
                   Delete
@@ -489,15 +489,15 @@ const Posters = () => {
       {/* Add/Edit Poster Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-gray-800 rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-gray-800 rounded-lg w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto custom-scrollbar max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-white">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                   {selectedPoster ? 'Edit Poster' : 'Add New Poster'}
                 </h3>
                 <button
                   onClick={handleCancel}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white transition-colors"
                 >
                   <X size={20} />
                 </button>
@@ -506,10 +506,10 @@ const Posters = () => {
               <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Poster Image */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Poster Image
                   </label>
-                  <div className="border-2 border-dashed border-gray-600 rounded-lg p-4 text-center">
+                  <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 text-center">
                     {imagePreview ? (
                       <div className="relative">
                         <img 
@@ -524,15 +524,15 @@ const Posters = () => {
                             setImageFile(null);
                             setFormData(prev => ({ ...prev, image: null }));
                           }}
-                          className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
+                          className="absolute top-2 right-2 bg-red-500 text-gray-900 dark:text-white rounded-full p-1 hover:bg-red-600 transition-colors"
                         >
                           <X size={16} />
                         </button>
                       </div>
                     ) : (
                       <div>
-                        <Camera className="mx-auto h-12 w-12 text-gray-400 mb-2" />
-                        <p className="text-gray-400 mb-2">Upload Poster Image</p>
+                        <Camera className="mx-auto h-12 w-12 text-gray-500 dark:text-gray-400 mb-2" />
+                        <p className="text-gray-500 dark:text-gray-400 mb-2">Upload Poster Image</p>
                         <input
                           type="file"
                           accept="image/*"
@@ -542,7 +542,7 @@ const Posters = () => {
                         />
                         <label
                           htmlFor="poster-image"
-                          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg cursor-pointer transition-colors"
+                          className="bg-blue-600 hover:bg-blue-700 text-gray-900 dark:text-white px-4 py-2 rounded-lg cursor-pointer transition-colors"
                         >
                           Choose Image
                         </label>
@@ -553,7 +553,7 @@ const Posters = () => {
 
                 {/* Poster Title */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Banner Name *
                   </label>
                   <input
@@ -561,7 +561,7 @@ const Posters = () => {
                     name="bannerName"
                     value={formData.bannerName}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter banner name"
                     required
                   />
@@ -569,14 +569,14 @@ const Posters = () => {
 
                 {/* Status */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Status
                   </label>
                   <select
                     name="status"
                     value={formData.status}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
@@ -588,14 +588,14 @@ const Posters = () => {
                   <button
                     type="button"
                     onClick={handleCancel}
-                    className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                    className="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-600 text-gray-900 dark:text-white rounded-lg hover:bg-gray-100 dark:bg-gray-700 transition-colors"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+                    className="flex-1 px-4 py-2 bg-blue-600 text-gray-900 dark:text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
                   >
                     {loading ? 'Saving...' : (selectedPoster ? 'Update Poster' : 'Add Poster')}
                   </button>
@@ -610,15 +610,15 @@ const Posters = () => {
       {/* Product Form Modal */}
       {isProductFormModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-gray-800 rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-gray-800 rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-white">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                   Create Banner
                 </h3>
                 <button
                   onClick={handleProductFormCancel}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white transition-colors"
                 >
                   <X size={20} />
                 </button>
@@ -627,7 +627,7 @@ const Posters = () => {
               <form onSubmit={handleProductFormSubmit} className="space-y-4">
                 {/* Banner Image */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Banner Image
                   </label>
                   <div className="flex items-center justify-center w-full">
@@ -642,7 +642,7 @@ const Posters = () => {
                           htmlFor="productImageUpload"
                           className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg cursor-pointer opacity-0 hover:opacity-100 transition-opacity"
                         >
-                          <Camera className="w-6 h-6 text-white" />
+                          <Camera className="w-6 h-6 text-gray-900 dark:text-white" />
                         </label>
                         <input
                           id="productImageUpload"
@@ -663,10 +663,10 @@ const Posters = () => {
                         />
                         <label
                           htmlFor="productImageUpload"
-                          className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-600 border-dashed rounded-lg cursor-pointer bg-gray-700 hover:bg-gray-600"
+                          className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg cursor-pointer bg-gray-100 dark:bg-gray-700 hover:bg-gray-100 dark:bg-gray-600"
                         >
-                          <Camera className="w-8 h-8 mb-2 text-gray-400" />
-                          <p className="text-sm text-gray-400">Choose Banner Image</p>
+                          <Camera className="w-8 h-8 mb-2 text-gray-500 dark:text-gray-400" />
+                          <p className="text-sm text-gray-500 dark:text-gray-400">Choose Banner Image</p>
                         </label>
                       </div>
                     )}
@@ -676,7 +676,7 @@ const Posters = () => {
 
                 {/* Banner Name */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Banner Name *
                   </label>
                   <input
@@ -684,7 +684,7 @@ const Posters = () => {
                     name="bannerName"
                     value={productFormData.bannerName}
                     onChange={handleProductFormChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter banner name"
                     required
                   />
@@ -695,14 +695,14 @@ const Posters = () => {
                   <button
                     type="button"
                     onClick={handleProductFormCancel}
-                    className="flex-1 px-4 py-4 bg-gray-700 text-white rounded-2xl font-bold hover:bg-gray-600 transition-all border border-gray-600"
+                    className="flex-1 px-4 py-4 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-2xl font-bold hover:bg-gray-100 dark:bg-gray-600 transition-all border border-gray-300 dark:border-gray-600"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="flex-1 px-4 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-2xl font-bold shadow-lg shadow-blue-900/20 transition-all disabled:opacity-50"
+                    className="flex-1 px-4 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-gray-900 dark:text-white rounded-2xl font-bold shadow-lg shadow-blue-900/20 transition-all disabled:opacity-50"
                   >
                     {loading ? 'Processing...' : (selectedPoster ? 'Update' : 'Launch Banner')}
                   </button>

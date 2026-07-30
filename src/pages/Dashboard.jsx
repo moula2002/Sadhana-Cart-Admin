@@ -14,51 +14,51 @@ import AddProduct from '../components/AddProduct';
 const SkeletonLoader = () => (
   <div className="w-full">
     <table className="w-full">
-      <thead className="bg-gray-800/30">
+      <thead className="bg-white/60 dark:bg-gray-800/30">
         <tr>
           <th className="px-6 py-4 text-left">
-            <div className="h-4 bg-gray-600 rounded w-24 animate-pulse"></div>
+            <div className="h-4 bg-gray-100 dark:bg-gray-600 rounded w-24 animate-pulse"></div>
           </th>
           <th className="px-6 py-4 text-left hidden md:table-cell">
-            <div className="h-4 bg-gray-600 rounded w-20 animate-pulse"></div>
+            <div className="h-4 bg-gray-100 dark:bg-gray-600 rounded w-20 animate-pulse"></div>
           </th>
           <th className="px-6 py-4 text-left">
-            <div className="h-4 bg-gray-600 rounded w-16 animate-pulse"></div>
+            <div className="h-4 bg-gray-100 dark:bg-gray-600 rounded w-16 animate-pulse"></div>
           </th>
           <th className="px-6 py-4 text-left hidden sm:table-cell">
-            <div className="h-4 bg-gray-600 rounded w-20 animate-pulse"></div>
+            <div className="h-4 bg-gray-100 dark:bg-gray-600 rounded w-20 animate-pulse"></div>
           </th>
           <th className="px-6 py-4 text-left">
-            <div className="h-4 bg-gray-600 rounded w-16 animate-pulse"></div>
+            <div className="h-4 bg-gray-100 dark:bg-gray-600 rounded w-16 animate-pulse"></div>
           </th>
         </tr>
       </thead>
-      <tbody className="divide-y divide-gray-700/50">
+      <tbody className="divide-y divide-gray-200 dark:divide-gray-700/50">
         {Array.from({ length: 8 }).map((_, i) => (
-          <tr key={i} className="hover:bg-gray-800/30">
+          <tr key={i} className="hover:bg-white/60 dark:bg-gray-800/30">
             <td className="px-6 py-4">
               <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-gray-600 rounded-lg animate-pulse"></div>
+                <div className="w-12 h-12 bg-gray-100 dark:bg-gray-600 rounded-lg animate-pulse"></div>
                 <div className="flex-1">
-                  <div className="h-4 bg-gray-600 rounded w-3/4 mb-2 animate-pulse"></div>
-                  <div className="h-3 bg-gray-600 rounded w-1/2 animate-pulse"></div>
+                  <div className="h-4 bg-gray-100 dark:bg-gray-600 rounded w-3/4 mb-2 animate-pulse"></div>
+                  <div className="h-3 bg-gray-100 dark:bg-gray-600 rounded w-1/2 animate-pulse"></div>
                 </div>
               </div>
             </td>
             <td className="px-6 py-4 hidden md:table-cell">
-              <div className="h-4 bg-gray-600 rounded w-20 animate-pulse"></div>
+              <div className="h-4 bg-gray-100 dark:bg-gray-600 rounded w-20 animate-pulse"></div>
             </td>
             <td className="px-6 py-4">
-              <div className="h-4 bg-gray-600 rounded w-16 animate-pulse"></div>
+              <div className="h-4 bg-gray-100 dark:bg-gray-600 rounded w-16 animate-pulse"></div>
             </td>
             <td className="px-6 py-4 hidden sm:table-cell">
-              <div className="h-6 bg-gray-600 rounded w-20 animate-pulse"></div>
+              <div className="h-6 bg-gray-100 dark:bg-gray-600 rounded w-20 animate-pulse"></div>
             </td>
             <td className="px-6 py-4">
               <div className="flex space-x-2">
-                <div className="w-8 h-8 bg-gray-600 rounded animate-pulse"></div>
-                <div className="w-8 h-8 bg-gray-600 rounded animate-pulse"></div>
-                <div className="w-8 h-8 bg-gray-600 rounded animate-pulse"></div>
+                <div className="w-8 h-8 bg-gray-100 dark:bg-gray-600 rounded animate-pulse"></div>
+                <div className="w-8 h-8 bg-gray-100 dark:bg-gray-600 rounded animate-pulse"></div>
+                <div className="w-8 h-8 bg-gray-100 dark:bg-gray-600 rounded animate-pulse"></div>
               </div>
             </td>
           </tr>
@@ -106,6 +106,12 @@ const Dashboard = () => {
     shipped: 0,
     delivered: 0,
     cancelled: 0
+  });
+
+  const [revenueStats, setRevenueStats] = useState({
+    total: 0,
+    monthly: 0,
+    delivered: 0
   });
 
 
@@ -216,14 +222,60 @@ const loadMoreProducts = async () => {
   };
 });
 
-// Update stats and state
+// Calculate revenue and stats
+const calculateOrderTotal = (order) => {
+  const payable = Number(order.payableAmount);
+  const productsTotal = Number(order.productsTotal);
+  if (!isNaN(payable) && payable > 0) return payable;
+  if (!isNaN(productsTotal) && productsTotal > 0) return productsTotal;
+  if (order.totalAmount && Number(order.totalAmount) > 0) return Number(order.totalAmount);
+  if (order.amount && Number(order.amount) > 0) return Number(order.amount);
+  if (order.products && Array.isArray(order.products)) {
+    return order.products.reduce((sum, product) => sum + (Number(product.price || product.sellingPrice || product.mrp || 0) * Number(product.quantity || product.qty || 1)), 0);
+  }
+  if (order.items && Array.isArray(order.items)) {
+    return order.items.reduce((sum, item) => sum + (Number(item.price || item.sellingPrice || item.mrp || 0) * Number(item.quantity || item.qty || 1)), 0);
+  }
+  return 0;
+};
+
+let totalRev = 0;
+let monthRev = 0;
+let deliveredRev = 0;
+
+const currentMonth = new Date().getMonth();
+const currentYear = new Date().getFullYear();
+
+ordersData.forEach(order => {
+  const amt = calculateOrderTotal(order);
+  totalRev += amt;
+  const status = (order.orderStatus || order.status || '').toLowerCase();
+  if (status === 'delivered') deliveredRev += amt;
+  
+  const dateObj = order.createdAt?.seconds 
+    ? new Date(order.createdAt.seconds * 1000)
+    : order.orderDate?.seconds
+      ? new Date(order.orderDate.seconds * 1000)
+      : (order.createdAt || order.orderDate) ? new Date(order.createdAt || order.orderDate) : null;
+      
+  if (dateObj && dateObj.getMonth() === currentMonth && dateObj.getFullYear() === currentYear) {
+      monthRev += amt;
+  }
+});
+
+setRevenueStats({
+  total: totalRev,
+  monthly: monthRev,
+  delivered: deliveredRev
+});
+
 const stats = {
   all: ordersData.length,
-  pending: ordersData.filter(order => order.orderStatus === 'pending').length,
-  processing: ordersData.filter(order => order.orderStatus === 'processing').length,
-  shipped: ordersData.filter(order => order.orderStatus === 'shipped').length,
-  delivered: ordersData.filter(order => order.orderStatus === 'delivered').length,
-  cancelled: ordersData.filter(order => order.orderStatus === 'cancelled').length
+  pending: ordersData.filter(order => (order.orderStatus || order.status) === 'pending').length,
+  processing: ordersData.filter(order => (order.orderStatus || order.status) === 'processing').length,
+  shipped: ordersData.filter(order => (order.orderStatus || order.status) === 'shipped').length,
+  delivered: ordersData.filter(order => (order.orderStatus || order.status) === 'delivered').length,
+  cancelled: ordersData.filter(order => (order.orderStatus || order.status) === 'cancelled').length
 };
 
 setOrderStats(stats);
@@ -490,23 +542,84 @@ useEffect(() => {
           ? {
               ...p,
               isFeatured: newFeaturedStatus,
-              productType: newFeaturedStatus ? 'featured product' : 'regular product'
+              productType: newFeaturedStatus ? 'new arrivals product' : 'regular product'
             }
           : p
       ));
 
-      alert(`Product ${newFeaturedStatus ? 'marked as featured' : 'removed from featured'} successfully!`);
+      alert(`Product ${newFeaturedStatus ? 'marked as New Arrivals' : 'removed from New Arrivals'} successfully!`);
 
       // Navigate to featured products page when newly marked as featured
       if (newFeaturedStatus) {
         navigate('/featured');
       }
     } catch (error) {
-      console.error('Error toggling featured status:', error);
-      alert('Failed to update featured status');
+      console.error('Error toggling new arrivals status:', error);
+      alert('Failed to update new arrivals status');
     }
   };
 
+  const toggleBestArrival = async (product) => {
+    try {
+      const db = getFirestore();
+      const productRef = doc(db, 'products', product.id);
+
+      const newBestArrivalStatus = !product.isBestArrival;
+
+      await updateDoc(productRef, {
+        isBestArrival: newBestArrivalStatus,
+        updatedAt: new Date()
+      });
+
+      if (newBestArrivalStatus) {
+        const bestArrivalDocRef = doc(db, 'bestArrivals', product.id);
+
+        const bestArrivalPayload = {
+          productId: product.id,
+          name: product.name || '',
+          images: product.images || [],
+          price: product.price || 0,
+          offerPrice: product.offerPrice || null,
+          sku: product.sku || null,
+          sellerid: product.sellerid || product.sellerId || null,
+          bestArrivalInfo: product.bestArrivalInfo || {
+            title: product.name || '',
+            description: '',
+            displayOrder: null
+          },
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        };
+
+        await setDoc(bestArrivalDocRef, bestArrivalPayload, { merge: true });
+      } else {
+        const bestArrivalDocRef = doc(db, 'bestArrivals', product.id);
+        try {
+          await deleteDoc(bestArrivalDocRef);
+        } catch (err) {
+          console.warn('bestArrivals deleteDoc failed (may not exist):', err.message || err);
+        }
+      }
+
+      setProducts(prev => prev.map(p =>
+        p.id === product.id
+          ? {
+              ...p,
+              isBestArrival: newBestArrivalStatus
+            }
+          : p
+      ));
+
+      alert(`Product ${newBestArrivalStatus ? 'marked as Flash Deal' : 'removed from Flash Deals'} successfully!`);
+
+      if (newBestArrivalStatus) {
+        navigate('/best-arrivals');
+      }
+    } catch (error) {
+      console.error('Error toggling Flash Deal status:', error);
+      alert('Failed to update Flash Deal status');
+    }
+  };
   const handleProductAdded = (newProduct, action) => {
     if (action === 'added') {
       setProducts(prev => [newProduct, ...prev]);
@@ -541,15 +654,15 @@ useEffect(() => {
 
     return (
       <div className="fixed inset-0 bg-black/90 backdrop-blur-xl flex items-center justify-center z-50 p-4">
-        <div className="bg-gray-900 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden border border-gray-800 shadow-2xl">
-          <div className="flex items-center justify-between p-6 bg-gradient-to-r from-gray-800 to-gray-900">
+        <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden border border-gray-800 shadow-2xl">
+          <div className="flex items-center justify-between p-6 bg-gradient-to-r from-white dark:from-gray-800 to-gray-50 dark:to-gray-900">
             <div>
-              <h2 className="text-2xl font-bold text-white">Product Details</h2>
-              <p className="text-gray-400">{product.name}</p>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Product Details</h2>
+              <p className="text-gray-500 dark:text-gray-400">{product.name}</p>
             </div>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-800 transition-all"
+              className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white p-2 rounded-lg hover:bg-white dark:bg-gray-800 transition-all"
             >
               <X size={24} />
             </button>
@@ -559,8 +672,8 @@ useEffect(() => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Images */}
               <div className="space-y-6">
-                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
-                  <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <div className="bg-white/80 dark:bg-gray-800/50 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                     <Camera className="w-5 h-5" />
                     Product Images
                   </h3>
@@ -579,14 +692,14 @@ useEffect(() => {
                   ) : (
                     <div className="text-center py-8">
                       <Camera className="w-12 h-12 text-gray-600 mx-auto mb-3" />
-                      <p className="text-gray-400">No images available</p>
+                      <p className="text-gray-500 dark:text-gray-400">No images available</p>
                     </div>
                   )}
                 </div>
 
                 {/* Basic Info */}
-                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
-                  <h3 className="text-lg font-semibold text-white mb-4">Basic Information</h3>
+                <div className="bg-white/80 dark:bg-gray-800/50 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Basic Information</h3>
                   <div className="space-y-3">
                     {[
                       ['Product Name', product.name],
@@ -596,9 +709,9 @@ useEffect(() => {
 
                       ['Description', product.description || 'No description']
                     ].map(([label, value]) => (
-                      <div key={label} className="flex justify-between py-2 border-b border-gray-700 last:border-0">
-                        <span className="text-gray-400">{label}</span>
-                        <span className="text-white text-right max-w-xs">{value}</span>
+                      <div key={label} className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700 last:border-0">
+                        <span className="text-gray-500 dark:text-gray-400">{label}</span>
+                        <span className="text-gray-900 dark:text-white text-right max-w-xs">{value}</span>
                       </div>
                     ))}
                   </div>
@@ -608,18 +721,18 @@ useEffect(() => {
               {/* Details */}
               <div className="space-y-6">
                 {/* Pricing */}
-                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
-                  <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <div className="bg-white/80 dark:bg-gray-800/50 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                     <DollarSign className="w-5 h-5" />
                     Pricing & Stock
                   </h3>
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-400">Price</span>
-                      <span className="text-2xl font-bold text-white">₹{product.price}</span>
+                      <span className="text-gray-500 dark:text-gray-400">Price</span>
+                      <span className="text-2xl font-bold text-gray-900 dark:text-white">₹{product.price}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-400">Stock</span>
+                      <span className="text-gray-500 dark:text-gray-400">Stock</span>
                       <span className={`px-3 py-1 rounded-full text-sm font-medium ${stockStatus(product.stock).color}`}>
                         {product.stock} units • {stockStatus(product.stock).text}
                       </span>
@@ -628,8 +741,8 @@ useEffect(() => {
                 </div>
 
                 {/* Specifications */}
-                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
-                  <h3 className="text-lg font-semibold text-white mb-4">Specifications</h3>
+                <div className="bg-white/80 dark:bg-gray-800/50 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Specifications</h3>
                   <div className="grid grid-cols-2 gap-4">
                     {[
                       ['Height', product.height, <Ruler key="height" className="w-4 h-4" />],
@@ -637,11 +750,11 @@ useEffect(() => {
                       ['Length', product.length, <Ruler key="length" className="w-4 h-4" />],
                       ['Weight', product.weight, <Weight key="weight" className="w-4 h-4" />]
                     ].map(([label, value, icon]) => (
-                      <div key={label} className="bg-gray-700/50 rounded-lg p-3 flex items-center gap-3">
+                      <div key={label} className="bg-gray-100/80 dark:bg-gray-700/50 rounded-lg p-3 flex items-center gap-3">
                         <div className="text-blue-400">{icon}</div>
                         <div>
-                          <p className="text-xs text-gray-400">{label}</p>
-                          <p className="text-white font-medium">{value || 'N/A'}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">{label}</p>
+                          <p className="text-gray-900 dark:text-white font-medium">{value || 'N/A'}</p>
                         </div>
                       </div>
                     ))}
@@ -649,8 +762,8 @@ useEffect(() => {
                 </div>
 
                 {/* Product ID */}
-                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
-                  <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <div className="bg-white/80 dark:bg-gray-800/50 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                     <Barcode className="w-5 h-5" />
                     Product Identification
                   </h3>
@@ -661,9 +774,9 @@ useEffect(() => {
                       ['Seller ID', product.sellerid],
                       ['Product ID', product.id]
                     ].map(([label, value]) => (
-                      <div key={label} className="flex justify-between py-2 border-b border-gray-700 last:border-0">
-                        <span className="text-gray-400">{label}</span>
-                        <span className="text-white font-mono">{value || 'N/A'}</span>
+                      <div key={label} className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700 last:border-0">
+                        <span className="text-gray-500 dark:text-gray-400">{label}</span>
+                        <span className="text-gray-900 dark:text-white font-mono">{value || 'N/A'}</span>
                       </div>
                     ))}
                   </div>
@@ -675,7 +788,7 @@ useEffect(() => {
           <div className="flex justify-end gap-3 p-6 border-t border-gray-800">
             <button
               onClick={onClose}
-              className="px-6 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors"
+              className="px-6 py-2 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg transition-colors"
             >
               Close
             </button>
@@ -684,7 +797,7 @@ useEffect(() => {
                 onClose();
                 handleEdit(product);
               }}
-              className="px-6 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg transition-all flex items-center gap-2"
+              className="px-6 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-gray-900 dark:text-white rounded-lg transition-all flex items-center gap-2"
             >
               <Edit className="w-4 h-4" />
               Edit Product
@@ -696,15 +809,15 @@ useEffect(() => {
   };
 
   return (
-   <div className="w-full h-auto bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+   <div className="w-full h-auto bg-gradient-to-br from-gray-50 dark:from-gray-900 via-white dark:via-gray-800 to-gray-50 dark:to-gray-900">
       {/* Header */}
-      <div className="bg-gray-800/30 backdrop-blur-lg border-b border-gray-700/50 px-6 py-4">
+      <div className="bg-white/60 dark:bg-gray-800/30 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700/50 px-6 py-4">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-white">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
               Dashboard <span className="text-blue-400">Overview</span>
             </h1>
-            <p className="text-gray-400 mt-1">Manage your products, inventory, and orders</p>
+            <p className="text-gray-500 dark:text-gray-400 mt-1">Manage your products, inventory, and orders</p>
           </div>
           
          
@@ -715,7 +828,7 @@ useEffect(() => {
         {/* Stats Overview */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {productStats.map((stat, index) => (
-            <div key={index} className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600 transition-all duration-300 hover:scale-[1.02]">
+            <div key={index} className="bg-gradient-to-br from-white/80 dark:from-gray-800/50 to-gray-50/80 dark:to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 dark:border-gray-700/50 hover:border-gray-300 dark:border-gray-600 transition-all duration-300 hover:scale-[1.02]">
               <div className="flex items-center justify-between mb-4">
                 <div className={`p-3 rounded-xl bg-gradient-to-br ${stat.color}/20`}>
                   <stat.icon className={`w-6 h-6 ${stat.iconColor}`} />
@@ -728,9 +841,9 @@ useEffect(() => {
                   {stat.trend}
                 </span>
               </div>
-              <h3 className="text-gray-300 text-sm font-medium mb-2">{stat.title}</h3>
-              <p className="text-3xl font-bold text-white mb-2">{stat.count}</p>
-              <div className="h-1 w-full bg-gray-700 rounded-full overflow-hidden">
+              <h3 className="text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{stat.title}</h3>
+              <p className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{stat.count}</p>
+              <div className="h-1 w-full bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
                 <div 
                   className={`h-full bg-gradient-to-r ${stat.color} rounded-full`}
                   style={{ width: `${Math.min(100, (stat.count / Math.max(...productStats.map(s => s.count))) * 100)}%` }}
@@ -740,24 +853,87 @@ useEffect(() => {
           ))}
         </div>
 
+        {/* Revenue & Orders Report */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* Revenue Report */}
+          <div className="bg-gradient-to-br from-white/80 dark:from-gray-800/50 to-gray-50/80 dark:to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 dark:border-gray-700/50 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-3 rounded-xl bg-green-500/20">
+                  <DollarSign className="w-6 h-6 text-green-400" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">Revenue Report</h3>
+              </div>
+              <div className="grid grid-cols-2 gap-4 mt-6">
+                <div className="bg-white/90 dark:bg-gray-800/80 rounded-xl p-4 border border-gray-200 dark:border-gray-700/50">
+                  <p className="text-gray-500 dark:text-gray-400 text-sm mb-1">Total Revenue</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">₹{revenueStats.total.toLocaleString('en-IN')}</p>
+                </div>
+                <div className="bg-white/90 dark:bg-gray-800/80 rounded-xl p-4 border border-gray-200 dark:border-gray-700/50">
+                  <p className="text-gray-500 dark:text-gray-400 text-sm mb-1">This Month</p>
+                  <p className="text-2xl font-bold text-green-400">₹{revenueStats.monthly.toLocaleString('en-IN')}</p>
+                </div>
+                <div className="col-span-2 bg-white/90 dark:bg-gray-800/80 rounded-xl p-4 border border-gray-200 dark:border-gray-700/50">
+                  <div className="flex justify-between items-center">
+                    <p className="text-gray-500 dark:text-gray-400 text-sm">Delivered Revenue</p>
+                    <p className="text-xl font-bold text-gray-900 dark:text-white">₹{revenueStats.delivered.toLocaleString('en-IN')}</p>
+                  </div>
+                  <div className="w-full bg-gray-100 dark:bg-gray-700 h-1.5 rounded-full mt-3 overflow-hidden">
+                    <div 
+                      className="bg-green-500 h-full rounded-full" 
+                      style={{ width: `${revenueStats.total > 0 ? (revenueStats.delivered / revenueStats.total) * 100 : 0}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Orders Report */}
+          <div className="bg-gradient-to-br from-white/80 dark:from-gray-800/50 to-gray-50/80 dark:to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 dark:border-gray-700/50">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-3 rounded-xl bg-purple-500/20">
+                <ShoppingBag className="w-6 h-6 text-purple-400" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white">Orders Report</h3>
+            </div>
+            
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              {[
+                { label: 'All Orders', count: orderStats.all, color: 'text-purple-400', bg: 'bg-purple-500/10' },
+                { label: 'Pending', count: orderStats.pending, color: 'text-yellow-400', bg: 'bg-yellow-500/10' },
+                { label: 'Processing', count: orderStats.processing, color: 'text-blue-400', bg: 'bg-blue-500/10' },
+                { label: 'Shipped', count: orderStats.shipped, color: 'text-indigo-400', bg: 'bg-indigo-500/10' },
+                { label: 'Delivered', count: orderStats.delivered, color: 'text-green-400', bg: 'bg-green-500/10' },
+                { label: 'Cancelled', count: orderStats.cancelled, color: 'text-red-400', bg: 'bg-red-500/10' }
+              ].map((stat, idx) => (
+                <div key={idx} className={`rounded-xl p-4 border border-gray-200 dark:border-gray-700/30 ${stat.bg} flex flex-col items-center justify-center text-center`}>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white mb-1">{stat.count}</p>
+                  <p className={`text-xs font-medium ${stat.color}`}>{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 mb-8">
           {quickActions.map((action, index) => {
             const Icon = action.icon;
             return (
               <button
                 key={index}
                 onClick={action.action}
-                className="group bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700/50 hover:border-gray-600 rounded-xl p-6 text-left transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                className="group bg-gradient-to-br from-white/80 dark:from-gray-800/50 to-gray-50/80 dark:to-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700/50 hover:border-gray-300 dark:border-gray-600 rounded-xl p-6 text-left transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className={`p-3 rounded-xl bg-gradient-to-br ${action.color}/20 group-hover:scale-110 transition-transform`}>
-                    <Icon className="w-6 h-6 text-white" />
+                    <Icon className="w-6 h-6 text-gray-900 dark:text-white" />
                   </div>
-                  <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                  <ChevronRight className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:text-white group-hover:translate-x-1 transition-all" />
                 </div>
-                <h3 className="font-semibold text-white mb-2">{action.title}</h3>
-                <p className="text-gray-400 text-sm">{action.description}</p>
+                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{action.title}</h3>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">{action.description}</p>
               </button>
             );
           })}
@@ -767,12 +943,12 @@ useEffect(() => {
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Products Table */}
           <div className="flex-1">
-            <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 overflow-hidden">
-              <div className="p-6 border-b border-gray-700/50">
+            <div className="bg-gradient-to-br from-white/80 dark:from-gray-800/50 to-gray-50/80 dark:to-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-200 dark:border-gray-700/50 overflow-hidden">
+              <div className="p-6 border-b border-gray-200 dark:border-gray-700/50">
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                   <div>
-                    <h2 className="text-xl font-semibold text-white">Products</h2>
-                    <p className="text-gray-400 text-sm">
+                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Products</h2>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm">
                       {totalProductCount} products • Page {currentPage} of {totalPages}
                     </p>
                   </div>
@@ -782,7 +958,7 @@ useEffect(() => {
                     <select
                       value={selectedCategory}
                       onChange={(e) => setSelectedCategory(e.target.value)}
-                      className="px-4 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                      className="px-4 py-2 bg-white/80 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                     >
                       <option value="all">All Categories</option>
                       {categories.map(cat => (
@@ -793,7 +969,7 @@ useEffect(() => {
                     <select
                       value={selectedStatus}
                       onChange={(e) => setSelectedStatus(e.target.value)}
-                      className="px-4 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                      className="px-4 py-2 bg-white/80 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                     >
                       <option value="all">All Status</option>
                       <option value="in-stock">In Stock</option>
@@ -804,7 +980,7 @@ useEffect(() => {
                     <select
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value)}
-                      className="px-4 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                      className="px-4 py-2 bg-white/80 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                     >
                       <option value="name">Sort by Name</option>
                       <option value="price">Sort by Price</option>
@@ -813,7 +989,7 @@ useEffect(() => {
 
                     <button
                       onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-                      className="px-4 py-2 bg-gray-800/50 hover:bg-gray-700 border border-gray-700 rounded-lg text-white transition-colors flex items-center gap-2"
+                      className="px-4 py-2 bg-white/80 dark:bg-gray-800/50 hover:bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white transition-colors flex items-center gap-2"
                     >
                       <Filter className="w-4 h-4" />
                       {sortOrder === 'asc' ? 'A-Z' : 'Z-A'}
@@ -821,20 +997,20 @@ useEffect(() => {
                   </div>
                    <div className="flex items-center gap-3">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 w-4 h-4" />
               <input
                 type="text"
                 placeholder="Search products..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-64"
+                className="pl-10 pr-4 py-2 bg-white/80 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-64"
               />
             </div>
             
             <button
               onClick={fetchAllData}
               disabled={isRefreshing}
-              className="p-2 bg-gray-800/50 hover:bg-gray-700 text-white rounded-lg transition-colors disabled:opacity-50"
+              className="p-2 bg-white/80 dark:bg-gray-800/50 hover:bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg transition-colors disabled:opacity-50"
               title="Refresh"
             >
               <RefreshCw className={`w-5 h-5 ${isRefreshing ? 'animate-spin' : ''}`} />
@@ -850,34 +1026,37 @@ useEffect(() => {
                   </div>
                 ) : currentItems.length > 0 ? (
                   <table className="w-full">
-                    <thead className="bg-gray-800/30">
+                    <thead className="bg-white/60 dark:bg-gray-800/30">
                       <tr>
-                        <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                           Product
                         </th>
-                        <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider hidden md:table-cell">
+                        <th className="px-6 py-4 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider hidden md:table-cell">
                           Category
                         </th>
-                        <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                           Price
                         </th>
-                        <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider hidden sm:table-cell">
+                        <th className="px-6 py-4 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider hidden sm:table-cell">
                           Stock
                         </th>
-                        <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                          Featured
+                        <th className="px-6 py-4 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
+                          New Arrivals
                         </th>
-                        <th  className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
+                          Flash Deals
+                        </th>
+                        <th  className="px-6 py-4 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
   Recommended
 </th>
-                        <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                           Actions
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-700/50">
+                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700/50">
                       {currentItems.map((product) => (
-                        <tr key={product.id} className="hover:bg-gray-800/30 transition-colors">
+                        <tr key={product.id} className="hover:bg-white/60 dark:bg-gray-800/30 transition-colors">
                           <td className="px-6 py-4">
                             <div className="flex items-center space-x-4">
                               <div className="relative">
@@ -897,24 +1076,24 @@ useEffect(() => {
 
                                   />
                                 ) : null}
-                                <div className="w-12 h-12 bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg flex items-center justify-center">
-                                  <Package className="w-5 h-5 text-gray-400" />
+                                <div className="w-12 h-12 bg-gradient-to-br from-gray-700 to-white dark:to-gray-800 rounded-lg flex items-center justify-center">
+                                  <Package className="w-5 h-5 text-gray-500 dark:text-gray-400" />
                                 </div>
                               </div>
                               <div>
-                                <div className="text-white font-medium line-clamp-1">{product.name}</div>
-                                <div className="text-gray-400 text-sm line-clamp-1">
+                                <div className="text-gray-900 dark:text-white font-medium line-clamp-1">{product.name}</div>
+                                <div className="text-gray-500 dark:text-gray-400 text-sm line-clamp-1">
                                   {product.brand && `${product.brand} • `}
                                   {product.sellerid}
                                 </div>
                               </div>
                             </div>
                           </td>
-                          <td className="px-6 py-4 text-gray-300 hidden md:table-cell">
+                          <td className="px-6 py-4 text-gray-700 dark:text-gray-300 hidden md:table-cell">
                             <div className="text-sm">
   {product.category || 'N/A'}
 </div>
-<div className="text-xs text-gray-400">
+<div className="text-xs text-gray-500 dark:text-gray-400">
  {product.subCategory || product.subcategory || 'N/A'}
 
 </div>
@@ -923,7 +1102,7 @@ useEffect(() => {
                          <td className="px-6 py-4">
   {product.offerPrice > 0 && product.offerPrice < product.price ? (
     <>
-      <div className="text-gray-400 line-through text-sm">
+      <div className="text-gray-500 dark:text-gray-400 line-through text-sm">
         ₹{product.price}
       </div>
       <div className="text-green-400 font-semibold text-lg">
@@ -931,7 +1110,7 @@ useEffect(() => {
       </div>
     </>
   ) : (
-    <div className="text-white font-semibold">
+    <div className="text-gray-900 dark:text-white font-semibold">
       ₹{product.price}
     </div>
   )}
@@ -949,16 +1128,16 @@ useEffect(() => {
                             </span>
                           </td>
 
-                          {/* Featured Column */}
+                          {/* New Arrivals Column */}
                           <td className="px-6 py-4">
                             <button
                               onClick={() => toggleFeatured(product)}
                               className={`p-2 rounded-lg transition-all duration-200 ${
                                 product.isFeatured
                                   ? 'bg-yellow-500/20 text-yellow-400 hover:bg-yellow-500/30'
-                                  : 'bg-gray-700/50 text-gray-400 hover:bg-gray-600'
+                                  : 'bg-gray-100/80 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:bg-gray-600'
                               }`}
-                              title={product.isFeatured ? 'Remove from Featured' : 'Mark as Featured'}
+                              title={product.isFeatured ? 'Remove from New Arrivals' : 'Mark as New Arrival'}
                             >
                               <Star
                                 className={`w-4 h-4 ${product.isFeatured ? 'fill-current' : ''}`}
@@ -966,7 +1145,28 @@ useEffect(() => {
                             </button>
                             {product.isFeatured && (
                               <span className="ml-2 inline-block text-xs bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded">
-                                Featured
+                                New Arrival
+                              </span>
+                            )}
+                          </td>
+
+                          <td className="px-6 py-4">
+                            <button
+                              onClick={() => toggleBestArrival(product)}
+                              className={`p-2 rounded-lg transition-all duration-200 ${
+                                product.isBestArrival
+                                  ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
+                                  : 'bg-gray-100/80 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:bg-gray-600'
+                              }`}
+                              title={product.isBestArrival ? 'Remove from Flash Deals' : 'Mark as Flash Deal'}
+                            >
+                              <Star
+                                className={`w-4 h-4 ${product.isBestArrival ? 'fill-current' : ''}`}
+                              />
+                            </button>
+                            {product.isBestArrival && (
+                              <span className="ml-2 inline-block text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded">
+                                Flash Deal
                               </span>
                             )}
                           </td>
@@ -977,7 +1177,7 @@ useEffect(() => {
     className={`p-2 rounded-lg transition ${
       product.recommended
         ? "bg-purple-500/20 text-purple-400"
-        : "bg-gray-700 text-gray-400 hover:text-purple-400"
+        : "bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:text-purple-400"
     }`}
   >
     <Zap
@@ -1019,8 +1219,8 @@ useEffect(() => {
                 ) : (
                   <div className="text-center py-12">
                     <Package className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-white mb-2">No products found</h3>
-                    <p className="text-gray-400 mb-6">
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No products found</h3>
+                    <p className="text-gray-500 dark:text-gray-400 mb-6">
                       {searchTerm || selectedCategory !== 'all' || selectedStatus !== 'all'
                         ? 'Try adjusting your filters'
                         : 'Add your first product to get started'
@@ -1033,7 +1233,7 @@ useEffect(() => {
                           setSelectedCategory('all');
                           setSelectedStatus('all');
                         }}
-                        className="px-6 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg transition-all"
+                        className="px-6 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-gray-900 dark:text-white rounded-lg transition-all"
                       >
                         Clear Filters
                       </button>
@@ -1043,16 +1243,16 @@ useEffect(() => {
               </div>
 
               {totalPages > 1 && (
-                <div className="px-6 py-4 border-t border-gray-700/50">
+                <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700/50">
                   <div className="flex items-center justify-between">
-                    <div className="text-sm text-gray-400">
+                    <div className="text-sm text-gray-500 dark:text-gray-400">
                       Showing {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, filteredProducts.length)} of {filteredProducts.length}
                     </div>
                     <div className="flex items-center space-x-2">
                       <button
                         onClick={() => paginate(currentPage - 1)}
                         disabled={currentPage === 1}
-                        className="px-4 py-2 bg-gray-800/50 hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg transition-colors"
+                        className="px-4 py-2 bg-white/80 dark:bg-gray-800/50 hover:bg-gray-100 dark:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed text-gray-900 dark:text-white rounded-lg transition-colors"
                       >
                         Previous
                       </button>
@@ -1064,8 +1264,8 @@ useEffect(() => {
                             onClick={() => paginate(page)}
                             className={`w-10 h-10 rounded-lg transition-colors ${
                               currentPage === page
-                                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white'
-                                : 'bg-gray-800/50 hover:bg-gray-700 text-white'
+                                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-gray-900 dark:text-white'
+                                : 'bg-white/80 dark:bg-gray-800/50 hover:bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white'
                             }`}
                           >
                             {page}
@@ -1080,7 +1280,7 @@ useEffect(() => {
     paginate(currentPage + 1);
   }}
   disabled={currentPage === totalPages && !hasMore}
-  className="px-4 py-2 bg-gray-800/50 hover:bg-gray-700 disabled:opacity-50 text-white rounded-lg"
+  className="px-4 py-2 bg-white/80 dark:bg-gray-800/50 hover:bg-gray-100 dark:bg-gray-700 disabled:opacity-50 text-gray-900 dark:text-white rounded-lg"
 >
   Next
 </button>

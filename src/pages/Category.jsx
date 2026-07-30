@@ -162,20 +162,20 @@ const Category = () => {
     }, [categories, searchTerm]);
 
     return (
-        <div className="p-4 lg:p-6 bg-gray-900 h-full min-h-screen">
+        <div className="p-4 lg:p-6 bg-gray-50 dark:bg-gray-900 h-full min-h-screen">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
-                <h2 className="text-2xl font-semibold text-white">Category Management</h2>
+                <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Category Management</h2>
                 <div className="flex items-center space-x-3 w-full md:w-auto">
                     <button 
                         onClick={() => { handleCancel(); setIsModalOpen(true); }}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors text-sm"
+                        className="bg-blue-600 hover:bg-blue-700 text-gray-900 dark:text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors text-sm"
                     >
                         <Plus size={20} />
                         <span>Add Category</span>
                     </button>
                     <button 
                         onClick={handleRefresh}
-                        className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded-lg transition-colors"
+                        className="bg-gray-100 dark:bg-gray-700 hover:bg-gray-100 dark:bg-gray-600 text-gray-900 dark:text-white p-2 rounded-lg transition-colors"
                     >
                         <RefreshCw size={20} />
                     </button>
@@ -183,53 +183,53 @@ const Category = () => {
             </div>
 
             {/* --- SEARCH BAR --- */}
-            <div className="mb-6 flex items-center justify-between p-4 bg-gray-800 rounded-lg">
-                <h3 className="text-lg font-medium text-white hidden sm:block">
+            <div className="mb-6 flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg">
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white hidden sm:block">
                     Categories ({filteredCategories.length})
                 </h3>
                 <div className="relative w-full sm:w-80">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400" size={18} />
                     <input
                         type="text"
                         placeholder="Search category name..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
             </div>
 
             {/* Desktop Table View */}
-            <div className="hidden lg:block bg-gray-800 rounded-lg overflow-hidden">
+            <div className="hidden lg:block bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full">
-                        <thead className="bg-gray-700">
+                        <thead className="bg-gray-100 dark:bg-gray-700">
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Category Name</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Commission (%)</th> 
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Image</th>
-                                <th className="px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Category Name</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Commission (%)</th> 
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Image</th>
+                                <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {loading ? (
                                 <tr>
-                                    <td colSpan="4" className="px-6 py-4 text-center text-gray-400">
+                                    <td colSpan="4" className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
                                         <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500 mx-auto"></div>
                                         <p className="mt-2">Loading categories...</p>
                                     </td>
                                 </tr>
                             ) : filteredCategories.length === 0 ? (
                                 <tr>
-                                    <td colSpan="4" className="px-6 py-4 text-center text-gray-400">
+                                    <td colSpan="4" className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
                                         {searchTerm ? `No categories found matching "${searchTerm}"` : 'No categories found'}
                                     </td>
                                 </tr>
                             ) : (
                                 filteredCategories.map((category) => (
-                                    <tr key={category.id} className="border-b border-gray-700 hover:bg-gray-700/50 transition-colors">
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300 font-medium">{category.name}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{category.commission ? `${category.commission}%` : '0%'}</td> 
+                                    <tr key={category.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100/80 dark:bg-gray-700/50 transition-colors">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300 font-medium">{category.name}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">{category.commission ? `${category.commission}%` : '0%'}</td> 
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             {category.image ? (
                                                 <img src={category.image} alt={category.name} className="h-10 w-10 rounded-full object-cover" />
@@ -241,13 +241,13 @@ const Category = () => {
                                             <div className="flex space-x-2 justify-end">
                                                 <button
                                                     onClick={() => handleEdit(category)}
-                                                    className="text-indigo-400 hover:text-indigo-300 p-2 rounded-lg hover:bg-gray-700"
+                                                    className="text-indigo-400 hover:text-indigo-300 p-2 rounded-lg hover:bg-gray-100 dark:bg-gray-700"
                                                 >
                                                     <Edit size={16} />
                                                 </button>
                                                 <button
                                                     onClick={() => handleDelete(category.id)}
-                                                    className="text-red-400 hover:text-red-300 p-2 rounded-lg hover:bg-gray-700"
+                                                    className="text-red-400 hover:text-red-300 p-2 rounded-lg hover:bg-gray-100 dark:bg-gray-700"
                                                 >
                                                     <Trash2 size={16} />
                                                 </button>
@@ -264,40 +264,40 @@ const Category = () => {
             {/* Mobile Card View (For Tailwind Mobile Responsiveness) */}
             <div className="lg:hidden space-y-4">
                 {loading ? (
-                    <div className="bg-gray-800 rounded-lg p-6 text-center text-gray-400">
+                    <div className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center text-gray-500 dark:text-gray-400">
                         <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500 mx-auto"></div>
                         <p className="mt-2">Loading categories...</p>
                     </div>
                 ) : filteredCategories.length === 0 ? (
-                    <div className="bg-gray-800 rounded-lg p-6 text-center text-gray-400">
+                    <div className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center text-gray-500 dark:text-gray-400">
                         {searchTerm ? `No categories found matching "${searchTerm}"` : 'No categories found'}
                     </div>
                 ) : (
                     filteredCategories.map((category) => (
-                        <div key={category.id} className="bg-gray-800 rounded-lg p-4 flex items-center justify-between hover:bg-gray-700/50 transition-colors">
+                        <div key={category.id} className="bg-white dark:bg-gray-800 rounded-lg p-4 flex items-center justify-between hover:bg-gray-100/80 dark:bg-gray-700/50 transition-colors">
                             <div className="flex items-center space-x-4">
                                 {category.image ? (
                                     <img src={category.image} alt={category.name} className="h-16 w-16 rounded-full object-cover" />
                                 ) : (
-                                    <div className="h-16 w-16 rounded-full bg-gray-700 flex items-center justify-center">
+                                    <div className="h-16 w-16 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
                                         <Camera size={24} className="text-gray-500" />
                                     </div>
                                 )}
                                 <div>
-                                    <h3 className="text-white font-medium text-lg">{category.name}</h3>
-                                    <p className="text-sm text-gray-400">Commission: {category.commission ? `${category.commission}%` : '0%'}</p> 
+                                    <h3 className="text-gray-900 dark:text-white font-medium text-lg">{category.name}</h3>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">Commission: {category.commission ? `${category.commission}%` : '0%'}</p> 
                                 </div>
                             </div>
                             <div className="flex space-x-2">
                                 <button
                                     onClick={() => handleEdit(category)}
-                                    className="text-indigo-400 hover:text-indigo-300 p-2 bg-gray-700 rounded-lg"
+                                    className="text-indigo-400 hover:text-indigo-300 p-2 bg-gray-100 dark:bg-gray-700 rounded-lg"
                                 >
                                     <Edit size={16} />
                                 </button>
                                 <button
                                     onClick={() => handleDelete(category.id)}
-                                    className="text-red-400 hover:text-red-300 p-2 bg-gray-700 rounded-lg"
+                                    className="text-red-400 hover:text-red-300 p-2 bg-gray-100 dark:bg-gray-700 rounded-lg"
                                 >
                                     <Trash2 size={16} />
                                 </button>
@@ -310,15 +310,15 @@ const Category = () => {
             {/* Add/Edit Category Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-gray-800 rounded-xl shadow-2xl p-6 w-full max-w-md mx-4">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-6 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto custom-scrollbar">
                         <div className="flex items-center justify-between mb-6">
                             <div>
-                                <h3 className="text-xl font-semibold text-white">{selectedCategory ? 'Edit Category' : 'Add New Category'}</h3>
-                                <p className="text-sm text-gray-400 mt-1">{selectedCategory ? 'Update the details below to edit the category' : 'Fill in the details below to create a new category'}</p>
+                                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{selectedCategory ? 'Edit Category' : 'Add New Category'}</h3>
+                                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{selectedCategory ? 'Update the details below to edit the category' : 'Fill in the details below to create a new category'}</p>
                             </div>
                             <button 
                                 onClick={handleCancel}
-                                className="text-gray-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-gray-700"
+                                className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white transition-colors p-1 rounded-lg hover:bg-gray-100 dark:bg-gray-700"
                                 disabled={loading}
                             >
                                 <X size={20} />
@@ -328,7 +328,7 @@ const Category = () => {
                         <form onSubmit={handleSubmit}>
                             {/* Image Upload */}
                             <div className="mb-6">
-                                <label className="block text-sm font-medium text-gray-300 mb-3">
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                                     Category Image
                                 </label>
                                 <div className="flex justify-center">
@@ -343,7 +343,7 @@ const Category = () => {
                                         />
                                         <label 
                                             htmlFor="image-upload"
-                                            className="w-32 h-32 bg-gray-700 border-2 border-dashed border-gray-600 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-600 hover:border-gray-500 transition-all duration-200"
+                                            className="w-32 h-32 bg-gray-100 dark:bg-gray-700 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-100 dark:bg-gray-600 hover:border-gray-500 transition-all duration-200"
                                         >
                                             {imagePreview ? (
                                                 <>
@@ -356,15 +356,15 @@ const Category = () => {
                                                     <button 
                                                         type="button" 
                                                         onClick={(e) => { e.preventDefault(); handleRemoveImage(); }} 
-                                                        className="absolute top-1 right-1 p-1 bg-red-600 rounded-full text-white hover:bg-red-700 z-10"
+                                                        className="absolute top-1 right-1 p-1 bg-red-600 rounded-full text-gray-900 dark:text-white hover:bg-red-700 z-10"
                                                     >
                                                         <X size={14} />
                                                     </button>
                                                 </>
                                             ) : (
                                                 <div className="text-center">
-                                                    <Camera size={32} className="text-gray-400 mx-auto mb-2" />
-                                                    <span className="text-sm text-gray-400 font-medium">Upload Image</span>
+                                                    <Camera size={32} className="text-gray-500 dark:text-gray-400 mx-auto mb-2" />
+                                                    <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">Upload Image</span>
                                                     <span className="text-xs text-gray-500 block mt-1">Click to browse</span>
                                                 </div>
                                             )}
@@ -375,7 +375,7 @@ const Category = () => {
                             
                             {/* Category Name */}
                             <div className="mb-4">
-                                <label className="block text-sm font-medium text-gray-300 mb-2">
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Category Name *
                                 </label>
                                 <input
@@ -384,14 +384,14 @@ const Category = () => {
                                     value={formData.name}
                                     onChange={handleInputChange}
                                     placeholder="Enter category name"
-                                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     required
                                 />
                             </div>
 
                             {/* Commission Percentage Input */}
                             <div className="mb-6">
-                                <label className="block text-sm font-medium text-gray-300 mb-2">
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Commission Percentage (%) *
                                 </label>
                                 <input
@@ -403,7 +403,7 @@ const Category = () => {
                                     min="0"
                                     max="100"
                                     step="0.01"
-                                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     required
                                 />
                             </div>
@@ -413,14 +413,14 @@ const Category = () => {
                                 <button
                                     type="button"
                                     onClick={handleCancel}
-                                    className="flex-1 px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-all duration-200 font-medium"
+                                    className="flex-1 px-6 py-3 bg-gray-100 dark:bg-gray-600 text-gray-900 dark:text-white rounded-lg hover:bg-gray-500 transition-all duration-200 font-medium"
                                     disabled={loading}
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="flex-1 px-6 py-3 bg-blue-600 text-gray-900 dark:text-white rounded-lg hover:bg-blue-700 transition-all duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                                     disabled={loading || !formData.name.trim() || formData.commission < 0 || formData.commission > 100}
                                 >
                                     {loading ? (selectedCategory ? 'Updating...' : 'Adding...') : (selectedCategory ? 'Update Category' : 'Add Category')}

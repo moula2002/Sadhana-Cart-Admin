@@ -24,8 +24,8 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-900">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-96 text-white">
+    <div className="flex justify-center items-center h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-96 text-gray-900 dark:text-white">
         <h2 className="text-2xl font-bold mb-4 text-center">Reset Password</h2>
 
         <input
@@ -33,7 +33,7 @@ const ForgotPassword = () => {
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 mb-4"
+          className="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 mb-4"
         />
 
         {message && (
@@ -49,7 +49,7 @@ const ForgotPassword = () => {
 
         <p
           onClick={() => navigate("/login")}
-          className="text-sm text-gray-400 text-center mt-4 cursor-pointer hover:underline"
+          className="text-sm text-gray-500 dark:text-gray-400 text-center mt-4 cursor-pointer hover:underline"
         >
           Back to Login
         </p>

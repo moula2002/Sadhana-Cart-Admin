@@ -133,35 +133,35 @@ function RazorpayOffer() {
   };
 
   if (loading) return (
-    <div className="flex h-screen items-center justify-center bg-gray-900">
+    <div className="flex h-screen items-center justify-center bg-gray-50 dark:bg-gray-900">
       <div className="relative flex flex-col items-center">
         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-opacity-20"></div>
         <div className="absolute animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"></div>
-        <p className="mt-4 text-gray-400 font-medium animate-pulse">Initializing Gateway Catalog...</p>
+        <p className="mt-4 text-gray-500 dark:text-gray-400 font-medium animate-pulse">Initializing Gateway Catalog...</p>
       </div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4 lg:p-8 font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 dark:from-gray-900 via-white dark:via-gray-800 to-gray-50 dark:to-gray-900 p-4 lg:p-8 font-sans">
       <div className="max-w-7xl mx-auto">
         
         {/* --- Header Section --- */}
         <header className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-1">
             <div className="flex items-center gap-3">
-              <div className="bg-gradient-to-br from-blue-500 to-cyan-500 p-2.5 rounded-xl shadow-lg shadow-blue-500/20 text-white">
+              <div className="bg-gradient-to-br from-blue-500 to-cyan-500 p-2.5 rounded-xl shadow-lg shadow-blue-500/20 text-gray-900 dark:text-white">
                 <CreditCard size={24} />
               </div>
-              <h1 className="text-2xl md:text-3xl font-bold text-white bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent italic">
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent italic">
                 Payment Gateway Offers
               </h1>
             </div>
-            <p className="text-gray-400 font-medium pl-1">Configure and manage Razorpay promotion IDs</p>
+            <p className="text-gray-500 dark:text-gray-400 font-medium pl-1">Configure and manage Razorpay promotion IDs</p>
           </div>
           <button 
             onClick={resetForm}
-            className="flex items-center justify-center gap-2 bg-gray-700/50 hover:bg-gray-700 text-white font-bold px-8 py-3.5 rounded-2xl border border-gray-600 shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 group"
+            className="flex items-center justify-center gap-2 bg-gray-100/80 dark:bg-gray-700/50 hover:bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white font-bold px-8 py-3.5 rounded-2xl border border-gray-300 dark:border-gray-600 shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 group"
           >
             <PlusCircle size={20} className="text-blue-400 group-hover:rotate-90 transition-transform" /> 
             New Configuration
@@ -173,10 +173,10 @@ function RazorpayOffer() {
           {/* --- LEFT: OFFERS LIST --- */}
           <div className="lg:col-span-5 space-y-5">
             <div className="flex items-center justify-between px-2">
-              <h3 className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] flex items-center gap-2">
+              <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-[0.2em] flex items-center gap-2">
                 <Layers size={14} className="text-blue-400" /> Active Catalog
               </h3>
-              <span className="bg-gray-800 text-blue-400 text-xs font-bold px-3 py-1 rounded-full border border-gray-700">{offers.length}</span>
+              <span className="bg-white dark:bg-gray-800 text-blue-400 text-xs font-bold px-3 py-1 rounded-full border border-gray-200 dark:border-gray-700">{offers.length}</span>
             </div>
             
             <div className="space-y-4 max-h-[75vh] overflow-y-auto pr-3 custom-scrollbar p-1">
@@ -187,14 +187,14 @@ function RazorpayOffer() {
                   className={`group relative p-6 rounded-3xl border transition-all cursor-pointer overflow-hidden backdrop-blur-md
                     ${selectedId === item.id 
                       ? 'bg-blue-500/10 border-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.2)]' 
-                      : 'bg-gray-800/40 border-gray-700 shadow-lg hover:border-gray-500/50 hover:bg-gray-800/60'}`}
+                      : 'bg-white/80 dark:bg-gray-800/40 border-gray-200 dark:border-gray-700 shadow-lg hover:border-gray-500/50 hover:bg-white/90 dark:bg-gray-800/60'}`}
                 >
                   <div className="flex justify-between items-start relative z-10">
                     <div>
                       <h4 className={`text-lg font-bold transition-colors ${selectedId === item.id ? 'text-blue-400' : 'text-gray-100'}`}>
                         {item.offerName || "Untitled Offer"}
                       </h4>
-                      <code className="text-[10px] bg-gray-900/50 text-gray-500 border border-gray-700 px-2.5 py-1 rounded-lg mt-2 inline-block font-mono tracking-wider">
+                      <code className="text-[10px] bg-gray-50/80 dark:bg-gray-900/50 text-gray-500 border border-gray-200 dark:border-gray-700 px-2.5 py-1 rounded-lg mt-2 inline-block font-mono tracking-wider">
                         {item.id}
                       </code>
                     </div>
@@ -210,15 +210,15 @@ function RazorpayOffer() {
                         <Trash2 size={16} />
                       </button>
                       <div>
-                        <span className="block text-xl font-black text-white leading-none tracking-tight">{item.discountWorth}</span>
+                        <span className="block text-xl font-black text-gray-900 dark:text-white leading-none tracking-tight">{item.discountWorth}</span>
                         <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block mt-1">{item.discountType}</span>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="mt-5 flex items-center justify-between border-t border-gray-700/50 pt-4">
+                  <div className="mt-5 flex items-center justify-between border-t border-gray-200 dark:border-gray-700/50 pt-4">
                     <div className="flex items-center gap-2.5">
-                      <div className={`h-2.5 w-2.5 rounded-full shadow-lg ${item.status === 'Enabled' ? 'bg-green-500 shadow-green-500/20' : 'bg-gray-600'}`}></div>
+                      <div className={`h-2.5 w-2.5 rounded-full shadow-lg ${item.status === 'Enabled' ? 'bg-green-500 shadow-green-500/20' : 'bg-gray-100 dark:bg-gray-600'}`}></div>
                       <span className={`text-xs font-bold ${item.status === 'Enabled' ? 'text-green-400' : 'text-gray-500'}`}>{item.status}</span>
                     </div>
                     {item.isBankOffer && (
@@ -228,7 +228,7 @@ function RazorpayOffer() {
                 </div>
               ))}
               {offers.length === 0 && (
-                <div className="text-center py-10 border-2 border-dashed border-gray-700 rounded-3xl">
+                <div className="text-center py-10 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-3xl">
                   <CreditCard className="mx-auto text-gray-600 mb-3 opacity-20" size={40} />
                   <p className="text-gray-500 font-medium">No offers configured yet</p>
                 </div>
@@ -238,8 +238,8 @@ function RazorpayOffer() {
 
           {/* --- RIGHT: CONFIGURATION FORM --- */}
           <div className="lg:col-span-7">
-            <div className="bg-gray-800/50 border border-gray-700 rounded-[2.5rem] shadow-2xl overflow-hidden backdrop-blur-lg sticky top-8">
-              <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-10 py-8 text-white flex justify-between items-center border-b border-gray-700">
+            <div className="bg-white/80 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-[2.5rem] shadow-2xl overflow-hidden backdrop-blur-lg sticky top-8">
+              <div className="bg-gradient-to-r from-gray-50 dark:from-gray-900 to-white dark:to-gray-800 px-10 py-8 text-gray-900 dark:text-white flex justify-between items-center border-b border-gray-200 dark:border-gray-700">
                 <div className="space-y-1">
                   <h2 className="text-2xl font-bold flex items-center gap-3">
                     <Settings className="text-blue-400 animate-spin-slow" size={24} /> 
@@ -261,227 +261,227 @@ function RazorpayOffer() {
                       value={offer.offerId}
                       onChange={handleChange}
                       placeholder="e.g., offer_Nl8W5jH2x9Pq"
-                      className="w-full bg-gray-900/50 text-white pl-12 pr-4 py-4 rounded-2xl border border-blue-500/10 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none font-mono text-blue-400 font-bold tracking-wider placeholder:text-gray-700 transition-all"
+                      className="w-full bg-gray-50/80 dark:bg-gray-900/50 text-gray-900 dark:text-white pl-12 pr-4 py-4 rounded-2xl border border-blue-500/10 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none font-mono text-blue-400 font-bold tracking-wider placeholder:text-gray-700 transition-all"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="md:col-span-2">
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">Offer Name</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">Offer Name</label>
                     <input
                       name="offerName"
                       value={offer.offerName}
                       onChange={handleChange}
                       placeholder="e.g. FLAT 10% OFF"
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none transition-all placeholder:text-gray-600"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none transition-all placeholder:text-gray-600"
                     />
                   </div>
 
                   <div className="md:col-span-2">
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">Display Text</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">Display Text</label>
                     <input
                       name="displayText1"
                       value={offer.displayText1}
                       onChange={handleChange}
                       placeholder="Visible to customer during checkout"
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none transition-all placeholder:text-gray-600"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none transition-all placeholder:text-gray-600"
                     />
                   </div>
 
                   <div className="md:col-span-2">
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">Terms & Conditions</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">Terms & Conditions</label>
                     <textarea
                       name="terms"
                       value={offer.terms}
                       onChange={handleChange}
                       placeholder="Detailed offer rules..."
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none transition-all min-h-[100px] placeholder:text-gray-600 resize-none"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none transition-all min-h-[100px] placeholder:text-gray-600 resize-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">Offer Usage</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">Offer Usage</label>
                     <input
                       name="offerUsage"
                       value={offer.offerUsage}
                       onChange={handleChange}
                       placeholder="e.g. single_use"
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none placeholder:text-gray-600"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none placeholder:text-gray-600"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">Failure Action</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">Failure Action</label>
                     <select
                       name="onOfferFailure"
                       value={offer.onOfferFailure}
                       onChange={handleChange}
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none appearance-none cursor-pointer"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none appearance-none cursor-pointer"
                     >
-                      <option value="" className="bg-gray-800">Select Action</option>
-                      <option value="continue" className="bg-gray-800">Continue Payment</option>
-                      <option value="abort" className="bg-gray-800">Abort Session</option>
+                      <option value="" className="bg-white dark:bg-gray-800">Select Action</option>
+                      <option value="continue" className="bg-white dark:bg-gray-800">Continue Payment</option>
+                      <option value="abort" className="bg-white dark:bg-gray-800">Abort Session</option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">Visibility</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">Visibility</label>
                     <select
                       name="checkoutVisibility"
                       value={offer.checkoutVisibility}
                       onChange={handleChange}
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none appearance-none cursor-pointer"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none appearance-none cursor-pointer"
                     >
-                      <option value="show" className="bg-gray-800">Visible</option>
-                      <option value="hide" className="bg-gray-800">Hidden</option>
+                      <option value="show" className="bg-white dark:bg-gray-800">Visible</option>
+                      <option value="hide" className="bg-white dark:bg-gray-800">Hidden</option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">Min Payment (₹)</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">Min Payment (₹)</label>
                     <input
                       type="number"
                       name="minPayment"
                       value={offer.minPayment}
                       onChange={handleChange}
                       placeholder="0.00"
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none placeholder:text-gray-600"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none placeholder:text-gray-600"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">Max Payment (₹)</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">Max Payment (₹)</label>
                     <input
                       type="number"
                       name="maxPayment"
                       value={offer.maxPayment}
                       onChange={handleChange}
                       placeholder="N/A"
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none placeholder:text-gray-600"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none placeholder:text-gray-600"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">Valid From</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">Valid From</label>
                     <input
                       type="datetime-local"
                       name="startOfOffer"
                       value={offer.startOfOffer}
                       onChange={handleChange}
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none [color-scheme:dark]"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none [color-scheme:dark]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">Valid Till</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">Valid Till</label>
                     <input
                       type="datetime-local"
                       name="expiryOfOffer"
                       value={offer.expiryOfOffer}
                       onChange={handleChange}
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none [color-scheme:dark]"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none [color-scheme:dark]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">Gateway Type</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">Gateway Type</label>
                     <input
                       name="offerType"
                       value={offer.offerType}
                       onChange={handleChange}
                       placeholder="e.g. instant"
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">Target Bank</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">Target Bank</label>
                     <input
                       name="bankName"
                       value={offer.bankName}
                       onChange={handleChange}
                       placeholder="e.g. HDFC"
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">Maximum Usage</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">Maximum Usage</label>
                     <input
                       type="number"
                       name="maximumUsage"
                       value={offer.maximumUsage}
                       onChange={handleChange}
                       placeholder="Limit"
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">Discount Logic</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">Discount Logic</label>
                     <select
                       name="discountType"
                       value={offer.discountType}
                       onChange={handleChange}
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none appearance-none cursor-pointer"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none appearance-none cursor-pointer"
                     >
-                      <option value="percentage" className="bg-gray-800">Percentage %</option>
-                      <option value="flat" className="bg-gray-800">Flat Amount ₹</option>
+                      <option value="percentage" className="bg-white dark:bg-gray-800">Percentage %</option>
+                      <option value="flat" className="bg-white dark:bg-gray-800">Flat Amount ₹</option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">Worth</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">Worth</label>
                     <input
                       type="number"
                       name="discountWorth"
                       value={offer.discountWorth}
                       onChange={handleChange}
                       placeholder="Value"
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">Max Cashback (₹)</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">Max Cashback (₹)</label>
                     <input
                       type="number"
                       name="maxCashback"
                       value={offer.maxCashback}
                       onChange={handleChange}
                       placeholder="0.00"
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">User Limit</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">User Limit</label>
                     <input
                       type="number"
                       name="offerLevelUsageLimit"
                       value={offer.offerLevelUsageLimit}
                       onChange={handleChange}
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none"
                       placeholder="1"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2.5">Status</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2.5">Status</label>
                     <select
                       name="status"
                       value={offer.status}
                       onChange={handleChange}
-                      className="w-full bg-gray-700/30 text-white px-5 py-4 rounded-2xl border border-gray-600 focus:border-blue-500 outline-none appearance-none cursor-pointer"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/30 text-gray-900 dark:text-white px-5 py-4 rounded-2xl border border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none appearance-none cursor-pointer"
                     >
-                      <option value="Enabled" className="bg-gray-800">🟢 Enabled</option>
-                      <option value="Disabled" className="bg-gray-800">⚪ Disabled</option>
+                      <option value="Enabled" className="bg-white dark:bg-gray-800">🟢 Enabled</option>
+                      <option value="Disabled" className="bg-white dark:bg-gray-800">⚪ Disabled</option>
                     </select>
                   </div>
 
                   <div className="flex items-center justify-center md:justify-start pt-4">
-                    <label className="flex items-center gap-4 cursor-pointer group bg-gray-700/20 px-6 py-4 rounded-2xl border border-gray-700/50 hover:border-blue-500/30 transition-all">
+                    <label className="flex items-center gap-4 cursor-pointer group bg-gray-100/60 dark:bg-gray-700/20 px-6 py-4 rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:border-blue-500/30 transition-all">
                       <div className="relative">
                         <input
                           type="checkbox"
@@ -490,10 +490,10 @@ function RazorpayOffer() {
                           onChange={handleChange}
                           className="sr-only peer"
                         />
-                        <div className="w-14 h-7 bg-gray-700 rounded-full peer peer-checked:bg-blue-600 transition-all after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-7 shadow-inner"></div>
+                        <div className="w-14 h-7 bg-gray-100 dark:bg-gray-700 rounded-full peer peer-checked:bg-blue-600 transition-all after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-7 shadow-inner"></div>
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-sm font-bold text-white tracking-wide">Bank Specific Promotion</span>
+                        <span className="text-sm font-bold text-gray-900 dark:text-white tracking-wide">Bank Specific Promotion</span>
                         <span className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Restrict to specific issuers</span>
                       </div>
                     </label>
@@ -503,7 +503,7 @@ function RazorpayOffer() {
                 <div className="flex gap-5 pt-4">
                   <button 
                     onClick={handleSave} 
-                    className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-black py-4.5 rounded-3xl transition-all shadow-xl shadow-blue-500/20 active:scale-[0.98] flex justify-center items-center gap-3 text-lg group"
+                    className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-gray-900 dark:text-white font-black py-4.5 rounded-3xl transition-all shadow-xl shadow-blue-500/20 active:scale-[0.98] flex justify-center items-center gap-3 text-lg group"
                   >
                     {selectedId ? "Sync Changes" : "Deploy Promotion"} 
                     <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
@@ -525,8 +525,8 @@ function RazorpayOffer() {
             {/* Warning Footer */}
             <div className="mt-8 flex items-start gap-4 px-6 py-5 bg-amber-500/5 border border-amber-500/10 rounded-3xl">
               <AlertCircle className="text-amber-500 shrink-0 mt-0.5 shadow-glow-amber" size={20} />
-              <p className="text-xs text-gray-400 leading-relaxed font-medium">
-                <strong className="text-amber-400">Critical Note:</strong> Ensure the <strong className="text-white">Offer ID</strong> matches exactly with the one created in your Razorpay Dashboard. 
+              <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
+                <strong className="text-amber-400">Critical Note:</strong> Ensure the <strong className="text-gray-900 dark:text-white">Offer ID</strong> matches exactly with the one created in your Razorpay Dashboard. 
                 Incorrect IDs will cause discrepancies between the calculated total and the actual payment amount processed by the gateway.
               </p>
             </div>

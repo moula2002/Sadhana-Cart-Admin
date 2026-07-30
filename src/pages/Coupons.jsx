@@ -182,23 +182,23 @@ const Coupons = () => {
   // --- JSX Rendering ---
 
   return (
-    <div className="p-4 md:p-6 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen">
+    <div className="p-4 md:p-6 bg-gradient-to-br from-gray-50 dark:from-gray-900 via-white dark:via-gray-800 to-gray-50 dark:to-gray-900 min-h-screen">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-        <h1 className="text-2xl md:text-3xl font-bold text-white bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
           Coupons Management
         </h1>
         <div className="flex gap-3">
           <button 
             onClick={handleAddNew}
-            className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-6 py-2 rounded-xl flex items-center gap-2 text-sm font-semibold shadow-lg transition-all duration-300 hover:scale-105"
+            className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-gray-900 dark:text-white px-6 py-2 rounded-xl flex items-center gap-2 text-sm font-semibold shadow-lg transition-all duration-300 hover:scale-105"
           >
             <Plus size={20} />
             Add Coupon
           </button>
           <button 
             onClick={fetchCoupons}
-            className="bg-gray-700/50 hover:bg-gray-700 text-white px-6 py-2 rounded-xl flex items-center gap-2 text-sm font-semibold border border-gray-600 transition-all duration-300"
+            className="bg-gray-100/80 dark:bg-gray-700/50 hover:bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white px-6 py-2 rounded-xl flex items-center gap-2 text-sm font-semibold border border-gray-300 dark:border-gray-600 transition-all duration-300"
           >
             <RefreshCw size={20} className={loading ? 'animate-spin' : ''} />
             Refresh
@@ -208,11 +208,11 @@ const Coupons = () => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-gray-800/50 backdrop-blur-lg p-5 rounded-2xl border border-gray-700 shadow-xl transition-all duration-300 hover:border-blue-500/50 group">
+        <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-lg p-5 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-xl transition-all duration-300 hover:border-blue-500/50 group">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400">Total Coupons</p>
-              <p className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">{coupons.length}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Total Coupons</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-blue-400 transition-colors">{coupons.length}</p>
             </div>
             <div className="p-3 bg-blue-500/10 rounded-xl">
               <Tag className="text-blue-400" size={24} />
@@ -220,10 +220,10 @@ const Coupons = () => {
           </div>
         </div>
         
-        <div className="bg-gray-800/50 backdrop-blur-lg p-5 rounded-2xl border border-gray-700 shadow-xl transition-all duration-300 hover:border-green-500/50 group">
+        <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-lg p-5 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-xl transition-all duration-300 hover:border-green-500/50 group">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400">Active Coupons</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Active Coupons</p>
               <p className="text-2xl font-bold text-green-400 transition-colors">
                 {coupons.filter(c => c.isActive && !isExpired(c.validUntil)).length}
               </p>
@@ -234,10 +234,10 @@ const Coupons = () => {
           </div>
         </div>
 
-        <div className="bg-gray-800/50 backdrop-blur-lg p-5 rounded-2xl border border-gray-700 shadow-xl transition-all duration-300 hover:border-red-500/50 group">
+        <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-lg p-5 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-xl transition-all duration-300 hover:border-red-500/50 group">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400">Expired Coupons</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Expired Coupons</p>
               <p className="text-2xl font-bold text-red-400 transition-colors">
                 {coupons.filter(c => isExpired(c.validUntil)).length}
               </p>
@@ -248,10 +248,10 @@ const Coupons = () => {
           </div>
         </div>
 
-        <div className="bg-gray-800/50 backdrop-blur-lg p-5 rounded-2xl border border-gray-700 shadow-xl transition-all duration-300 hover:border-purple-500/50 group">
+        <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-lg p-5 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-xl transition-all duration-300 hover:border-purple-500/50 group">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400">Total Usage</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Total Usage</p>
               <p className="text-2xl font-bold text-purple-400 transition-colors">
                 {coupons.reduce((sum, c) => sum + (c.usageCount || 0), 0)}
               </p>
@@ -264,19 +264,19 @@ const Coupons = () => {
       </div>
 
       {/* Coupons Table */}
-      <div className="bg-gray-800/50 backdrop-blur-lg rounded-2xl border border-gray-700 overflow-hidden shadow-2xl">
+      <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-lg rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden shadow-2xl">
         
         {/* Search Bar and Table Header */}
-        <div className="p-6 border-b border-gray-700 flex flex-col md:flex-row justify-between items-center gap-4">
-          <h2 className="text-lg font-semibold text-white">My Coupons ({filteredCoupons.length} Found)</h2>
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700 flex flex-col md:flex-row justify-between items-center gap-4">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">My Coupons ({filteredCoupons.length} Found)</h2>
           <div className="relative w-full md:w-96">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400" size={18} />
             <input
               type="text"
               placeholder="Search by code or description..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-gray-700/50 text-white border border-gray-600 rounded-xl py-2.5 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder-gray-400"
+              className="w-full bg-gray-100/80 dark:bg-gray-700/50 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-xl py-2.5 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder-gray-400"
             />
           </div>
         </div>
@@ -284,28 +284,28 @@ const Coupons = () => {
         {loading ? (
           <div className="p-8 text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-2 text-gray-400">Loading coupons...</p>
+            <p className="mt-2 text-gray-500 dark:text-gray-400">Loading coupons...</p>
           </div>
         ) : (
           <>
             {/* Desktop Table View */}
             <div className="hidden md:block overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-700/30">
+                <thead className="bg-gray-100/80 dark:bg-gray-700/30">
                   <tr>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Code</th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Discount</th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Min Order</th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Usage</th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Valid Until</th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Actions</th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Code</th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Discount</th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Min Order</th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Usage</th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Valid Until</th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-700/50 bg-transparent">
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-700/50 bg-transparent">
                   {filteredCoupons.length === 0 ? (
                     <tr>
-                      <td colSpan="7" className="px-6 py-8 text-center text-gray-400">
+                      <td colSpan="7" className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
                         {searchTerm 
                             ? `No coupons found for "${searchTerm}".` 
                             : 'No coupons available. Click "Add Coupon" to create your first coupon.'
@@ -314,13 +314,13 @@ const Coupons = () => {
                     </tr>
                   ) : (
                     filteredCoupons.map((coupon) => (
-                      <tr key={coupon.id} className="hover:bg-gray-700/30 transition-all duration-200 border-b border-gray-700/50 last:border-0">
+                      <tr key={coupon.id} className="hover:bg-gray-100/80 dark:bg-gray-700/30 transition-all duration-200 border-b border-gray-200 dark:border-gray-700/50 last:border-0">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             <Tag className="text-blue-400 mr-3" size={16} />
                             <div>
-                                <div className="text-sm font-semibold text-white">{coupon.code}</div>
-                                <div className="text-xs text-gray-400 mt-0.5">{coupon.description}</div>
+                                <div className="text-sm font-semibold text-gray-900 dark:text-white">{coupon.code}</div>
+                                <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{coupon.description}</div>
                                 {coupon.isBankOffer && (
                                   <div className="text-[10px] font-bold text-blue-400 bg-blue-400/10 px-1.5 py-0.5 rounded mt-1 inline-block uppercase tracking-wider">
                                     Bank: {coupon.bankName}
@@ -329,7 +329,7 @@ const Coupons = () => {
                               </div>
                             </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                           <div className="flex items-center">
                             {coupon.discountType === 'percentage' ? (
                               <Percent className="text-green-400 mr-1.5" size={16} />
@@ -343,15 +343,15 @@ const Coupons = () => {
                             </span>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
                           {coupon.minOrderAmount ? `₹${coupon.minOrderAmount}` : 'No minimum'}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                          <span className="font-semibold text-white">{coupon.usageCount || 0}</span>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
+                          <span className="font-semibold text-gray-900 dark:text-white">{coupon.usageCount || 0}</span>
                           <span className="text-gray-500 ml-1">{coupon.maxUses ? `/ ${coupon.maxUses}` : '/ ∞'}</span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`text-sm font-medium ${isExpired(coupon.validUntil) ? 'text-red-400' : 'text-gray-300'}`}>
+                          <span className={`text-sm font-medium ${isExpired(coupon.validUntil) ? 'text-red-400' : 'text-gray-700 dark:text-gray-300'}`}>
                             {formatDate(coupon.validUntil)}
                           </span>
                         </td>
@@ -363,7 +363,7 @@ const Coupons = () => {
                             {coupon.isActive && !isExpired(coupon.validUntil) ? (
                               <ToggleRight className="text-green-500" size={20} />
                             ) : (
-                              <ToggleLeft className="text-gray-400" size={20} />
+                              <ToggleLeft className="text-gray-500 dark:text-gray-400" size={20} />
                             )}
                           </button>
                         </td>
@@ -401,12 +401,12 @@ const Coupons = () => {
                 </div>
               ) : (
                 filteredCoupons.map((coupon) => (
-                  <div key={coupon.id} className="bg-gray-700/30 border border-gray-600 rounded-2xl p-5 shadow-lg relative group">
+                  <div key={coupon.id} className="bg-gray-100/80 dark:bg-gray-700/30 border border-gray-300 dark:border-gray-600 rounded-2xl p-5 shadow-lg relative group">
                     <div className="flex justify-between items-start mb-4">
                       <div className="flex items-center">
                         <Tag className="text-blue-400 mr-3 shadow-glow" size={18} />
                         <div>
-                          <span className="font-bold text-lg text-white tracking-wide">{coupon.code}</span>
+                          <span className="font-bold text-lg text-gray-900 dark:text-white tracking-wide">{coupon.code}</span>
                           {coupon.isBankOffer && (
                             <div className="text-[10px] font-bold text-blue-400 bg-blue-400/10 px-1.5 py-0.5 rounded mt-1 block uppercase">
                               Bank: {coupon.bankName}
@@ -426,11 +426,11 @@ const Coupons = () => {
                       </button>
                     </div>
                     
-                    <p className="text-sm text-gray-400 mb-4 line-clamp-2">{coupon.description || 'No description available'}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2">{coupon.description || 'No description available'}</p>
                     
-                    <div className="grid grid-cols-2 gap-y-3 gap-x-4 border-t border-gray-600 pt-4 text-xs font-medium">
+                    <div className="grid grid-cols-2 gap-y-3 gap-x-4 border-t border-gray-300 dark:border-gray-600 pt-4 text-xs font-medium">
                       <div>
-                        <span className="text-gray-400 uppercase">Discount</span>
+                        <span className="text-gray-500 dark:text-gray-400 uppercase">Discount</span>
                         <p className="text-green-400 mt-0.5">
                           {coupon.discountType === 'percentage' 
                             ? `${coupon.discountValue}% Off` 
@@ -438,20 +438,20 @@ const Coupons = () => {
                         </p>
                       </div>
                       <div>
-                        <span className="text-gray-400 uppercase">Min Order</span>
-                        <p className="text-white mt-0.5">
+                        <span className="text-gray-500 dark:text-gray-400 uppercase">Min Order</span>
+                        <p className="text-gray-900 dark:text-white mt-0.5">
                           {coupon.minOrderAmount ? `₹${coupon.minOrderAmount}` : 'No Min'}
                         </p>
                       </div>
                       <div>
-                        <span className="text-gray-400 uppercase">Usage</span>
-                        <p className="text-white mt-0.5">
+                        <span className="text-gray-500 dark:text-gray-400 uppercase">Usage</span>
+                        <p className="text-gray-900 dark:text-white mt-0.5">
                           {coupon.usageCount || 0} {coupon.maxUses ? `/ ${coupon.maxUses}` : '/ ∞'}
                         </p>
                       </div>
                       <div>
-                        <span className="text-gray-400 uppercase">Expiry</span>
-                        <p className={`mt-0.5 ${isExpired(coupon.validUntil) ? 'text-red-400' : 'text-white'}`}>
+                        <span className="text-gray-500 dark:text-gray-400 uppercase">Expiry</span>
+                        <p className={`mt-0.5 ${isExpired(coupon.validUntil) ? 'text-red-400' : 'text-gray-900 dark:text-white'}`}>
                           {formatDate(coupon.validUntil)}
                         </p>
                       </div>
@@ -482,9 +482,9 @@ const Coupons = () => {
       {/* Add/Edit Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-gray-800 border border-gray-700 rounded-3xl p-6 md:p-8 w-full max-w-lg shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-3xl p-6 md:p-8 w-full max-w-lg shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
             <div className="flex justify-between items-center mb-8">
-              <h2 className="text-2xl font-bold text-white bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                 {editingCoupon ? 'Update Coupon' : 'Create New Coupon'}
               </h2>
               <button
@@ -498,23 +498,23 @@ const Coupons = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-400 mb-2 uppercase tracking-wider">
+                  <label className="block text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">
                     Coupon Code
                   </label>
                   <div className="group relative">
-                    <Tag className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
+                    <Tag className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
                     <input
                       type="text"
                       value={formData.code}
                       onChange={(e) => setFormData({ ...formData, code: e.target.value.toUpperCase() })}
-                      className="w-full bg-gray-700/50 text-white border border-gray-600 pl-12 pr-24 py-3.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-mono tracking-widest text-lg"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/50 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 pl-12 pr-24 py-3.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-mono tracking-widest text-lg"
                       placeholder="WELCOME50"
                       required
                     />
                     <button
                       type="button"
                       onClick={generateCouponCode}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all active:scale-95"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-gray-900 dark:text-white px-4 py-2 rounded-xl text-xs font-bold transition-all active:scale-95"
                     >
                       GENERATE
                     </button>
@@ -522,26 +522,26 @@ const Coupons = () => {
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-400 mb-2 uppercase tracking-wider">
+                  <label className="block text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">
                     Description
                   </label>
                   <textarea
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    className="w-full bg-gray-700/50 text-white border border-gray-600 px-4 py-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all resize-none"
+                    className="w-full bg-gray-100/80 dark:bg-gray-700/50 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 px-4 py-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all resize-none"
                     placeholder="Briefly describe what this coupon provides..."
                     rows="2"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-400 mb-2 uppercase tracking-wider">
+                  <label className="block text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">
                     Type
                   </label>
                   <select
                     value={formData.discountType}
                     onChange={(e) => setFormData({ ...formData, discountType: e.target.value })}
-                    className="w-full bg-gray-700/50 text-white border border-gray-600 px-4 py-3.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none"
+                    className="w-full bg-gray-100/80 dark:bg-gray-700/50 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 px-4 py-3.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none"
                     required
                   >
                     <option value="percentage">Percentage (%)</option>
@@ -550,14 +550,14 @@ const Coupons = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-400 mb-2 uppercase tracking-wider">
+                  <label className="block text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">
                     Value
                   </label>
                   <input
                     type="number"
                     value={formData.discountValue}
                     onChange={(e) => setFormData({ ...formData, discountValue: e.target.value })}
-                    className="w-full bg-gray-700/50 text-white border border-gray-600 px-4 py-3.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                    className="w-full bg-gray-100/80 dark:bg-gray-700/50 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 px-4 py-3.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                     placeholder="10"
                     min="0"
                     max={formData.discountType === 'percentage' ? '100' : undefined}
@@ -566,53 +566,53 @@ const Coupons = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-400 mb-2 uppercase tracking-wider">
+                  <label className="block text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">
                     Min Order
                   </label>
                   <input
                     type="number"
                     value={formData.minOrderAmount}
                     onChange={(e) => setFormData({ ...formData, minOrderAmount: e.target.value })}
-                    className="w-full bg-gray-700/50 text-white border border-gray-600 px-4 py-3.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                    className="w-full bg-gray-100/80 dark:bg-gray-700/50 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 px-4 py-3.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                     placeholder="₹500"
                     min="0"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-400 mb-2 uppercase tracking-wider">
+                  <label className="block text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">
                     Max Usage
                   </label>
                   <input
                     type="number"
                     value={formData.maxUses}
                     onChange={(e) => setFormData({ ...formData, maxUses: e.target.value })}
-                    className="w-full bg-gray-700/50 text-white border border-gray-600 px-4 py-3.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                    className="w-full bg-gray-100/80 dark:bg-gray-700/50 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 px-4 py-3.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                     placeholder="Unlimited"
                     min="1"
                   />
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-400 mb-2 uppercase tracking-wider">
+                  <label className="block text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">
                     Valid Until
                   </label>
                   <div className="relative">
-                    <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400" size={18} />
                     <input
                       type="date"
                       value={formData.validUntil}
                       onChange={(e) => setFormData({ ...formData, validUntil: e.target.value })}
-                      className="w-full bg-gray-700/50 text-white border border-gray-600 pl-12 pr-4 py-3.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                      className="w-full bg-gray-100/80 dark:bg-gray-700/50 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 pl-12 pr-4 py-3.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                       min={new Date().toISOString().split('T')[0]}
                       required
                     />
                   </div>
                 </div>
 
-                <div className="md:col-span-2 space-y-4 bg-gray-700/30 p-4 rounded-2xl border border-gray-700">
+                <div className="md:col-span-2 space-y-4 bg-gray-100/80 dark:bg-gray-700/30 p-4 rounded-2xl border border-gray-200 dark:border-gray-700">
                   <div className="flex items-center justify-between">
-                    <label htmlFor="isActive" className="text-sm font-semibold text-gray-300">
+                    <label htmlFor="isActive" className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                       Enable Coupon Immediately
                     </label>
                     <button
@@ -636,7 +636,7 @@ const Coupons = () => {
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <label htmlFor="isBankOffer" className="text-sm font-semibold text-gray-300">
+                    <label htmlFor="isBankOffer" className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                       Specific Bank Offer
                     </label>
                     <button
@@ -665,7 +665,7 @@ const Coupons = () => {
                         type="text"
                         value={formData.bankName}
                         onChange={(e) => setFormData({ ...formData, bankName: e.target.value })}
-                        className="w-full bg-gray-800 text-white border border-blue-500/50 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-bold placeholder:text-gray-500 placeholder:font-normal"
+                        className="w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-blue-500/50 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-bold placeholder:text-gray-500 placeholder:font-normal"
                         placeholder="SBI, HDFC..."
                         required={formData.isBankOffer}
                       />
@@ -678,13 +678,13 @@ const Coupons = () => {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-4 px-6 rounded-2xl font-bold transition-all"
+                  className="flex-1 bg-gray-100 dark:bg-gray-700 hover:bg-gray-100 dark:bg-gray-600 text-gray-900 dark:text-white py-4 px-6 rounded-2xl font-bold transition-all"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white py-4 px-6 rounded-2xl font-bold transition-all shadow-glow active:scale-95"
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-gray-900 dark:text-white py-4 px-6 rounded-2xl font-bold transition-all shadow-glow active:scale-95"
                 >
                   {editingCoupon ? 'Update Coupon' : 'Create Coupon'}
                 </button>

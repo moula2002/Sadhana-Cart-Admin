@@ -421,7 +421,7 @@ const BulkUpload = ({ isOpen, onClose, onUpload, categories, subCategories }) =>
               </div>
             ) : (
               <div>
-                <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                <Upload className="w-12 h-12 text-gray-500 dark:text-gray-400 mx-auto mb-4" />
                 <p className="text-lg font-medium text-gray-700 mb-2">
                   Drop your Excel file here
                 </p>
@@ -430,7 +430,7 @@ const BulkUpload = ({ isOpen, onClose, onUpload, categories, subCategories }) =>
                 </p>
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-6 py-2 bg-blue-600 text-gray-900 dark:text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Select File
                 </button>
@@ -542,7 +542,7 @@ const BulkUpload = ({ isOpen, onClose, onUpload, categories, subCategories }) =>
           <button
             onClick={handleUpload}
             disabled={parsedData.length === 0 || uploadStatus === 'processing' || errors.length > 0}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-6 py-2 bg-blue-600 text-gray-900 dark:text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
             {uploadStatus === 'processing' ? (
               <>

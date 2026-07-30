@@ -610,17 +610,17 @@ if (!productId) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 dark:from-gray-900 via-white dark:via-gray-800 to-gray-50 dark:to-gray-900 p-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-full mb-4">
-            <FileSpreadsheet className="w-8 h-8 text-white" />
+            <FileSpreadsheet className="w-8 h-8 text-gray-900 dark:text-white" />
           </div>
-          <h1 className="text-4xl font-bold text-white mb-2">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
             Product Data Converter
           </h1>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
             Transform your CSV/Excel files into structured JSON data with intelligent column mapping,
             HTML cleaning, and variant processing
           </p>
@@ -666,10 +666,10 @@ if (!productId) {
                       <p className="text-gray-500 mb-4">
                         or click to browse and select a file
                       </p>
-                      <div className="text-sm text-gray-400">
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
                         Supports .csv, .xlsx, .xls formats
                       </div>
-                      <div className="mt-4 inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                      <div className="mt-4 inline-flex items-center px-4 py-2 bg-blue-600 text-gray-900 dark:text-white rounded-lg hover:bg-blue-700 transition-colors">
                         <Upload className="w-4 h-4 mr-2" />
                         Choose File
                       </div>
@@ -756,7 +756,7 @@ if (!productId) {
                   disabled={processing || !file}
                   className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 ${processing || !file
                       ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                      : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl'
+                      : 'bg-gradient-to-r from-blue-600 to-blue-700 text-gray-900 dark:text-white hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl'
                     }`}
                 >
                   <div className="flex items-center justify-center">
@@ -794,7 +794,7 @@ if (!productId) {
                   disabled={!processedData}
                   className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 ${!processedData
                       ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                      : 'bg-gradient-to-r from-green-600 to-green-700 text-white hover:from-green-700 hover:to-green-800 shadow-lg hover:shadow-xl'
+                      : 'bg-gradient-to-r from-green-600 to-green-700 text-gray-900 dark:text-white hover:from-green-700 hover:to-green-800 shadow-lg hover:shadow-xl'
                     }`}
                 >
                   <div className="flex items-center justify-center">

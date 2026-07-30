@@ -29,8 +29,11 @@ const JsonUploadPage = lazy(() => import('./pages/JsonUploadPage'));
 const PythonAutomation = lazy(() => import('./pages/PythonAutomation'));
 const CommissionManagement = lazy(() => import('./pages/CommissionManagement'));
 const FeaturedProducts = lazy(() => import('./pages/FeaturedProducts'));
+const BestArrivals = lazy(() => import('./pages/BestArrivals'));
 const RecommendedProducts = lazy(() => import('./pages/Recomented'));
 const Notifications = lazy(() => import('./pages/Notifications'));
+const StickyHeader = lazy(() => import('./pages/StickyHeader'));
+const Popups = lazy(() => import('./pages/Popups'));
 
 const App = () => {
 
@@ -59,8 +62,8 @@ const App = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-white text-xl">Loading...</div>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-gray-900 dark:text-white text-xl">Loading...</div>
       </div>
     );
   }
@@ -85,7 +88,7 @@ const App = () => {
           path="/*"
           element={
             isAuthenticated ? (
-              <div className="flex bg-gray-900 min-h-screen">
+              <div className="flex bg-gray-50 dark:bg-gray-900 min-h-screen">
 
                 <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
 
@@ -96,11 +99,11 @@ const App = () => {
                     setIsAuthenticated={setIsAuthenticated}
                   />
 
-                  <main className="flex-1 overflow-auto bg-gray-900">
+                  <main className="flex-1 overflow-auto bg-gray-50 dark:bg-gray-900">
 
                     <Suspense
                       fallback={
-                        <div className="text-white text-center mt-10">
+                        <div className="text-gray-900 dark:text-white text-center mt-10">
                           Loading Page...
                         </div>
                       }
@@ -124,11 +127,14 @@ const App = () => {
                         <Route path="/python-automation" element={<PythonAutomation />} />
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/featured" element={<FeaturedProducts />} />
+                        <Route path="/best-arrivals" element={<BestArrivals />} />
                         <Route path="/recommended" element={<RecommendedProducts />} />
                         <Route path="/notifications" element={<Notifications />} />
                         <Route path="/refund-request" element={<RefundRequests/>}/>
                         <Route path="/razorpay-offer" element={<RazorpayOffer />} />
                         <Route path="/ratings-reviews" element={<RatingsAndReviews/>} /> {/* NEW ROUTE ADDED */}
+                        <Route path="/sticky-header" element={<StickyHeader />} />
+                        <Route path="/popups" element={<Popups />} />
                       </Routes>
 
                     </Suspense>
